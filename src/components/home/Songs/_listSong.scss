@@ -1,0 +1,159 @@
+.titleHome {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 50% 50%;
+    justify-items: end;
+    margin-bottom: 10px;
+
+    h1 {
+        width: 100%;
+        padding-left: 20px;
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .btnListSong {
+        width: 150px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        align-items: center;
+
+        .btnClick {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: #242424aa;
+            transition: .2s;
+
+            &:hover {
+                background-color: #0a0a0aaa;
+            }
+        }
+    }
+
+
+
+}
+
+.frameListSong {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.2%;
+    padding-left: 20px;
+    transition: .2s;
+
+    .itemListSong {
+        width: 200px;
+        height: 180px;
+        background-color: #000;
+        border-radius: 20px;
+        position: relative;
+        transition: .2s;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .frameBtnContent {
+            cursor: pointer;
+            position: absolute;
+            display: grid;
+            height: 32%;
+            grid-template-columns: 70% 30%;
+            align-items: center;
+            width: 95%;
+            border-radius: 25px;
+            background-color: #383838ba;
+            bottom: 3%;
+            left: 2.5%;
+            transition: .2s;
+
+            .contentBtn {
+                line-height: normal;
+                padding-left: 20px;
+
+                h1 {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                h3 {
+                    font-size: 15px;
+                }
+            }
+
+            .frameIcon {
+                margin-left: 10px;
+                background-color: #fff;
+                color: transparent;
+                display: grid;
+                place-items: center;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+
+                svg {
+                    transform: translateX(16%);
+                }
+            }
+
+
+        }
+
+        &:hover {
+            .frameBtnContent {
+                height: 37%;
+                background-color: #262626ba;
+            }
+        }
+    }
+
+    .itemListSongActive {
+        .frameBtnContent {
+            height: 37%;
+
+            .frameIcon {
+                position: relative;
+                z-index: 10;
+
+                svg {
+                    transform: translateX(20%);
+                }
+
+                &::before {
+                    position: absolute;
+                    top: -10%;
+                    left: -10%;
+                    content: ' ';
+                    height: 120%;
+                    width: 120%;
+                    background-color: rgba(0, 255, 255, 0);
+                    border-radius: 50%;
+                    border: #fff 2px dashed;
+                    transition: .2s;
+
+                    animation: deg306 8s ease-in-out infinite;
+                }
+            }
+        }
+
+    }
+}
+
+@keyframes deg306 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

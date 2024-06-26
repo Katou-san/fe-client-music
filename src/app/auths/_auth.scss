@@ -1,0 +1,409 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Tilt Neon', sans-serif;
+
+}
+
+.mt-30U {
+    margin-top: 30px !important;
+}
+
+.mt-20U {
+    margin-top: 20px !important;
+}
+
+.LoginForm {
+    transform: translateX(50%);
+    min-width: 300px !important;
+}
+
+.RegisterForm {
+    opacity: 0;
+    transform: translateX(100%);
+    min-width: 300px !important;
+}
+
+.formContent .active {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.formContent:has(.active) .RegisterForm {
+    transform: translateX(-50%);
+    opacity: 1;
+}
+
+.formContent:has(.active) {
+    transition: .5s;
+    /* height: 50%; */
+}
+
+
+.farme {
+
+    width: 100%;
+    height: 105vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    margin-top: -30px;
+    background: linear-gradient(-45deg, #00538a, #0863a0, #1a86ce, #38a8f3);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    transition: 0.5s;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: relative;
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    min-width: 370px;
+}
+
+body::-webkit-scrollbar {
+    display: none !important;
+}
+
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.formContent {
+    background: #fdfdfdf5;
+    border-radius: 8px;
+    backdrop-filter: blur(20px);
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 1px 0px 3px rgba(255, 255, 255, 0.925);
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+    padding-bottom: 30px;
+    transition: .5s;
+    min-width: 310px;
+}
+
+.formContent .iconf {
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    background-color: transparent;
+    border-bottom-left-radius: 20px;
+}
+
+.formContent .iconf .iconClose {
+    font-size: 45px;
+    color: #fff;
+}
+
+.formContent .iconf:hover {
+    background-color: rgba(0, 0, 0, 0.373);
+}
+
+.FromLS {
+
+    transition: 0.5s !important;
+}
+
+.FromLS h1 {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 50px;
+    font-weight: 700;
+    color: #1b1b1b;
+}
+
+.FromLS .inputText {
+    margin: 35px auto 0 auto;
+    width: 300px;
+}
+
+
+.inputText {
+    position: relative;
+}
+
+.inputText .toastInput {
+    position: absolute;
+    width: 100%;
+    height: 15px;
+    bottom: -20px;
+    left: 0;
+    color: red;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 100;
+}
+
+.inputText label {
+    font-size: 18px;
+    display: inline-block;
+    transform: translateY(20px);
+    font-weight: 900;
+    transition: .5s;
+    cursor: pointer;
+    color: #000000;
+}
+
+.inputText:has(input:valid) label,
+.inputText:has(input:focus) label {
+    transform: translateY(0);
+}
+
+.inputText input {
+    height: 30px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0 25px 0 2px;
+    color: #000000;
+}
+
+.inputText input:focus {
+    outline: none;
+}
+
+.inputText .iconIp {
+    position: absolute;
+    right: 5px;
+    font-size: 20px;
+    bottom: 10%;
+}
+
+.inputText::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0.267);
+    transition: .5s;
+    border-radius: 5px;
+    z-index: -1;
+}
+
+.inputText::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+
+}
+
+.inputText:has(input:valid)::before,
+.inputText:has(input:focus)::before {
+    height: 30px;
+}
+
+.FromLS button {
+    position: relative;
+    margin: 10px calc(50% - 90%/2) 10px calc(50% - 90%/2);
+    width: 90%;
+    height: 40px;
+    background-color: transparent;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    transform-origin: center;
+    transition: .5s;
+    border-color: #000000;
+}
+
+.FromLS .facebook:hover {
+    border-color: #0676e8;
+}
+
+.FromLS .optionLogin h3 {
+    color: #000000;
+    transition: .2s;
+
+}
+
+.FromLS .optionLogin:hover h3 {
+    color: #fff !important;
+
+}
+
+.FromLS button svg {
+
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 15px);
+}
+
+.FromLS .optionLogin,
+.FromLS form .Loginbtn {
+    position: relative;
+    transition: .5s;
+    height: 40px;
+}
+
+.FromLS .optionLogin::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 8px;
+    transition: .5s;
+    z-index: -1;
+}
+
+.FromLS .google:hover::after {
+    width: 100%;
+    background-color: #000000;
+}
+
+.FromLS .facebook:hover::after {
+    width: 100%;
+    background-color: #0676e8;
+}
+
+.optionLogin {
+    height: 100px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 10% 90%;
+    font-size: 15px !important;
+    border: 1PX solid #000;
+}
+
+.optionLogin i svg {
+    height: calc(100% - 5px);
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.facebook i svg {
+    height: calc(100% - 10px) !important;
+}
+
+.optionLogin:hover {
+    color: #fff;
+}
+
+.FromLS form .Loginbtn::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #000000;
+    border-radius: 8px;
+    transition: .5s;
+    z-index: -1;
+}
+
+.FromLS form #Registerbtn::after,
+.FromLS form #Loginbtn::after,
+.FromLS form .Loginbtn:hover::after {
+    width: 100%;
+}
+
+.FromLS form #Registerbtn,
+.FromLS form #Loginbtn,
+.FromLS form .Loginbtn:hover {
+    color: #38a8f3;
+}
+
+.FromLS form #Loginbtn svg {
+    position: absolute;
+    top: -20%;
+    left: 10%;
+    width: 50px;
+    height: 50px;
+}
+
+
+.Loginbtn {
+    color: #000000;
+    margin-bottom: 20px !important;
+    border: 1px solid #000000;
+}
+
+.FromLS .titleOther {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.FromLS .titleOther::before,
+.FromLS .titleOther::after {
+    content: " ";
+    position: absolute;
+    top: calc(50% - 1px);
+    height: 2px;
+    width: 40%;
+    background-color: #000000;
+}
+
+.FromLS .titleOther::after {
+    left: 0% !important;
+}
+
+.FromLS .titleOther::before {
+    right: 0% !important;
+}
+
+
+.selection {
+    margin: 30px 0 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    font-size: 13px;
+    justify-items: center;
+}
+
+.selection .remeber {
+    display: flex;
+    gap: 10px;
+}
+
+.remeber input {
+    border-radius: 5px;
+}
+
+.selection a {
+    text-align: end;
+}
+
+.btnLink {
+    font-size: 15px;
+    text-align: center;
+}
+
+.btnLink span {
+    padding: 5px;
+    margin-left: 5px;
+    color: #fff !important;
+    background-color: #38a8f3;
+    border-radius: 8px;
+    font-weight: 600;
+}

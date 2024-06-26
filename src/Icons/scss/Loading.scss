@@ -1,0 +1,111 @@
+:root{
+    --duration:3s;
+}
+
+.loader{
+   
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+}
+
+
+.loader::before{
+    position: absolute;
+    content: "";
+    width: 8px;
+    height: 8px;
+    top: 0;
+    left: 0;
+    background-color: blue;
+    border-radius: 50%;
+    transform: translate(10px,20px);
+    animation:  dotTriage 3s  infinite;
+    transition: 0.5s;
+}
+
+.SVGLoading{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.SVGLoading polygon{
+    fill: none;
+    stroke-width: 8;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-dasharray: 145 76 145 76;
+    stroke-dashoffset: 0;
+    animation: pathTriage 3s  infinite;
+    transition: .5s;
+}
+
+#LoadingLogo #Loading_Logo{
+    fill: none;
+    stroke-width: 1;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-dasharray: 145 76 145 76;
+    stroke-dashoffset: 0;
+    animation: pathTriage 3s  infinite;
+    transition: .5s;
+}
+
+#audio-lines path{
+    animation: pathTriage 3s  infinite;
+}
+@keyframes pathTriage{
+    0%{
+        fill-opacity: 0;
+    }
+
+    33%{
+        stroke-dashoffset: 76;
+    }
+
+    66%{
+        stroke-dashoffset: 145;
+    }
+
+    100%{
+        stroke-dashoffset: 225;
+        fill-opacity: 1;
+    }
+
+}
+
+@keyframes dotTriage {
+    0%{
+        transform: translate(10px,20px);
+    }
+    33%{
+      
+       transform: translate(20px,40px);
+    }
+    66%{
+        
+        transform: translate(30px, 20px);
+    }
+    100%{
+        transform: translate(10px,20px);
+    }
+}
+
+
+@keyframes dotReact{
+    25%{
+        transform: translate(0px,0px);
+    }
+
+    50%{
+        transform: translate(18px,-18px);
+    }
+    75%{
+        transform: translate(0px,-36px);
+    }
+    100%{
+        transform: translate(-18px,-10px);
+    }
+  
+}

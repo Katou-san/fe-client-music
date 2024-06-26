@@ -1,0 +1,59 @@
+.layoutFarme {
+    height: 100dvh;
+    width: 100%;
+    background-color: aliceblue;
+
+    .layoutContent {
+        padding: 10px;
+        height: 88dvh;
+        display: grid;
+        width: 100%;
+        grid-template-columns: 18% 82%;
+    }
+
+    .Content {
+        width: 100%;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 69% 30%;
+        transition: .2s;
+
+        .MainContent {
+            position: relative;
+            background: #3db4fe;
+            background: -webkit-linear-gradient(to right, #0c6aa4, #e4e5e6);
+            background: linear-gradient(to right, #07649d, #e4e5e6);
+            background-size: 1000% 1000%;
+            background-position: 0% 0%;
+            border-radius: 20px;
+            transition: .2s;
+            max-height: 600px;
+        }
+
+        .PopupContent {
+            background-color: cadetblue;
+            border-radius: 20px;
+            transition: .2s;
+            overflow: hidden;
+        }
+    }
+
+    #notShow {
+        grid-template-columns: 100% 0% !important;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(137, 137, 137);
+    border-radius: 40px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #858585;
+}

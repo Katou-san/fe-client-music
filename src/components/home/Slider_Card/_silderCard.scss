@@ -1,0 +1,147 @@
+.farmeSliderCard {
+    width: 100%;
+    position: relative;
+    transition: .5s;
+    overflow: hidden;
+
+    .slider {
+        width: 100%;
+        display: flex;
+        gap: 0.5%;
+        position: relative;
+        transition: .5s;
+
+        .itemSlider {
+            position: relative;
+            transition: .5s;
+            display: flex;
+            height: 500px;
+
+            img {
+
+                object-fit: cover;
+                transition: .5s;
+                border-radius: 20px;
+            }
+
+            .contentItemSilder {
+                cursor: pointer;
+                position: absolute;
+                display: grid;
+                grid-template-columns: 30% 70%;
+                gap: 1%;
+                align-items: center;
+                bottom: 20px;
+                left: 20px;
+                width: 30%;
+                height: 80px;
+                border-radius: 20px;
+                background-color: rgba(45, 45, 45, 0.508);
+                transition: .2s;
+
+                .layoutBtnPlay {
+
+                    margin-left: 10px;
+                    display: grid;
+                    place-items: center;
+                    height: 60px;
+                    width: 60px;
+                    background-color: black;
+                    border-radius: 50%;
+                    transition: .2s;
+
+                    svg {
+                        transform: translateX(16%);
+                        transition: .2s;
+                    }
+                }
+
+                .contentBtn {
+                    opacity: 1;
+
+                    h1 {
+                        font-size: 25px;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+
+        }
+
+        .itemActive {
+            flex: 12;
+            width: 80%;
+
+            img {
+                height: 100% !important;
+                width: 100% !important;
+            }
+
+            z-index: 2;
+        }
+
+        .itemNotActive {
+            flex: 1;
+            width: 5%;
+
+            img {
+                height: 100% !important;
+                width: 100% !important;
+                border-radius: 50px !important;
+            }
+
+            .contentItemSilder {
+                width: 90%;
+                left: 5%;
+                grid-template-columns: 30% 40%;
+                align-items: center;
+
+                .layoutBtnPlay {
+
+                    margin-left: 10px;
+                    display: grid;
+                    // place-items: center;
+                    height: 50px;
+                    width: 50px;
+                    background-color: black;
+                    border-radius: 50%;
+                    transition: .2s;
+
+                    svg {
+                        transform: translateX(16%);
+                        transition: .2s;
+                    }
+                }
+
+                .contentBtn {
+                    width: 0 !important;
+                    transform: translateX(30%);
+                    opacity: 0;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    .btnClick {
+        position: absolute;
+        top: calc(50% - 25px);
+        height: 50px;
+        padding: 0 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .btnSlider {
+            display: grid;
+            place-items: center;
+            background-color: #00000094;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+    }
+}

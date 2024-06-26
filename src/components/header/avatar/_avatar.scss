@@ -1,0 +1,104 @@
+.FrameBtnLogin #Hidden{
+    display: none;
+}
+
+
+.FrameBtnLogin{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.FrameBtnLogin .LoginButton{
+    min-width: 137px;
+    width: 80%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 15% 60%;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    padding: 8px 5px ;
+    border-radius: 10px;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.FrameBtnLogin .LoginButton:hover{
+    background-color: #0f618a8c;
+}
+
+.LoginButton span{
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+
+
+.FrameBtnLogin .optionNav
+{
+    position: absolute;
+    bottom: -250px;
+    left: 0;
+    font-size: 18px;
+    width: 0%;
+    background-color:#214372b5;
+    backdrop-filter: blur(3px);
+    border-radius: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    transition: .5s;
+    opacity: 1;
+    transform: translateX(300px);
+    z-index: -1;
+    opacity: 0;
+}
+
+
+/* /////////////////////////////// */
+.FrameBtnLogin #ShowMenu{
+    transform: translate(0);
+    opacity: 1;
+    width: 100%;
+   
+}
+
+.FrameBtnLogin .optionNav ul li span{
+    transition: .5s;
+    height: 100%;
+     overflow: hidden;
+}
+
+.FrameBtnLogin .optionNav ul li 
+{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 40px;
+    margin-top: 5px;
+    list-style-type: none;
+    border-radius: 10px;
+    padding: 6px;
+    color: #fff;
+    transition: .2s;
+    overflow: hidden;
+    cursor: pointer;
+    
+}
+
+
+
+.FrameBtnLogin .optionNav ul li:hover{
+    background-color: var(--background-opacity);
+}
+.FrameBtnLogin .optionNav ul li svg{
+    margin-left: 5px !important;
+}
+.FrameBtnLogin .optionNav ul li:hover .Lucide path{
+     fill: transparent !important;
+}
