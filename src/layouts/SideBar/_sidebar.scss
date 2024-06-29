@@ -79,7 +79,7 @@ a {
 
         .btnPlaylist {
             width: 85%;
-            padding: 8px 0;
+            padding: 10px 0;
             margin-top: 10px;
             display: flex;
             justify-content: center;
@@ -125,7 +125,7 @@ a {
 .ContentLF .active li,
 .Sidebar .ContentLF ul li:hover {
     color: var(--fontcolor);
-    background-color: #07baf52d;
+    background-color: #95d0e32d;
 }
 
 .Sidebar .ContentLF ul li:hover path {
@@ -136,7 +136,7 @@ a {
     fill: var(--fontcolor) !important;
 }
 
-.ContentLF ul .active li::before,
+.ContentLF .active li::before,
 .Sidebar .ContentLF ul li::before {
     content: '';
     position: absolute;
@@ -155,6 +155,7 @@ a {
     color: var(--fontcolor);
 }
 
+.Sidebar .ContentLF .active li::before,
 .Sidebar .ContentLF ul li:hover::before {
     transform: translateX(-250%);
     width: 10px;

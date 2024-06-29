@@ -1,138 +1,101 @@
-import { useState, useEffect, useRef, useContext } from "react";
-// import {
-//   Get_Song_Img,
-//   Get_Song_Audio,
-// } from "../../../Service/Get_File_Service";
-// import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
-// import "react-h5-audio-player/lib/styles.css";
-// import {
-//   PlayIcon,
-//   PauseIcon,
-//   ShuffleIcon,
-//   RepeatIcon,
-//   ForwardIcon,
-//   BackwardIcon,
-//   VolumeIcon,
-// } from "../../Logo_Icon/Icon";
-// import { Handle_Song } from "../../../Modules/Handle_Song/HandleSong";
+'use client'
+import { useEffect, useRef } from "react";
 import "./_footer.scss";
-// import { Find_Song } from "../../../Service/Song_Service";
-// import { contextComponent } from "../../../Hook/index_Context";
+import Image from "next/image";
+import { BackwardIcon, ForwardIcon, RepeatIcon } from "@/Icons/icon_v1";
+import { List1_Icon, Pause_Icon, Play_Icon, Shuffle_Icon, Volume_Icon } from "@/Icons/icon_Figma";
+import { useAudio } from "@/contexts/providerAudio";
+import { secondsToMinute } from "@/util/time";
+import { useLayout } from "@/contexts/providerLayout";
+
 
 function Footer() {
-  // const audioRef = useRef();
-  // const { state_Current_Play, dispatch_Current_Play } =
-  //   useContext(contextComponent);
-  // const { Current_Index, Current_Playlist } = state_Current_Play;
+  const { setShowPopup } = useLayout()
+  const progressbarRef = useRef<HTMLInputElement>(null)
+  const volumeRef = useRef<HTMLInputElement>(null)
+  const { is_Playing, setPlay, duration, currentTime, changeRange, setVolume, next, prev, volume, currentIndex } = useAudio()
+  const url = "https://www.siliconera.com/wp-content/uploads/2024/05/star-rail-hope-is-a-thing-with-feathers-guide.jpg"
+  useEffect(() => {
+    if (progressbarRef.current?.max != undefined) {
+      progressbarRef.current.max = String(duration)
+    }
+  }, [duration, currentIndex])
 
-  // const [volume, setvolume] = useState(50);
-  // const [List_Current_Song, Set_List_Current_Song] = useState([]);
-
-  // const [Data_Song, Set_Data_Song] = useState({});
-  // const [Image, setImage] = useState("");
-  // const [Audio, setAudio] = useState("");
-  // const [Random, setRandom] = useState(true);
-
-  // useEffect(() => {
-  //   Set_List_Current_Song(Current_Playlist);
-  // }, [Current_Playlist]);
-
-  // useEffect(() => {
-  //   if (List_Current_Song.length > 0) {
-  //     Find_Song(List_Current_Song[Current_Index])
-  //       .then((res) => {
-  //         Set_Data_Song(res.data);
-  //         Get_Song_Img(res.data.Song_Image).then((blob) =>
-  //           setImage(URL.createObjectURL(blob))
-  //         );
-  //         Get_Song_Audio(res.data.Song_Src).then((blob) =>
-  //           setAudio(URL.createObjectURL(blob))
-  //         );
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [List_Current_Song, Current_Index]);
-
-  // const Random_btn = () => {
-  //   setRandom((prev) => !prev);
-  //   if (Random) {
-  //     Set_List_Current_Song(Handle_Song.Random_Song(Current_Playlist));
-  //   } else {
-  //     Set_List_Current_Song(Current_Playlist);
-  //   }
-  // };
   return (
     <footer>
-      hello
-      {/* <div className="footerEnd">
-        <div className="LeftF">
-          <img src={Image} alt="" srcSet="" />
-          <div className="ContentFE">
-            <h3>{Data_Song ? Data_Song.Song_Name : ""}</h3>
-            <p>{Data_Song ? Data_Song.User_Id : ""}</p>
+      <div className="frameFooter">
+        <div className="contentStart">
+          <Image alt="" src={url} width={1000} height={1000} />
+          <div className="contentFooter">
+            <h1 className="overflow__Text">Name</h1>
+            <h3 className="overflow__Text">by artist</h3>
           </div>
         </div>
-        <div className="CenterF">
-          <AudioPlayer
-            src={Audio}
-            ref={audioRef}
-            volume={volume / 100}
-            onClickNext={() =>
-              dispatch_Current_Play({
-                type: "CHANGE",
-                payload: {
-                  Current_Index: Handle_Song.Next_Song(
-                    Current_Index,
-                    List_Current_Song.length - 1
-                  ),
-                },
-              })
-            }
-            onClickPrevious={() =>
-              dispatch_Current_Play({
-                type: "CHANGE",
-                payload: {
-                  Current_Index: Handle_Song.Pre_Song(
-                    Current_Index,
-                    List_Current_Song.length - 1
-                  ),
-                },
-              })
-            }
-            layout="stacked-reverse"
-            autoPlay={false}
-            customIcons={{
-              play: <PlayIcon w={50} />,
-              pause: <PauseIcon w={50} />,
-              next: <ForwardIcon w={30} />,
-              previous: <BackwardIcon w={30} />,
-              loop: <RepeatIcon w={30} color={"red"} />,
-              loopOff: <RepeatIcon w={30} />,
-            }}
-            showJumpControls={false}
-            showSkipControls={true}
-            customProgressBarSection={[
-              RHAP_UI.CURRENT_TIME,
-              RHAP_UI.PROGRESS_BAR,
-              RHAP_UI.DURATION,
-            ]}
-            customVolumeControls={[RHAP_UI.LOOP]}
-            customAdditionalControls={[<ShuffleIcon w={30} />]}
-          />
-          <div className="volumebtn">
-            <VolumeIcon value={volume} />
-            <input
-              type="range"
-              value={volume}
-              onChange={(e) => {
-                audioRef.current.audio.current.volume = e.target.value / 100;
-                setvolume(e.target.value);
-              }}
-              max={100}
-            />
+        <div className="frameCenter">
+          <div className="contentCenter">
+            <div className="topCenter">
+              <div className="btnFooter">
+                <span></span>
+                <div className="btnShuffle cursor_pointer">
+                  <Shuffle_Icon w={30} />
+                </div>
+                <div className="btnBackward cursor_pointer" onClick={() => prev(progressbarRef)}>
+                  <BackwardIcon />
+                </div>
+                <div className="btnPlayPause cursor_pointer" onClick={() => {
+                  setPlay(progressbarRef)
+
+                }}>
+                  {is_Playing ? <Pause_Icon w={30} /> : <Play_Icon w={50} />}
+                </div>
+                <div className="btnForward cursor_pointer" onClick={() => next(progressbarRef)}>
+                  <ForwardIcon />
+                </div>
+                <div className="btnRepeat cursor_pointer">
+                  <RepeatIcon active={false} w={22} />
+                </div>
+
+
+                <span></span>
+              </div>
+            </div>
+            <div className="bottonCenter">
+              <div className="timeFooterStart">{secondsToMinute(currentTime)}</div>
+              <div className="frameLineSong">
+                <input type="range" name="" id="lineSong" defaultValue={0} ref={progressbarRef}
+                  max={duration}
+                  onChange={(e) => {
+                    if (progressbarRef.current?.value != undefined) {
+                      changeRange(Number(progressbarRef.current.value))
+                    }
+                    progressbarRef.current?.style.setProperty('--seek-before-width', `${Number(progressbarRef.current.value) / duration * 100}`)
+                  }} />
+              </div>
+
+              <div className="timeFooterEnd">{secondsToMinute(duration)}</div>
+            </div>
+
+
+          </div>
+
+        </div>
+        <span></span>
+        <div className="contentEnd">
+          <div className="IconList cursor_pointer" onClick={setShowPopup}>
+            <List1_Icon />
+          </div>
+          <div className="frameVolume cursor_pointer">
+            <Volume_Icon type={volume > 6 ? 2 : volume > 0 ? 1 : 0} />
+            <div className="framerangeVolume">
+              <input type="range" defaultValue={5} className="rangeVolume" max={10} ref={volumeRef} onChange={() => {
+                if (volumeRef.current?.value != undefined) {
+                  setVolume(Number(volumeRef.current.value))
+                }
+              }} />
+            </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </footer>
   );
 }

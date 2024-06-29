@@ -36,6 +36,14 @@ body {
   width: 100%;
 }
 
+.none {
+  display: none;
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

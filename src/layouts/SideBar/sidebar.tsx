@@ -1,26 +1,15 @@
 "use client";
 import React, { useState } from "react";
-// import { NavLink } from "react-router-dom";
-// import AddPlaylist from "../Layout/AddPlaylist/AddPlaylist";
-// import { LogoWebsite } from "../Logo_Icon/Logo";
-// import LeftListMusic from "../Layout/Left_List_Music/Left_List_Music";
-// import {
-//   HomeIcon,
-//   RecommedIcon,
-//   ListMusicIcon,
-//   LikeIcon,
-//   AddListMusicIcon,
-// } from "../Logo_Icon/Icon";
-
 import "./_sidebar.scss";
 import { Logo_DarkHole } from "@/Icons/icon_Logo";
 import Link from "next/link";
-import { AddListMusicIcon, HomeIcon, LikeIcon, ListMusicIcon, RecommedIcon } from "@/Icons/icon_v1";
+import { AddListMusicIcon } from "@/Icons/icon_v1";
 import { sidebarConfig, sidebarLibraryConfig, SidebarType } from "@/configs/sidebarConfig";
+import { usePathname } from "next/navigation";
 function Sidebar() {
   const [showCP, setshowCP] = useState(false);
   const [Togo, SetTogo] = useState(false);
-
+  const route = usePathname();
   const Event_Show = () => {
     setshowCP((pre) => !pre);
   };
@@ -34,6 +23,7 @@ function Sidebar() {
           : ""
       : "";
   };
+
   return (
     <aside className="Sidebar">
       {/* <AddPlaylist Event_Show={Event_Show} Value_Show={showCP} /> */}
@@ -55,7 +45,7 @@ function Sidebar() {
                 href={item.url}
                 key={index}
                 // "active" : "inactive"
-                className={""}
+                className={route == item.url ? "active" : "inactive"}
               >
                 <li>
                   {item.icons} <h3>{item.title}</h3>
@@ -92,7 +82,7 @@ function Sidebar() {
                 href={item.url}
                 key={index}
                 // "active" : "inactive"
-                className={""}
+                className={route == item.url ? "active" : "inactive"}
               >
                 <li>
                   {item.icons}

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Tilt_Neon } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "./globals.scss";
+import { ProviderAudio } from "@/contexts/providerAudio";
+import { ProviderLayout } from "@/contexts/providerLayout";
 
 const inter = Tilt_Neon({ subsets: ["latin"] });
 
@@ -18,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        <ProviderLayout>
+          <ProviderAudio>
+            {children}
+          </ProviderAudio>
+        </ProviderLayout>
         <ToastContainer />
       </body>
     </html>

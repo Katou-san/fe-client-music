@@ -1,22 +1,22 @@
-import { Playlist_Icon } from "@/Icons/icon_Figma";
+import { List2_Icon, Playlist_Icon } from "@/Icons/icon_Figma";
 import { HomeIcon, LikeIcon, RecommedIcon } from "@/Icons/icon_v1";
 
 export const sidebarConfig = [
     {
         title: "Home",
         icons: <HomeIcon />,
-        url: "#"
+        url: "/"
     },
     {
         title: "Trending",
         icons: <RecommedIcon />,
-        url: "#"
+        url: "/trending"
     }
     ,
     {
         title: "Album",
         icons: <Playlist_Icon color="#fff" w={27} />,
-        url: "#"
+        url: "/album"
     }
 ]
 
@@ -25,12 +25,12 @@ export const sidebarLibraryConfig = [
     {
         title: "Favorite",
         icons: <LikeIcon />,
-        url: "#"
+        url: "/favorite"
     },
     {
         title: "Playlist",
-        icons: <Playlist_Icon color="#fff" w={27} />,
-        url: "#"
+        icons: <List2_Icon />,
+        url: "/playlist"
     }
 ]
 

@@ -1,0 +1,114 @@
+.frameArtistPlaylist {
+
+    width: 100%;
+    display: flex;
+    gap: 1.2%;
+    padding-left: 20px;
+    transition: .2s;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    overflow-y: hidden !important;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+    }
+
+    .itemListArtist {
+        min-width: 200px;
+        width: 280px !important;
+        position: relative;
+        transition: .2s;
+        scroll-snap-align: start;
+
+        .frameImage {
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            transition: .2s;
+
+            img {
+                height: 200px;
+                border-radius: 50%;
+                object-fit: cover;
+                transition: .2s;
+            }
+
+            &::before {
+                content: '';
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 0%;
+                background-color: rgba(0, 0, 0, 0.459);
+                backdrop-filter: blur(2px);
+
+                transition: .2s;
+            }
+
+            .btnview {
+                position: absolute;
+                top: calc(50% - 10px);
+                // left: calc(50% - 40px);
+                cursor: pointer;
+                padding: 0;
+                background-color: rgba(5, 5, 5, 0.605);
+                z-index: 1;
+                font-size: 0;
+                color: aliceblue;
+                border-radius: 20px;
+                transition: .2s;
+                overflow: hidden;
+            }
+
+        }
+
+
+        .contentItemPlaylist {
+            font-size: 25px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+
+
+        &:hover {
+
+            .frameImage {
+                &::before {
+                    content: '';
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background-color: rgba(0, 0, 0, 0.459);
+                    backdrop-filter: blur(2px);
+
+                }
+
+                .btnview {
+                    text-align: center;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: calc(50% - 40px);
+
+                    padding: 5px 20px;
+                    background-color: rgba(5, 5, 5, 0.605);
+                    z-index: 1;
+                    font-size: 18px;
+                    color: aliceblue;
+                    border-radius: 20px;
+                    transition: .2s;
+                }
+
+            }
+        }
+    }
+}

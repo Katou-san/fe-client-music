@@ -7,16 +7,13 @@ import Avartar from "@/components/header/avatar/avartar";
 function Header() {
   return (
     <header className="headerR ">
-      <ul className="NavR">
-        <li className="btnNavR">
-          <a>Discover</a>
-        </li>
-        <li className="btnNavR">
-          <a>Raking</a>
-        </li>
-      </ul>
-      <SearchBar />
-      {/* <Avartar /> */}
+      <div className="frameSearch">
+        <SearchBar />
+      </div>
+      <div className="frameAvatar">
+        <Avartar />
+      </div>
+
     </header>
   );
 }

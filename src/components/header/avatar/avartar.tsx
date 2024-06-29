@@ -4,6 +4,9 @@ import Menu from "@/components/header/menu/menu";
 import { User_Icon } from "@/Icons/icon_Figma";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
+import "./_avatar.scss"
+import Image from "next/image";
+import { UserIcon } from "@/Icons/icon_v1";
 // import { UserIcon } from "../../Logo_Icon/Icon";
 // import { Link } from "react-router-dom";
 // import "./AvaterHeader.css";
@@ -12,7 +15,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import { contextLogin } from "../../../Hook/index_Context";
 
 export default function Avartar() {
-  const is_Login = true
+  const is_Login = false
   // const { state_Login } = useContext(contextLogin);
   // const { is_Login } = state_Login;
   // const { Avatar, User_Name } = state_Login.Data_User;
@@ -33,22 +36,22 @@ export default function Avartar() {
     return Set_StatusMenu((prev) => !prev);
   };
   return (
-    <div className="FrameBtnLogin">
+    <div className="FrameBtnLogin cursor_pointer">
       <Link href={'/auths'} >
         <div className="LoginButton" id={is_Login ? "Hidden" : ""}>
-          <i><User_Icon /></i>
+          <i><UserIcon /></i>
           <span>Login</span>
         </div>
       </Link>
       <div
-        className="LoginButton FormUserName"
+        className="btnAvartar cursor_pointer"
         id={!is_Login ? "Hidden" : ""}
         onClick={TogoMenu}
       >
-        <img src={is_Login ? 'Avatar_url' : ""} alt="" />
-        <span>{'User_Name'}</span>
+        <Image src={""} alt="" width={1000} height={1000} />
+        <span className="overflow__Text">{'User_Name'}</span>
       </div>
-      <Menu showMenu={StatusMenu} event={TogoMenu} />
+      {/* <Menu showMenu={StatusMenu} event={TogoMenu} /> */}
     </div>
   );
 }

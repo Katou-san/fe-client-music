@@ -1,3 +1,63 @@
+export function List1_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
+    return (
+        <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12C2 10.1308 2 9.19615 2.40192 8.5C2.66523 8.04394 3.04394 7.66523 3.5 7.40192C4.19615 7 5.13077 7 7 7H17C18.8692 7 19.8038 7 20.5 7.40192C20.9561 7.66523 21.3348 8.04394 21.5981 8.5C22 9.19615 22 10.1308 22 12C22 13.8692 22 14.8038 21.5981 15.5C21.3348 15.9561 20.9561 16.3348 20.5 16.5981C19.8038 17 18.8692 17 17 17H7C5.13077 17 4.19615 17 3.5 16.5981C3.04394 16.3348 2.66523 15.9561 2.40192 15.5C2 14.8038 2 13.8692 2 12Z" stroke={color} stroke-width="2" />
+            <path d="M19 4C19 2.89543 18.1046 2 17 2H7C5.89543 2 5 2.89543 5 4" stroke={color} stroke-width="2" />
+            <path d="M19 20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20" stroke={color} stroke-width="2" />
+            <rect x="5.5" y="10.5" width="5" height="1" rx="0.5" stroke={color} />
+        </svg>
+
+    )
+}
+
+export function List2_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
+    return (
+        <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="3" width="20" height="9" rx="2" stroke={color} stroke-width="2" />
+            <path d="M16 18V18C16 19.1046 15.1046 20 14 20H10C8.89543 20 8 19.1046 8 18V18" stroke={color} stroke-width="2" />
+            <path d="M19 14V14C19 15.1046 18.1046 16 17 16H7C5.89543 16 5 15.1046 5 14V14" stroke={color} stroke-width="2" />
+        </svg>
+
+    )
+}
+
+export function Volume_Icon({ w = 23, color = "#fff", type = 1 }: { w?: number; color?: string, type: number }) {
+    if (type === 0) {
+        return (
+            <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.15838 13.9306C2.44537 12.7423 2.44537 11.2577 3.15838 10.0694V10.0694C3.37596 9.70674 3.73641 9.45272 4.1511 9.36978L5.84413 9.03117C5.94499 9.011 6.03591 8.95691 6.10176 8.87788L8.17085 6.39498C9.3534 4.97592 9.94468 4.26638 10.4723 4.45742C11 4.64846 11 5.57207 11 7.41928L11 16.5807C11 18.4279 11 19.3515 10.4723 19.5426C9.94468 19.7336 9.3534 19.0241 8.17085 17.605L6.10176 15.1221C6.03591 15.0431 5.94499 14.989 5.84413 14.9688L4.1511 14.6302C3.73641 14.5473 3.37596 14.2933 3.15838 13.9306V13.9306Z" stroke={color} stroke-width="2" />
+                <path d="M15 15L21 9" stroke={color} stroke-width="2" stroke-linecap="round" />
+                <path d="M21 15L15 9" stroke={color} stroke-width="2" stroke-linecap="round" />
+            </svg>
+        )
+    }
+
+    if (type === 1) {
+        return (
+            <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.15838 13.9306C2.44537 12.7423 2.44537 11.2577 3.15838 10.0694V10.0694C3.37596 9.70674 3.73641 9.45272 4.1511 9.36978L5.84413 9.03117C5.94499 9.011 6.03591 8.95691 6.10176 8.87788L8.17085 6.39498C9.3534 4.97592 9.94468 4.26638 10.4723 4.45742C11 4.64846 11 5.57207 11 7.41928L11 16.5807C11 18.4279 11 19.3515 10.4723 19.5426C9.94468 19.7336 9.3534 19.0241 8.17085 17.605L6.10176 15.1221C6.03591 15.0431 5.94499 14.989 5.84413 14.9688L4.1511 14.6302C3.73641 14.5473 3.37596 14.2933 3.15838 13.9306V13.9306Z" stroke={color} stroke-width="2" />
+                <path d="M15.5355 8.46447C16.4684 9.39732 16.9948 10.6611 17 11.9803C17.0052 13.2996 16.4888 14.5674 15.5633 15.5076" stroke={color} stroke-width="2" stroke-linecap="round" />
+            </svg>
+        )
+    }
+
+    if (type === 2) {
+        return (
+            <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.15838 13.9306C2.44537 12.7423 2.44537 11.2577 3.15838 10.0694V10.0694C3.37596 9.70674 3.73641 9.45272 4.1511 9.36978L5.84413 9.03117C5.94499 9.011 6.03591 8.95691 6.10176 8.87788L8.17085 6.39498C9.3534 4.97592 9.94468 4.26638 10.4723 4.45742C11 4.64846 11 5.57207 11 7.41928L11 16.5807C11 18.4279 11 19.3515 10.4723 19.5426C9.94468 19.7336 9.3534 19.0241 8.17085 17.605L6.10176 15.1221C6.03591 15.0431 5.94499 14.989 5.84413 14.9688L4.1511 14.6302C3.73641 14.5473 3.37596 14.2933 3.15838 13.9306V13.9306Z" stroke={color} stroke-width="2" />
+                <path d="M15.5355 8.46447C16.4684 9.39732 16.9948 10.6611 17 11.9803C17.0052 13.2996 16.4888 14.5674 15.5633 15.5076" stroke={color} stroke-width="2" stroke-linecap="round" />
+                <path d="M19.6569 6.34314C21.1494 7.83572 21.9916 9.85769 21.9999 11.9685C22.0083 14.0793 21.182 16.1078 19.7012 17.6121" stroke={color} stroke-width="2" stroke-linecap="round" />
+            </svg>
+        )
+
+
+    }
+
+}
+
+
+
+
 export function Menu_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
     return (
         <svg width={w} height={w} viewBox="0 0 23 23" fill={color} xmlns="http://www.w3.org/2000/svg">
@@ -22,6 +82,56 @@ export function People_Icon({ w = 23, color = "#fff" }: { w?: number; color?: st
 
     );
 }
+
+export function Play_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
+    return (
+        <svg width={w} height={w} viewBox="0 0 24 24" fill='none' xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.1378 10.5689L9.60498 7.30246C8.40816 6.70405 7 7.57434 7 8.91243V15.0875C7 16.4256 8.40816 17.2959 9.60498 16.6975L16.1378 13.4311C17.3171 12.8414 17.3171 11.1585 16.1378 10.5689Z" fill={color} />
+        </svg>
+
+    )
+}
+
+export function Pause_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
+    return (
+        <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="5" width="4" height="14" rx="1" fill={color} />
+            <rect x="14" y="5" width="4" height="14" rx="1" fill={color} />
+        </svg>
+
+    )
+}
+
+export function Repeat_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
+    return (
+        <svg width={w} height={w} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_1222_37952)">
+                <path d="M11 9L13 8.5L13.5 10.5" stroke={color} stroke-linecap="round" strokeLinejoin="round" />
+                <path d="M13 8.5C12.5748 9.77038 11.773 10.8813 10.7013 11.6851C9.62955 12.4889 8.33861 12.9475 6.99999 13C5.7681 13.0002 4.566 12.6213 3.55697 11.9146C2.54794 11.2079 1.78088 10.2078 1.35999 9.05" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M3 5L1 5.5L0.5 3.5" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M1 5.5C1.44757 4.24353 2.25528 3.14671 3.32232 2.34642C4.38936 1.54614 5.66847 1.07785 7 1C8.23789 1.00348 9.4444 1.38976 10.4541 2.10588C11.4639 2.822 12.2274 3.8329 12.64 5" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_1222_37952">
+                    <rect width={w} height={w} fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    )
+}
+
+export function Shuffle_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
+    return (
+        <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7H4.77985C6.93172 7 8.00766 7 8.87921 7.45631C9.25172 7.65134 9.59114 7.90388 9.88499 8.20464C10.5725 8.90832 10.8817 9.93888 11.5 12V12C12.1183 14.0611 12.4275 15.0917 13.115 15.7954C13.4089 16.0961 13.7483 16.3487 14.1208 16.5437C14.9923 17 16.0683 17 18.2202 17H21M21 17L18 14M21 17L18 20" stroke={color} stroke-width="2" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.7071 6.29285L18.7071 3.29285L17.2929 4.70706L18.5858 5.99995H18.2202L18.1753 5.99995H18.1753C17.1374 5.99994 16.2935 5.99993 15.6025 6.06086C14.8846 6.12415 14.2534 6.25807 13.657 6.57034C13.2113 6.80365 12.8036 7.10279 12.4474 7.45759C12.6883 7.85126 12.8778 8.25877 13.0406 8.66732C13.1539 8.95136 13.2635 9.26079 13.3726 9.59115C13.5242 9.27595 13.6695 9.06803 13.8303 8.90343C14.0507 8.67787 14.3052 8.48846 14.5846 8.34219C14.8597 8.19815 15.2022 8.10391 15.7782 8.05313C16.3711 8.00085 17.1267 7.99995 18.2202 7.99995H18.5858L17.2929 9.29285L18.7071 10.7071L21.7071 7.70706L22.4142 6.99995L21.7071 6.29285ZM10.5526 16.5423C10.3117 16.1486 10.1222 15.7411 9.95935 15.3326C9.8461 15.0485 9.73651 14.7391 9.62739 14.4088C9.4758 14.724 9.33053 14.9319 9.16971 15.0965C8.94933 15.322 8.69476 15.5114 8.41538 15.6577C8.14027 15.8018 7.79776 15.896 7.22182 15.9468C6.62893 15.9991 5.87329 16 4.77985 16H3V18H4.77985H4.8247H4.82472C5.86257 18 6.70648 18 7.39748 17.939C8.11537 17.8758 8.7466 17.7418 9.34305 17.4296C9.78866 17.1963 10.1964 16.8971 10.5526 16.5423Z" fill={color} />
+        </svg>
+
+    )
+}
+
+
 
 export function User_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
     return (

@@ -8,7 +8,7 @@
 
 .headerR {
     position: absolute;
-    top: 2%;
+    top: 0;
     left: 5%;
     right: auto;
     display: grid;
@@ -17,12 +17,12 @@
     margin: auto;
     justify-content: center;
     align-items: center;
-    grid-template-columns: 30% 50% 20%;
+    justify-content: space-between;
+    grid-template-columns: 50% 25%;
     background-color: transparent;
-
     border-radius: 20px;
     transition: .2s;
-    z-index: 10;
+    z-index: 100;
 
     &::before {
         content: '';
@@ -36,9 +36,12 @@
         z-index: -1;
     }
 
+    .frameSearch {
+        padding: 0 20px;
+    }
+
+
 }
-
-
 
 .headerR img {
     width: 40px;
@@ -46,16 +49,6 @@
     object-fit: cover;
     border-radius: 50%;
     position: relative;
-}
-
-.headerR .NavR {
-    padding-left: 10px;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    justify-content: center;
-    text-align: center;
-    color: #ffffff;
-    text-shadow: #0B2447 1px 1px;
 }
 
 

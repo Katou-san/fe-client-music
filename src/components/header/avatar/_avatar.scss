@@ -1,51 +1,64 @@
-.FrameBtnLogin #Hidden{
+.FrameBtnLogin #Hidden {
     display: none;
 }
 
-
-.FrameBtnLogin{
-    width: 100%;
+.btnAvartar {
+    padding: 9px 5px;
     display: grid;
-    grid-template-columns: 80%;
-    justify-content: center;
+    place-items: center;
+    grid-template-columns: 40% 60%;
+    font-size: 20px;
+    background-color: transparent;
+    border-radius: 20px;
+    transition: .2s;
+
+
+    // font-weight: ;
+    &:hover {
+        background-color: rgba(12, 12, 12, 0.537);
+    }
+}
+
+.FrameBtnLogin {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: end;
     align-items: center;
     position: relative;
 }
 
-.FrameBtnLogin .LoginButton{
-    min-width: 137px;
-    width: 80%;
-    height: 100%;
+.FrameBtnLogin .LoginButton {
+    margin-right: 20px;
+    width: 100%;
     display: grid;
-    grid-template-columns: 15% 60%;
+    grid-template-columns: 40% 60%;
     align-items: center;
     justify-content: center;
-    justify-items: center;
-    padding: 8px 5px ;
-    border-radius: 10px;
-    transition: .5s;
+    padding: 9px 10px;
+    border-radius: 20px;
+    transition: .2s;
     cursor: pointer;
 }
 
-.FrameBtnLogin .LoginButton:hover{
+.FrameBtnLogin .LoginButton:hover {
     background-color: #0f618a8c;
 }
 
-.LoginButton span{
+.LoginButton span {
     font-size: 20px;
     color: #fff;
     font-weight: 600;
 }
 
 
-.FrameBtnLogin .optionNav
-{
+.FrameBtnLogin .optionNav {
     position: absolute;
     bottom: -250px;
     left: 0;
     font-size: 18px;
     width: 0%;
-    background-color:#214372b5;
+    background-color: #214372b5;
     backdrop-filter: blur(3px);
     border-radius: 10px;
     padding-bottom: 10px;
@@ -59,21 +72,20 @@
 
 
 /* /////////////////////////////// */
-.FrameBtnLogin #ShowMenu{
+.FrameBtnLogin #ShowMenu {
     transform: translate(0);
     opacity: 1;
     width: 100%;
-   
+
 }
 
-.FrameBtnLogin .optionNav ul li span{
+.FrameBtnLogin .optionNav ul li span {
     transition: .5s;
     height: 100%;
-     overflow: hidden;
+    overflow: hidden;
 }
 
-.FrameBtnLogin .optionNav ul li 
-{
+.FrameBtnLogin .optionNav ul li {
     display: grid;
     grid-template-columns: 20% 80%;
     align-items: center;
@@ -88,17 +100,19 @@
     transition: .2s;
     overflow: hidden;
     cursor: pointer;
-    
+
 }
 
 
 
-.FrameBtnLogin .optionNav ul li:hover{
+.FrameBtnLogin .optionNav ul li:hover {
     background-color: var(--background-opacity);
 }
-.FrameBtnLogin .optionNav ul li svg{
+
+.FrameBtnLogin .optionNav ul li svg {
     margin-left: 5px !important;
 }
-.FrameBtnLogin .optionNav ul li:hover .Lucide path{
-     fill: transparent !important;
+
+.FrameBtnLogin .optionNav ul li:hover .Lucide path {
+    fill: transparent !important;
 }

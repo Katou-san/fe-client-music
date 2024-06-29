@@ -1,11 +1,13 @@
 "use client"
-import React, { useEffect, useRef } from 'react';
-import "./_listSong.scss"
-import ItemListSong from '@/components/home/Songs/itemListSong';
+import React, { useRef } from 'react';
+import './_listArtist.scss'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/Icons/icon_v1';
-const ListSong = () => {
+import ItemListArtist from '@/components/home/Artists/itemListArtist';
+
+const ListArtist = () => {
     const listRef = useRef<HTMLDivElement>(null)
     const arrayTemp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+
     const handeNext = (type: 'next' | 'prev') => {
         if (type == 'next') {
             if (listRef.current?.scrollLeft) {
@@ -21,19 +23,20 @@ const ListSong = () => {
     return (
         <>
             <div className="titleHome">
-                <h1>List song</h1>
-                <div className="btnListSong" >
+                <h1>List artist</h1>
+                <div className="btnListPlaylist">
                     <div className="back btnClick" onClick={() => handeNext('prev')}><ArrowLeftIcon /></div>
                     <div className="next btnClick" onClick={() => handeNext('next')}><ArrowRightIcon /></div>
                 </div>
             </div>
-            <div className="frameListSong" ref={listRef}>
+            <div className="frameArtistPlaylist" ref={listRef}>
+
                 {arrayTemp.map((item, index) => {
-                    return <ItemListSong key={index} active={index == 0} />
+                    return <ItemListArtist key={index} active={index == 0} />
 
                 })}
             </div></>
     );
 }
 
-export default ListSong;
+export default ListArtist;
