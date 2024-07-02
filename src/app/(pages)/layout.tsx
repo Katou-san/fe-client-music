@@ -5,6 +5,7 @@ import Sidebar from '@/layouts/SideBar/sidebar';
 import "./_pages.scss"
 import React, { ReactNode } from 'react';
 import { useLayout } from '@/contexts/providerLayout';
+import Popup from '@/layouts/Popup/popup';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const { is_Popup } = useLayout()
@@ -18,7 +19,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         {children}
                     </div>
                     <div className="PopupContent">
-                        hello world
+                        <Popup />
                     </div>
 
                 </div>

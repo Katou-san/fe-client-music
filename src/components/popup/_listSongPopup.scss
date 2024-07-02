@@ -1,0 +1,108 @@
+.framelist {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+
+    header {
+        width: 100%;
+        grid-template-columns: 70% 10% 20%;
+        height: 50px;
+        display: grid;
+        align-items: center;
+        justify-items: stretch;
+        color: black;
+
+        .titleHaeaderListPopup {
+            padding-left: 20px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .frameIconListPopup {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+    }
+
+    .listItemPopup {
+        padding: 0 20px;
+        width: 100%;
+        display: flex;
+        flex: 1;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        overflow: auto;
+        height: 500px;
+        padding-bottom: 10px;
+
+        .isActiveItemPopup {
+            background-color: black !important;
+            color: aliceblue !important;
+            transition: .2s;
+        }
+
+        .ItemListPopup {
+            margin-top: 5px;
+            width: 100%;
+            background-color: rgba(208, 208, 208, 0.838);
+            border-radius: 10px;
+            height: 70px;
+            display: grid;
+            padding: 5px 0;
+            grid-template-columns: 10% 20% 40% 30% 0%;
+            align-items: center;
+            color: rgba(18, 17, 17, 0.959);
+            transition: .2s;
+
+            .indexListPopup {
+                text-align: center;
+                font-weight: 18px;
+                font-weight: 600;
+            }
+
+            .frameImagePopup {
+                height: 60px;
+                width: 60px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 15px;
+                }
+            }
+
+            .infomationItemPopup {
+
+                h1 {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+
+            .frameIconItemPopup {
+                display: grid;
+                grid-template-columns: 50% 50%;
+
+                .frameIcon {
+                    height: 35px;
+                    width: 35px;
+                    background-color: rgba(49, 49, 49, 0.433);
+                    border-radius: 50%;
+                    display: grid;
+                    place-items: center;
+                    transition: .2s;
+
+                    &:hover {
+                        background-color: rgba(55, 55, 55, 0.666);
+                    }
+                }
+            }
+        }
+    }
+
+}

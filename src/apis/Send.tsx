@@ -1,6 +1,6 @@
-import header from "@/api/@header";
-import { http } from "@/api/@rootHttp";
-import { EnvConfig } from "@/configs/Env_Config";
+import header from "@/apis/@header";
+import { http } from "@/apis/@rootHttp";
+import { EnvConfig } from "@/configs/envConfig";
 
 
 export const Send = {

@@ -2,10 +2,10 @@
 import React, { ReactNode, useState } from "react";
 // import Login from "../ui/Login";
 // import Register from "../ui/Register";
-// import Blob from "../../../Component/Blob/BlobCP";
 // import "react-toastify/dist/ReactToastify.css";
 import "./_auth.scss"
 import { LoginDynamic, SignupDynamic } from "@/performance/components";
+import Blob from "@/components/auth/Blob/BlobCP";
 function Page({ children }: { children: ReactNode }) {
     const [ChangeForm, setChangeForm] = useState(false);
     const [valueError, setValueError] = useState({});
@@ -20,7 +20,7 @@ function Page({ children }: { children: ReactNode }) {
     };
     return (
         <div className="farme">
-            {/* <Blob /> */}
+            <Blob />
             <div className="formContent ">
                 <LoginDynamic Value={valueSend} />
                 <SignupDynamic Value={valueSend} />

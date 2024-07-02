@@ -8,13 +8,11 @@ const header = (type?: 'file') => {
             responseType: "blob",
         }
     }
-
     if (typeof window !== 'undefined') {
         header = { headers: { 'x-access-token': localStorage.getItem(EnvConfig.LocalToken) ?? "" } }
     } else {
         header = { headers: { 'x-access-token': "" } }
     }
-
     return header
 }
 

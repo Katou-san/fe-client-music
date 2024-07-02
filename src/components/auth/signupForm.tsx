@@ -1,18 +1,20 @@
-import React, { useContext, useState } from "react";
+'use client'
+import useRequest from "@/hooks/request/request";
+import { authModel, authSignupType } from "@/model/authModel";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { Selector } from "@reduxjs/toolkit";
 
 function Register({ Value }: { Value: any }) {
-  // const { dispatch_Login, dispatch_Playlist_user } = useContext(contextLogin);
 
-  // const [state, dispatch] = useAxios();
-  // const { Is_Loading } = state;
-  // const Navigate = useNavigate();
-  // const [FormValue, setFormValue] = useState(User_Init);
-  // const [ValueError, setValueError] = useState({});
 
-  // const Set_Change_Value = (value) => {
-  //   setFormValue({ ...FormValue, ...value });
-  // };
+  const routes = useRouter()
+  const [req_state, req_dispatch] = useRequest();
+  const { Is_Loading } = req_state;
+  const [valueSignup, setValueSignup] = useState<authSignupType>(authModel.initSignup);
+  const [ValueError, setValueError] = useState({});
+
 
   // const SubmitRegister = (e) => {
   //   e.preventDefault();
@@ -75,8 +77,8 @@ function Register({ Value }: { Value: any }) {
           <input
             type="text"
             required
-            value={""}
-          // onChange={(e) => Set_Change_Value({ User_Email: e.target.value })}
+            value={valueSignup.User_Email}
+            onChange={(e) => setValueSignup({ ...valueSignup, User_Email: e.target.value })}
           />
 
           <div className="toastInput">
@@ -88,8 +90,8 @@ function Register({ Value }: { Value: any }) {
           <input
             type="text"
             required
-          // value={FormValue.User_Name}
-          // onChange={(e) => Set_Change_Value({ User_Name: e.target.value })}
+            value={valueSignup.User_Name}
+            onChange={(e) => setValueSignup({ ...valueSignup, User_Name: e.target.value })}
           />
 
           <div className="toastInput">
@@ -100,8 +102,8 @@ function Register({ Value }: { Value: any }) {
           <label htmlFor="SPass">Password</label>
           <input
             type="password"
-            // value={FormValue.User_Pass}
-            // onChange={(e) => Set_Change_Value({ User_Pass: e.target.value })}
+            value={valueSignup.User_Pass}
+            onChange={(e) => setValueSignup({ ...valueSignup, User_Pass: e.target.value })}
             required
           />
 
@@ -115,10 +117,10 @@ function Register({ Value }: { Value: any }) {
           <input
             type="password"
             required
-          // value={FormValue.User_Confirm_Pass}
-          // onChange={(e) =>
-          //   Set_Change_Value({ User_Confirm_Pass: e.target.value })
-          // }
+            value={valueSignup.User_ConfirmPass}
+            onChange={(e) =>
+              setValueSignup({ ...valueSignup, User_ConfirmPass: e.target.value })
+            }
           />
 
           <div className="toastInput">

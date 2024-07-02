@@ -34,7 +34,8 @@
         }
 
         .PopupContent {
-            background-color: cadetblue;
+            width: 100%;
+            background-color: rgba(33, 33, 33, 0.458);
             border-radius: 20px;
             transition: .2s;
             overflow: hidden;
@@ -44,12 +45,13 @@
     #notShow {
         grid-template-columns: 100% 0% !important;
     }
+
 }
 
 ::-webkit-scrollbar {
     // display: none !important;
 
-    width: 8px;
+    width: 4px;
     border-radius: 40px;
     overflow: hidden;
 }
@@ -60,5 +62,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #858585;
+    background-color: #ffffff;
+    border-radius: 40px;
 }

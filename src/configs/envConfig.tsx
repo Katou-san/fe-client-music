@@ -5,9 +5,11 @@ export const EnvConfig = {
     NEXT_PUBLIC_SEND: "http://localhost:8080/api/v1",
 
     NEXT_PUBLIC_SIGNUP: "/user/signup",
-    NEXT_PUBLIC_LOGIN: "/user/login/admin",
+    NEXT_PUBLIC_LOGIN: "/user/login/client",
     NEXT_PUBLIC_AUTH: "/user/Oauth",
     NEXT_PUBLIC_USER: "/user",
+
+    NEXT_PUBLIC_PROPOSE: "/trending",
 
     NEXT_PUBLIC_SONG: "/song",
     NEXT_PUBLIC_SONG_MANAGE: "/songs",
@@ -33,7 +35,7 @@ export const EnvConfig = {
     NEXT_PUBLIC_GET_IMAGE_P: "/send/image_P",
     NEXT_PUBLIC_GET_THUMNAIL_P: "/send/thumbnail",
 
-    LocalToken: "AccessToken"
+    LocalToken: "Access_Token"
 }
 
 export type EnvConfig_type = typeof EnvConfig

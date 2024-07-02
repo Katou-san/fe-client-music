@@ -1,0 +1,41 @@
+.frameIconCus {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    place-items: center;
+    transition: .5s;
+
+    .frameline {
+        transition: .2s;
+        background-color: rgb(213, 213, 213);
+        height: 20px;
+        width: 80%;
+        border-radius: 3px;
+    }
+
+    .line1 {
+        animation: 1s keyframesLine .2s ease-in-out infinite;
+    }
+
+    .line2 {
+        animation: 1s keyframesLine .5s ease-in-out infinite;
+    }
+
+    .line3 {
+        animation: 1s keyframesLine .7s ease-in-out infinite;
+    }
+
+    @keyframes keyframesLine {
+        0% {
+            height: 10px;
+        }
+
+        50% {
+            height: 20px;
+        }
+
+        100% {
+            height: 10px;
+        }
+    }
+}

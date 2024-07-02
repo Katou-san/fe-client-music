@@ -1,0 +1,188 @@
+.framePopup {
+    width: 100%;
+    padding: 5px 10px 0;
+    position: relative;
+    transition: .2s;
+
+    .headerPopup {
+        height: 40px;
+
+        .iconHeader {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background-color: rgba(240, 248, 255, 0);
+            transition: .2s;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.359);
+            }
+        }
+    }
+
+    .musicPlayer {
+        margin-top: 2%;
+        width: 100%;
+
+        img {
+            width: 100%;
+            height: 250px;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        .frameBtnShare {
+            margin-top: 5px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            .btnShare {
+                transition: .2s;
+                padding: 4px 25px;
+                font-size: 13px;
+                background-color: rgba(1, 1, 1, 0.238);
+                border-radius: 20px;
+            }
+
+
+        }
+
+        .contentSong {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            justify-content: space-between;
+
+            .infoSong {
+                h1 {
+                    font-size: 25px;
+                }
+
+                h3 {
+                    font-size: 16px;
+                    color: rgba(231, 231, 231, 0.786);
+                }
+            }
+
+
+
+            .frameIcon {
+                width: 100%;
+                // height: 50px;
+                display: grid;
+                align-items: center;
+                grid-template-columns: 33.3% 33.3% 33.3%;
+                justify-items: end;
+
+                .clickSong {
+                    cursor: pointer;
+                    display: grid;
+                    place-items: center;
+                    background-color: rgba(55, 55, 55, 0);
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 50%;
+                    transition: .2s;
+
+                    &:hover {
+                        background-color: rgba(55, 55, 55, 0.233);
+                    }
+                }
+            }
+        }
+
+        .controlSong {
+            width: 100%;
+
+            .frameLineRange {
+                margin-top: 5%;
+                width: 100%;
+                display: grid;
+                align-items: center;
+                justify-items: center;
+                grid-template-columns: 12% 76% 12%;
+
+                .frameRage {
+                    width: 98%;
+                    display: grid;
+                    place-items: center;
+
+                    input {
+                        height: 2px;
+                        width: 100%;
+                    }
+                }
+            }
+
+            .frameBtnPlayer {
+                display: grid;
+                grid-template-columns: 5% 15% 15% 30% 15% 15% 5%;
+                align-items: center;
+                justify-items: center;
+
+                .btnPlayPause {
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 50%;
+                    background-color: rgb(56, 56, 56);
+                    display: grid;
+                    place-items: center;
+
+                    svg {
+                        transform: translateX(2%);
+                    }
+
+                }
+
+
+            }
+        }
+
+        .footerPlayer {
+            display: grid;
+            grid-template-columns: 30% 50% 20%;
+            align-items: center;
+
+            .frameVolume {
+                display: grid;
+                grid-template-columns: 25% 65%;
+                align-items: center;
+
+                .framerangeVolume {
+                    display: grid;
+                    align-items: center;
+
+                    .rangeVolume {
+                        // overflow: hidden;
+                        height: 4px;
+                        width: 70%;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .frameListSongPopup {
+        transition: .2s;
+        position: absolute;
+        top: calc(2% + 40px);
+        left: 0;
+        height: 800px;
+        width: 100%;
+        border-radius: 20px;
+        background-color: white;
+        overflow: hidden;
+    }
+
+    .hidenframeListSong {
+        transition: .2s;
+        top: 120% !important;
+        height: 0 !important;
+        background-color: rgba(255, 255, 255, 0);
+    }
+}

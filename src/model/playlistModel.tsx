@@ -1,4 +1,4 @@
-const list_Playlist = [
+const list_Playlist_init = [
     {
         Playlist_Id: "",
         Playlist_Name: "",
@@ -14,7 +14,7 @@ const list_Playlist = [
     },
 ];
 
-type list_Playlist_type = typeof list_Playlist
+
 const Create_Playlist = {
     Playlist_Name: "",
     is_Publish: true,
@@ -25,11 +25,13 @@ const Create_Playlist = {
 }
 
 
-export const playlist = {
-    init: list_Playlist[0],
+export const playlistModel = {
+    init: list_Playlist_init[0],
+    init_list: list_Playlist_init,
     init_create: Create_Playlist,
 };
 
 
+export type list_playlistType = typeof list_Playlist_init
 
 

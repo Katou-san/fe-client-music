@@ -7,6 +7,10 @@ import React, { useContext, useEffect, useState } from "react";
 import "./_avatar.scss"
 import Image from "next/image";
 import { UserIcon } from "@/Icons/icon_v1";
+import { useSelector } from "react-redux";
+import { RootState } from "@/hooks/redux/store";
+import { Send } from "@/apis/Send";
+import { URLValidate } from "@/util/validate/url";
 // import { UserIcon } from "../../Logo_Icon/Icon";
 // import { Link } from "react-router-dom";
 // import "./AvaterHeader.css";
@@ -19,18 +23,20 @@ export default function Avartar() {
   // const { state_Login } = useContext(contextLogin);
   // const { is_Login } = state_Login;
   // const { Avatar, User_Name } = state_Login.Data_User;
-  // const [Avatar_url, Set_Avatar_url] = useState(null);
+  const [avatar, set_Avatar] = useState('');
   const [StatusMenu, Set_StatusMenu] = useState(false);
+  const getStateAuth = useSelector((state: RootState) => state.auth)
+  useEffect(() => {
+    if (getStateAuth.is_Login) {
+      if (URLValidate.isUrl(getStateAuth.Avatar)) {
+        Send.Avatar(getStateAuth.Avatar)
+          .then(res => set_Avatar(URL.createObjectURL(res)))
+      } else {
+        set_Avatar(getStateAuth.Avatar)
+      }
 
-  // useEffect(() => {
-  //   if (is_Login) {
-  //     Get_User_Avatar(Avatar)
-  //       .then((res) => {
-  //         Set_Avatar_url(URL.createObjectURL(res));
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [state_Login]);
+    }
+  }, [getStateAuth]);
 
   const TogoMenu = () => {
     return Set_StatusMenu((prev) => !prev);
@@ -38,18 +44,18 @@ export default function Avartar() {
   return (
     <div className="FrameBtnLogin cursor_pointer">
       <Link href={'/auths'} >
-        <div className="LoginButton" id={is_Login ? "Hidden" : ""}>
+        <div className="LoginButton" id={getStateAuth.is_Login ? "Hidden" : ""}>
           <i><UserIcon /></i>
-          <span>Login</span>
+          <span>{getStateAuth.User_Name}</span>
         </div>
       </Link>
       <div
         className="btnAvartar cursor_pointer"
-        id={!is_Login ? "Hidden" : ""}
+        id={!getStateAuth.is_Login ? "Hidden" : ""}
         onClick={TogoMenu}
       >
-        <Image src={""} alt="" width={1000} height={1000} />
-        <span className="overflow__Text">{'User_Name'}</span>
+        <Image src={avatar ?? ''} alt="" width={1000} height={1000} />
+        <span className="overflow__Text">{getStateAuth.User_Name}</span>
       </div>
       {/* <Menu showMenu={StatusMenu} event={TogoMenu} /> */}
     </div>

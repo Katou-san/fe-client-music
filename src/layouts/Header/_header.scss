@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     justify-content: space-between;
-    grid-template-columns: 50% 25%;
+    grid-template-columns: 60% 10% 10% 20%;
     background-color: transparent;
     border-radius: 20px;
     transition: .2s;
@@ -92,4 +92,22 @@
     content: '';
     transform-origin: left;
     transform: scaleX(1);
+}
+
+.frameBell {
+    .bellIcon {
+        width: 45px;
+        height: 45px;
+        padding: 5px;
+        background-color: #5e5e5e3f;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: .2s;
+
+        &:hover {
+            background-color: #1e1e1e5e;
+        }
+    }
+
 }

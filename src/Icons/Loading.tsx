@@ -1,5 +1,5 @@
 import React from "react";
-import ".scss/Loading.scss";
+import "./scss/Loading.scss";
 function LoadingSVG1({ w, color }: { w: number, color: string }) {
   return (
     <svg
@@ -69,7 +69,7 @@ function LoadingSVGChanging({ w, color }: { w: number, color: string }) {
   );
 }
 
-function LoadingSVGWatting({ w, color, strokeWidth }: { w: number, color: string, strokeWidth: number }) {
+function LoadingSVGWatting({ w, color, strokeWidth }: { w?: number, color?: string, strokeWidth?: number }) {
   return (
     <svg
       version="1.1"

@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./_header.scss";
 import SearchBar from "@/components/header/search/search";
 import Avartar from "@/components/header/avatar/avartar";
-// import SearchBar from "../../Layout/SearchBar/SearchBar";
-// import AvartarHeader from "../../Layout/AvatarHeader/AvartarHeader";
+import { Bell_Icon } from "@/Icons/icon_Figma";
 function Header() {
+  const [Bell, set_Bell] = useState(false)
+
   return (
     <header className="headerR ">
       <div className="frameSearch">
         <SearchBar />
       </div>
-      <div className="frameAvatar">
+      <span></span>
+      <div className="frameBell ">
+        <div className="bellIcon cursor_pointer" onClick={() => set_Bell(prev => !prev)}>
+          <Bell_Icon active={Bell} w={25} />
+        </div>
+
+      </div>
+      <div className="frameAvatar cursor_pointer">
         <Avartar />
       </div>
 

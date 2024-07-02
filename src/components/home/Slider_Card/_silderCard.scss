@@ -78,12 +78,27 @@
                 width: 100% !important;
             }
 
+            .layoutBtnPlay {
+                min-width: 60px;
+            }
+
             z-index: 2;
+
+        }
+
+        .isPopup {
+            transition: .2s;
+
+            .contentItemSilder {
+                width: 60% !important;
+            }
+
         }
 
         .itemNotActive {
             flex: 1;
             width: 5%;
+            min-width: 80px;
 
             img {
                 height: 100% !important;
@@ -92,13 +107,12 @@
             }
 
             .contentItemSilder {
-                width: 90%;
+                width: 90% !important;
                 left: 5%;
-                grid-template-columns: 30% 40%;
+                grid-template-columns: 100% 0%;
                 align-items: center;
 
                 .layoutBtnPlay {
-
                     margin-left: 10px;
                     display: grid;
                     // place-items: center;
@@ -122,6 +136,8 @@
                 }
             }
         }
+
+
     }
 
     .btnClick {
@@ -144,4 +160,6 @@
             z-index: 10;
         }
     }
+
+
 }
