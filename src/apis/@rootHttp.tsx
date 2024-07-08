@@ -14,6 +14,7 @@ class HttpError extends Error {
 const Validate = (url: string, body?: any) => {
     if (url.length <= 0 || url.includes("undefined")) {
         toast.error("Error: url is empty or undefined")
+        console.error({ Error: `${url}` })
         return false
     }
     return true
@@ -27,6 +28,7 @@ export const http = {
                 return new Error("Error: url is not valid")
             }
             if (request.data.status !== 200) {
+
                 toast.error(request.data.message)
             }
             return request.data
@@ -60,7 +62,7 @@ export const http = {
             return request.data
         }
     },
-    delete: async (url: string, option: any) => {
+    delete: async (url: string, option?: any) => {
         if (Validate(url)) {
             const request = await axios.delete(url, option)
             if (request.status !== 200) {

@@ -1,4 +1,3 @@
-import header from "@/apis/@header";
 import { http } from "@/apis/@rootHttp";
 import { EnvConfig } from "@/configs/envConfig";
 

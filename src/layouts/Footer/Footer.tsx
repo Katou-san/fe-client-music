@@ -36,7 +36,7 @@ function Footer() {
     currentIndex,
     setShuffle,
     shuffle,
-    setTest
+    Set_RefInputRange,
   } = useAudio();
 
   useEffect(() => {
@@ -64,8 +64,8 @@ function Footer() {
   }, [volume]);
 
   useEffect(() => {
-    setTest(progressbarRef)
-  }, [progressbarRef])
+    Set_RefInputRange(progressbarRef);
+  }, [progressbarRef]);
   return (
     <footer>
       <div className="frameFooter">
@@ -96,7 +96,7 @@ function Footer() {
                 <div
                   className="btnPlayPause cursor_pointer"
                   onClick={() => {
-                    setPlay(progressbarRef);
+                    setPlay();
                   }}
                 >
                   {is_Playing ? <Pause_Icon w={30} /> : <Play_Icon w={50} />}

@@ -31,7 +31,7 @@ export const playlistModel = {
     init_create: Create_Playlist,
 };
 
-
+export type playlistType = typeof list_Playlist_init[0]
 export type list_playlistType = typeof list_Playlist_init
 
 

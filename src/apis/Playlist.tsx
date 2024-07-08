@@ -13,9 +13,9 @@ export const Playlist = {
             `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}/2`,
             header()
         ),
-    Get_Playlist: async (type: string) =>
+    Get_Playlist: async () =>
         await http.get(
-            `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST_MANAGE}/${type}/1`,
+            `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}/1`,
             header()
         ),
     Create: async (body: any): Promise<any> =>

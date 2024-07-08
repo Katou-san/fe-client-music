@@ -1,10 +1,8 @@
 import React from 'react';
 import './_listSongPopup.scss'
-import { Close_Icon, Favorite_Icon } from '@/Icons/icon_Figma';
-import Image from 'next/image';
+import { Close_Icon } from '@/Icons/icon_Figma';
 import { useLayout } from '@/contexts/providerLayout';
-import { AddIcon } from '@/Icons/icon_v1';
-import ItemListPopup from '@/components/popup/itemList';
+import ItemListPopup from '@/components/popup/currentList/itemList';
 import { useAudio } from '@/contexts/providerAudio';
 import { songType } from '@/model/songModel';
 const ListSongPopup = () => {
