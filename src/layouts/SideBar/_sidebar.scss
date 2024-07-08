@@ -89,6 +89,12 @@ a {
             border-radius: 15px;
             font-size: 18px;
             font-weight: 500;
+            cursor: pointer;
+            transition: .2s;
+
+            &:hover {
+                background-color: #27a2cb;
+            }
         }
     }
 }

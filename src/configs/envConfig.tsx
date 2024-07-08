@@ -17,6 +17,7 @@ export const EnvConfig = {
   NEXT_PUBLIC_ROLE: "/role",
 
   NEXT_PUBLIC_LIKE: "/like",
+  NEXT_PUBLIC_LIKES: "/likes",
 
   NEXT_PUBLIC_COMMENT: "/comment",
   NEXT_PUBLIC_REPLY: "/reply",

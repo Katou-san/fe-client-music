@@ -72,8 +72,12 @@ function Footer() {
         <div className="contentStart cursor_pointer" onClick={setShowPopup}>
           <Image alt="" src={url} width={1000} height={1000} />
           <div className="contentFooter">
-            <h1 className="overflow__Text">Name</h1>
-            <h3 className="overflow__Text">by artist</h3>
+            <h1 className="overflow__Text">
+              {currentList[currentIndex]?.Song_Name}
+            </h1>
+            <h3 className="overflow__Text">
+              by {currentList[currentIndex]?.Artist}
+            </h3>
           </div>
         </div>
         <div className="frameCenter">

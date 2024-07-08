@@ -14,15 +14,18 @@
     }
 
     .line1 {
-        animation: 1s keyframesLine .2s ease-in-out infinite;
+        max-width: 6.8px;
+        animation: 1s keyframesLine .2s infinite;
     }
 
     .line2 {
-        animation: 1s keyframesLine .5s ease-in-out infinite;
+        max-width: 6.8px;
+        animation: 1s keyframesLine .5s infinite;
     }
 
     .line3 {
-        animation: 1s keyframesLine .7s ease-in-out infinite;
+        max-width: 6.8px;
+        animation: 1s keyframesLine .7s infinite;
     }
 
     @keyframes keyframesLine {
