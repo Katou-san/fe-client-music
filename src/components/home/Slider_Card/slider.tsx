@@ -10,8 +10,6 @@ type Props = {
     arraySilder: list_songType
 }
 const SliderCard = ({ arraySilder }: Props) => {
-    const url = "https://www.siliconera.com/wp-content/uploads/2024/05/star-rail-hope-is-a-thing-with-feathers-guide.jpg"
-
     const [current, set_current] = useState(0)
     const HandleCount = (type: "plus" | "redu") => {
         if (type == 'plus') {
@@ -36,7 +34,7 @@ const SliderCard = ({ arraySilder }: Props) => {
 
             <div className="slider">
                 {arraySilder.map((item, index) => {
-                    return <ItemSilder key={index} active={current == index} func={() => set_current(index)} test={url} itemSilder={item} list={arraySilder} index={index} />
+                    return <ItemSilder key={index} active={current == index} func={() => set_current(index)} itemSilder={item} list={arraySilder} index={index} />
 
                 })}
             </div>

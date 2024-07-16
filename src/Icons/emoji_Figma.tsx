@@ -10,6 +10,8 @@ export function Happy_Icon({ w = 23, color = "#fff" }: { w?: number; color?: str
     )
 }
 
+
+
 export function Wow_Icon({ w = 23, color = "#fff" }: { w?: number; color?: string }) {
     return (
         <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

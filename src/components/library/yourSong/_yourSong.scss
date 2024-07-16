@@ -1,0 +1,142 @@
+.yourSong {
+    .headerYourSong {
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    .itemYourSong {
+        padding: 5px;
+        margin-top: 20px;
+        height: 180px;
+        width: 350px;
+        border-radius: 20px;
+        cursor: pointer;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        display: grid;
+        grid-template-rows: 70% 30%;
+
+        .topItemYourSong {
+            display: grid;
+            grid-template-columns: 55% 45%;
+            justify-items: center;
+
+            .frameStorage {
+                width: 100%;
+                padding-left: 10px;
+
+                h3 {
+                    text-align: start;
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                .contentStorage {
+                    margin-top: 10px;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 45% 55%;
+                    // align-items: center;
+
+
+                    .storageDetail {
+                        margin-top: 20%;
+                        height: 60px;
+                    }
+
+                    h3 {
+                        text-align: start;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+
+                    .frameIcon {
+                        display: grid;
+                        align-items: center;
+                        justify-items: center;
+                        justify-content: center;
+                        width: 100%;
+
+
+                        svg {
+
+                            transition: .2s;
+                            width: 100%;
+                            fill: none;
+                            stroke: #e5e5e5;
+                            stroke-width: 14;
+                            stroke-linecap: round;
+                            stroke-dasharray: 500;
+                            stroke-dashoffset: -18;
+                            transition: .5s;
+
+                            circle {
+                                transform: translate(0, 10%);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .frameSubscription {
+                h3 {
+                    font-size: 20px;
+                    font-weight: 600;
+
+                }
+            }
+        }
+
+        .bottomItemYourSong {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            place-items: center;
+
+            .frameinfo {
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .btnView {
+                display: flex;
+                align-items: center;
+                font-size: 25px;
+                font-weight: 600;
+                transition: .2s;
+
+                h3 {
+                    transition: .2s;
+                }
+
+                svg {
+                    transition: .2s;
+                }
+
+                &:hover {
+                    h3 {
+                        transform: translateX(-5px);
+                    }
+
+                    svg {
+                        transform: translateX(5px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

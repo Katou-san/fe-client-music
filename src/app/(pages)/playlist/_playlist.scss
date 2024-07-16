@@ -228,7 +228,8 @@
         .listSongPlaylistDetail {
             margin-top: 20px;
             width: 100%;
-            padding: 4px 20px 4px 60px;
+            padding: 4px 20px 4px 80px;
+
 
             .titleHeaderPlaylist {
                 margin: 20px 0;
@@ -259,7 +260,7 @@
                 margin-top: 20px;
                 width: 100%;
                 position: relative;
-                z-index: 3;
+                // z-index: 0;
                 display: grid;
                 align-items: center;
                 grid-template-columns: 5% 40% 35% 20%;
@@ -278,6 +279,7 @@
                 }
 
                 .infoItemPlaylistDetail {
+                    position: relative;
                     display: flex;
                     gap: 5%;
 
@@ -376,6 +378,7 @@
 
             .itemPlaylistDetailActive {
                 background-color: rgba(97, 97, 97, 0.436) !important;
+                // z-index: 100;
             }
         }
 

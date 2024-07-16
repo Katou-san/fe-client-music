@@ -1,0 +1,128 @@
+.CenterSidebar {
+    position: relative;
+
+    .frameModalPlaylist {
+        position: absolute;
+        top: calc(50%);
+        left: calc(50% - 5px);
+        height: 2px;
+        width: 2px;
+        background-color: rgb(244, 248, 252);
+        border-radius: 50%;
+        overflow: hidden;
+        z-index: -1;
+        padding: 20px;
+        transition: .2s;
+        border-radius: 50% !important;
+
+        header {
+            display: flex;
+            justify-content: space-between;
+
+            h3 {
+                font-size: 20px;
+                font-weight: 600;
+                color: rgb(27, 27, 27);
+            }
+
+            .frameIcon {
+                cursor: pointer;
+            }
+        }
+
+        .contentFrame {
+
+            margin: 10px 0;
+
+            input {
+                height: 50px;
+                width: 100%;
+                padding: 0 5px;
+                border-radius: 15px;
+                outline: none;
+                border: none;
+                background-color: rgb(207, 207, 207);
+                color: rgb(94, 94, 94);
+                margin-bottom: 7px;
+            }
+
+            .inputCheck {
+                margin-top: 10px;
+                height: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: 2%;
+                color: #000;
+
+
+                #inputModalPlaylist {
+                    width: 20px;
+                    height: 20px;
+                    background-color: 50%;
+                    vertical-align: middle;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    transition: .2s ease-in-out;
+
+                    &:checked {
+                        background-color: #33e8f5;
+                    }
+                }
+            }
+        }
+
+        .footerModalPlaylist {
+
+            width: 100%;
+            display: flex;
+            justify-content: end;
+            gap: 2%;
+
+            .btnModal {
+                // margin-top: 10px;
+                height: 40px;
+                width: 80px;
+                padding: 0 16px;
+                display: grid;
+                border-radius: 15px;
+                place-items: center;
+                cursor: pointer;
+                background-color: #006fee;
+                transition: .2s;
+            }
+
+            .btnAction {
+                background-color: #006fee !important;
+                color: aliceblue;
+
+                &:hover {
+                    background-color: #0063d5 !important;
+                }
+            }
+
+            .btnClose {
+                background-color: transparent !important;
+                color: #f31260;
+
+                &:hover {
+                    background-color: #f3126137 !important;
+                }
+            }
+        }
+
+    }
+
+    .ActiveframeModalPlaylist {
+        position: absolute;
+        top: -20%;
+        left: 110% !important;
+        height: 300% !important;
+        width: 300px !important;
+        border-radius: 20px !important;
+        transition: .2s;
+        // z-index: 100 !important;
+
+    }
+}

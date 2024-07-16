@@ -41,12 +41,12 @@ function Footer() {
 
   useEffect(() => {
     if (currentList.length > 0) {
-      if (URLValidate.isUrl(currentList[currentIndex].Song_Image)) {
-        Send.Image_S(currentList[currentIndex].Song_Image).then((res) =>
+      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image)) {
+        Send.Image_S(currentList[currentIndex]?.Song_Image).then((res) =>
           set_url(URL.createObjectURL(res))
         );
       } else {
-        set_url(currentList[currentIndex].Song_Image);
+        set_url(currentList[currentIndex]?.Song_Image);
       }
     }
   }, [currentList, currentIndex]);

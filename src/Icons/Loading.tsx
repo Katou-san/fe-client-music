@@ -1,6 +1,6 @@
 import React from "react";
 import "./scss/Loading.scss";
-function LoadingSVG1({ w, color }: { w: number, color: string }) {
+function LoadingSVG1({ w, color }: { w?: number, color?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ function LoadingSVG1({ w, color }: { w: number, color: string }) {
   );
 }
 
-function LoadingSVG({ w, color }: { w: number, color: string }) {
+function LoadingSVG({ w, color }: { w?: number, color?: string }) {
   return (
     <div className="loader triangle">
       <svg

@@ -1,0 +1,346 @@
+.none {
+    display: none;
+}
+
+
+.FrameAddSong {
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+}
+
+.FrameAddSong .FormAddSong {
+    position: relative;
+    padding: 10px;
+    min-width: 600px;
+    min-height: 500px;
+    height: 95%;
+    width: 80%;
+    background-color: #fafcff;
+    border-radius: 10px;
+    transition: .2s;
+
+}
+
+.none {
+    display: none !important;
+}
+
+.FrameAddSong .FormAddSong .CloseButton {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -2%;
+    right: -2%;
+    z-index: 100;
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+
+.FrameAddSong .FormAddSong .HeaderFormAddSong {
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    height: 60px;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.FormAddSong .HeaderFormAddSong .StepForm {
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+
+.HeaderFormAddSong .StepForm .IconFormAddSong {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(102, 104, 104, 0.305);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.HeaderFormAddSong .StepForm:nth-child(1) .IconFormAddSong span,
+.HeaderFormAddSong .StepForm:nth-child(2) .IconFormAddSong span {
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 150%;
+    width: 300%;
+    height: 4px;
+    background-color: black;
+    border-radius: 10px;
+}
+
+
+.FrameAddSong .FormAddSong .FormStep {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    transform: translateX(5%);
+    margin-top: 50px;
+    width: 90%;
+}
+
+
+.ContentAddSong .LeftContentAddSong {
+    display: grid;
+    // align-items: center;
+    height: 100%;
+    width: 100%;
+    // justify-items: center;
+}
+
+.ContentAddSong .LeftContentAddSong .ImgShow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    background-color: rgba(125, 125, 125, 0.426);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ContentAddSong .LeftContentAddSong .ImgShow img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.LeftContentAddSong label {
+    text-align: center;
+    margin-top: 10px;
+    padding: 6px 30px;
+    // font-weight: 600;
+    color: #fff;
+    background-color: #37cdffaa;
+    border-radius: 15px;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.RightContentAddSong label:hover,
+.LeftContentAddSong label:hover {
+    background-color: #1cb4e7;
+}
+
+.RightContentAddSong {
+    width: 100%;
+    margin-left: 30px;
+}
+
+
+
+.BoxInputAddSong {
+    width: 100%;
+
+    h4 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    input {
+        height: 50px;
+        width: 100%;
+        padding: 0 5px;
+        border-radius: 15px;
+        outline: none;
+        border: none;
+        background-color: rgb(207, 207, 207);
+        color: rgb(94, 94, 94);
+        margin-bottom: 7px;
+    }
+}
+
+.RightContentAddSong .BoxInputAddSong .AudioShow {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    height: 40px;
+    border-radius: 5px;
+    margin: 10px 0 20px;
+}
+
+.RightContentAddSong .BoxInputAddSong .AudioShow audio {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+
+.RightContentAddSong label {
+
+    text-align: center;
+    width: 100% !important;
+
+    margin-top: 20px;
+    padding: 10px 30%;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #37cdffaa;
+    border-radius: 15px;
+    transition: .2s;
+
+}
+
+
+
+.FooterFormAddSong {
+    position: absolute;
+    padding: 0 20px;
+    bottom: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    justify-items: center;
+
+}
+
+.FooterFormAddSong .btnAddSongForm {
+    display: grid;
+    place-items: center;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    background-color: #0f5e97b7;
+    cursor: pointer;
+    color: #fff;
+    transition: .5s;
+}
+
+.FooterFormAddSong .btnAddSongForm:hover {
+    background-color: #1cb4e7;
+}
+
+
+.RightContentAddSong .SelecttionAddSong {
+    margin-top: 25px;
+    display: grid;
+    height: 40px;
+    width: 100%;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+
+}
+
+.RightContentAddSong .SelecttionAddSong select {
+    height: 100%;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#typeColor {
+    margin-top: 10px;
+}
+
+.RightContentAddSong .SelecttionAddSong input {
+    width: 100%;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    height: 40px;
+    width: 100%;
+    padding: 0;
+}
+
+.RightContentAddSong .SelecttionAddSong input::-webkit-color-swatch {
+    border-radius: 10px;
+
+}
+
+.LeftContentAddSong .LyricsAddSong {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.LyricsAddSong h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.LyricsAddSong textarea {
+    min-height: 166px;
+    border-radius: 8px;
+    min-width: 265px;
+    max-width: 265px;
+    width: 265px;
+    max-height: 166px;
+    padding: 5px;
+    outline: none;
+    background-color: #1cb4e7;
+    background-color: rgb(207, 207, 207);
+    color: rgb(68, 68, 68);
+}
+
+.RightContentAddSong .MoreTag {
+    margin-top: 10px;
+}
+
+.RightContentAddSong .MoreTag textarea {
+    width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    padding: 5px;
+    outline: none;
+    background-color: #1cb4e7;
+    background-color: rgb(207, 207, 207);
+    color: rgb(68, 68, 68);
+
+}
+
+.RightContentAddSong .MoreTag h4 {
+    margin-bottom: 5px;
+}
+
+#FormStep3 {
+    grid-template-columns: 100%;
+}
+
+.CenterContentAddSong {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+
+.FooterFormAddSong .btn_Add_Submit {
+    transition: .5s;
+    height: 40px;
+    position: relative;
+    font-size: 16px;
+    padding: 10px 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    max-width: 90%;
+}

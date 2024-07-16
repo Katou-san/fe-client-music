@@ -5,6 +5,7 @@ import { PauseIcon, PlayIcon } from "@/Icons/icon_v1";
 import { list_songType, songType } from "@/model/songModel";
 import { URLValidate } from "@/util/validate/url";
 import Image from "next/image";
+import imgTemp from "../../../../public/temp.jpg"
 import React, { useEffect, useState } from "react";
 type Prop = {
   list: list_songType;
@@ -32,7 +33,7 @@ const ItemListSong = ({ active, itemSong, list, index }: Prop) => {
     } else {
       set_url(itemSong.Song_Image);
     }
-  }, [itemSong]);
+  }, [itemSong.Song_Image]);
 
   const handleClick = () => {
     if (currentList[currentIndex]?.Song_Id != itemSong?.Song_Id) {
@@ -47,13 +48,12 @@ const ItemListSong = ({ active, itemSong, list, index }: Prop) => {
 
   return (
     <div
-      className={`itemListSong ${
-        currentList[currentIndex]?.Song_Id == itemSong.Song_Id
-          ? "itemListSongActive"
-          : ""
-      } `}
+      className={`itemListSong ${currentList[currentIndex]?.Song_Id == itemSong.Song_Id
+        ? "itemListSongActive"
+        : ""
+        } `}
     >
-      <Image alt="" src={url} width={10000} height={10000} />
+      <Image alt="" src={url || imgTemp} width={10} height={10} loading='lazy' />
       <div className="frameBtnContent">
         <div className="contentBtn">
           <h1 className="overflow__Text">{itemSong.Song_Name}</h1>
@@ -61,7 +61,7 @@ const ItemListSong = ({ active, itemSong, list, index }: Prop) => {
         </div>
         <div className="frameIcon" onClick={handleClick}>
           {is_Playing &&
-          currentList[currentIndex]?.Song_Id == itemSong.Song_Id ? (
+            currentList[currentIndex]?.Song_Id == itemSong.Song_Id ? (
             <PauseIcon color="#383838" w={27} />
           ) : (
             <PlayIcon color="#383838" />

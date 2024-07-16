@@ -54,19 +54,19 @@ const defaultContext = {
   volume: 50,
   currentList: [],
   info_Playlist: null,
-  Set_InfoPlaylist: (playlist: playlistType | null) => {},
-  Set_RefInputRange: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  Set_RefInputRange2: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  setIndex: (index: number) => {},
-  changeRange: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  changeRange2: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  setPlay: () => {},
-  setList: (args: any[]) => {},
-  setShuffle: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  setRepeat: () => {},
-  next: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  prev: (progressbarRef: RefObject<HTMLInputElement>) => {},
-  setVolume: (value: number) => {},
+  Set_InfoPlaylist: (playlist: playlistType | null) => { },
+  Set_RefInputRange: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  Set_RefInputRange2: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  setIndex: (index: number) => { },
+  changeRange: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  changeRange2: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  setPlay: () => { },
+  setList: (args: any[]) => { },
+  setShuffle: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  setRepeat: () => { },
+  next: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  prev: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  setVolume: (value: number) => { },
 };
 
 const contextAudio = createContext<contextType>(defaultContext);
@@ -286,8 +286,8 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (currentList.length > 0) {
-      if (!URLValidate.isUrl(currentList[currentIndex].Song_Audio)) {
-        Send.Audio(currentList[currentIndex].Song_Audio).then((res) =>
+      if (!URLValidate.isUrl(currentList[currentIndex]?.Song_Audio)) {
+        Send.Audio(currentList[currentIndex]?.Song_Audio).then((res) =>
           set_src(URL.createObjectURL(res))
         );
       } else {

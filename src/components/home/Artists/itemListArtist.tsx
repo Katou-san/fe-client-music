@@ -1,6 +1,7 @@
 import { PauseIcon, PlayIcon } from '@/Icons/icon_v1';
 import Image from 'next/image';
 import React from 'react';
+import imgTemp from "../../../../public/temp.jpg"
 import './_listArtist.scss'
 type Prop = {
     active: boolean
@@ -11,7 +12,7 @@ const ItemListArtist = ({ active }: Prop) => {
     return (
         <div className={`itemListArtist ${active ? 'itemArtistActive' : 'itemArtistNotActive'}`} >
             <div className="frameImage">
-                <Image alt='' src={url} width={10000} height={10000} />
+                <Image alt='' src={url || imgTemp} width={200} height={200} loading='lazy' />
                 <div className="btnview">
                     view
                 </div>

@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 import { toast } from "react-toastify";
 import ItemPlaylist from "@/components/playlist/itemPlaylist";
+import imgTemp from "../../../../public/temp.jpg"
 const Page = () => {
   const {
     setList,
@@ -46,15 +47,17 @@ const Page = () => {
       Promise.all([
         Playlist.Get_Id(1, PlaylistId).then((res) => set_info(res.data)),
         Track.Get_Track(PlaylistId).then((res) => set_List(res.data)),
-        Like.Get_Current(PlaylistId, 1).then((res) => set_StateLike(res.data)),
         Like.Get_Playlist(PlaylistId).then((res) => {
-          if (res.status === 200) {
-            setListLike(res.data);
-          }
+          setListLike(res.data);
         }),
+        Like.Get_Current(PlaylistId, 1).then((res) => {
+          if (res.status == 200) {
+            set_StateLike(res.data)
+          }
+        })
       ]);
     }
-  }, [PlaylistId]);
+  }, [PlaylistId, userProvider]);
 
   useEffect(() => {
     if (info_Playlist != undefined && info_Playlist != null) {
@@ -65,7 +68,6 @@ const Page = () => {
       } else {
         set_ImgUrl(info_Playlist.Image);
       }
-
       if (URLValidate.isUrl(info_Playlist.Thumbnail)) {
         Send.Thumnail_P(info_Playlist.Thumbnail).then((res) =>
           set_ThumbUrl(URL.createObjectURL(res))
@@ -76,33 +78,42 @@ const Page = () => {
     }
   }, [info_Playlist, PlaylistId]);
 
+
+
   const HandleLike = () => {
     if (userProvider.Access_Token != "" && userProvider.is_Login == true) {
-      let currentState = stateLike.State;
-      if (currentState >= 1) {
-        currentState = 0;
-        Like.Togo_Create_Update({ ...stateLike, State: currentState }).then(
-          (res) => {}
-        );
-        set_StateLike({ ...stateLike, State: currentState });
-        setListLike(
-          listLike.filter((item) => item.User_Id != userProvider.User_Id)
-        );
-      } else {
-        currentState = currentState + 1;
-        Like.Togo_Create_Update({ ...stateLike, State: currentState }).then(
-          (res) => {}
-        );
-        set_StateLike({ ...stateLike, State: currentState });
-        setListLike([
-          ...listLike,
-          { ...stateLike, User_Id: userProvider.User_Id },
-        ]);
+      if (info_Playlist?.Playlist_Id != null && info_Playlist.Playlist_Id != '') {
+        if (stateLike.State == 1) {
+          Like.Togo_Create_Update({ ...stateLike, Topic_Id: info_Playlist.Playlist_Id, State: 0, Type: 1 })
+            .then(res => {
+              Get_Like()
+            })
+        } else {
+          Like.Togo_Create_Update({ ...stateLike, Topic_Id: info_Playlist.Playlist_Id, State: 1, Type: 1 })
+            .then(res => {
+              Get_Like()
+            })
+        }
       }
+
     } else {
       toast.error("You need login");
     }
   };
+
+  const Get_Like = () => {
+    if (info_Playlist?.Playlist_Id != null && info_Playlist?.Playlist_Id != '') {
+      Like.Get_Playlist(info_Playlist.Playlist_Id).then((res) => {
+        setListLike(res.data);
+      })
+      Like.Get_Current(info_Playlist.Playlist_Id, 1).then((res) => {
+        if (res.status == 200) {
+          set_StateLike(res.data)
+        }
+      })
+    }
+
+  }
 
   const Handle_Play = () => {
     if (list.length > 0 && info_Playlist != null) {
@@ -124,13 +135,13 @@ const Page = () => {
           <header>
             <div className="frameBackground">
               <div className="frameImage">
-                <Image alt="" src={thumbUrl} width={1000} height={1000} />
+                <Image alt="" src={thumbUrl || imgTemp} width={1000} height={1000} />
               </div>
             </div>
             <div className="frameBanner">
               <div className="contentHeader">
                 <div className="frameImange">
-                  <Image alt="" src={imageUrl} width={1000} height={1000} />
+                  <Image alt="" src={imageUrl || imgTemp} width={1000} height={1000} />
                 </div>
                 <div className="frameTitleHeader">
                   <div className="typePlaylist">Playlist</div>
@@ -141,7 +152,7 @@ const Page = () => {
                   <div className="footerTitle">
                     <div className="nameWeb">{info_Playlist?.User_Id}</div>
                     <span></span>
-                    <h3>{list.length} songs</h3>
+                    <h3>{list?.length} songs</h3>
                   </div>
                 </div>
               </div>
@@ -153,13 +164,12 @@ const Page = () => {
                 {is_Playing ? <Pause_Icon w={40} /> : <Play_Icon w={50} />}
               </div>
               <div
-                className={`starIconPlaylist ${
-                  stateLike.State == 1 && "starAcive"
-                }`}
+                className={`starIconPlaylist ${stateLike.State == 1 && "starAcive"
+                  }`}
                 onClick={HandleLike}
               >
                 <Star_Icon w={40} />
-                <h3>{listLike.length}</h3>
+                <h3>{listLike?.length}</h3>
               </div>
             </div>
 

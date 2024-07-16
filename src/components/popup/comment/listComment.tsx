@@ -37,6 +37,7 @@ const ListComment = ({ Song_Id }: Props) => {
 
 
 
+
     return (
         <div className="frameComment">
             <header>
@@ -52,7 +53,7 @@ const ListComment = ({ Song_Id }: Props) => {
             <div className="ListCommentPopup">
                 {listComment.length > 0 &&
                     listComment.map((comment: commentType, index: number) => {
-                        return <ItemCommentPopup comment={comment} key={index} />;
+                        return <ItemCommentPopup comment={comment} key={index} onReload={() => set_Reload(pre => !pre)} />;
                     })}
 
                 {listComment.length == 0 && (

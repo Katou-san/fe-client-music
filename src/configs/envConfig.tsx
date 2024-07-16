@@ -22,6 +22,8 @@ export const EnvConfig = {
   NEXT_PUBLIC_COMMENT: "/comment",
   NEXT_PUBLIC_REPLY: "/reply",
 
+  NEXT_PUBLIC_STORAGE: "/storage",
+
   NEXT_PUBLIC_CATEGORY: "/category",
 
   NEXT_PUBLIC_PLAYLIST: "/playlist",

@@ -28,8 +28,6 @@ export const http = {
                 return new Error("Error: url is not valid")
             }
             if (request.data.status !== 200) {
-
-                toast.error(request.data.message)
             }
             return request.data
         } else {

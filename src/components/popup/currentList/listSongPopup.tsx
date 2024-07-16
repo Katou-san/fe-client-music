@@ -6,7 +6,7 @@ import ItemListPopup from '@/components/popup/currentList/itemList';
 import { useAudio } from '@/contexts/providerAudio';
 import { songType } from '@/model/songModel';
 const ListSongPopup = () => {
-    const { setShowListPopup } = useLayout()
+    const { setShowListPopup, is_listPopup } = useLayout()
     const { currentIndex, currentList } = useAudio()
 
     return (
@@ -23,7 +23,7 @@ const ListSongPopup = () => {
             <div className="listItemPopup">
                 {currentList.map((item: songType, index) => {
                     return (
-                        <ItemListPopup key={index} active={currentIndex == index} index={index} item={item} />
+                        <ItemListPopup key={index} active={is_listPopup} index={index} item={item} />
                     )
                 })}
             </div>

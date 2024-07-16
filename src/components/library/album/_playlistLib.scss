@@ -1,0 +1,240 @@
+.headerLineLibrary {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+
+    .btnList {
+        display: flex;
+        gap: 5%;
+        align-items: center;
+
+        .frameIcon {
+            background-color: rgba(75, 75, 75, 0.622);
+            height: 40px;
+            width: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            transition: .2s;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(52, 52, 52, 0.803);
+            }
+        }
+    }
+}
+
+
+.contentList {
+    width: 100%;
+    display: flex;
+    gap: 2%;
+    padding: 40px 0;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    overflow-y: hidden !important;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+    }
+
+    .itemLineLibrary {
+        position: relative;
+        min-width: 350px !important;
+        width: 350px;
+        height: 150px;
+        display: grid;
+        grid-template-columns: 30% 60% 10%;
+        cursor: pointer;
+        gap: 1%;
+        padding: 10px;
+        transition: .2s;
+        scroll-snap-align: start;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backdrop-filter: blur(5px);
+            background-color: rgba(3, 3, 3, 0.447);
+            z-index: 1;
+            border-radius: 15px !important;
+        }
+
+        .dropDownItemLine {
+            position: absolute;
+            height: 10px;
+            top: 10%;
+            left: 90%;
+            width: 10px;
+            z-index: -1;
+            background-color: rgba(86, 86, 86, 0.726);
+            border-radius: 15px;
+            transition: .2s;
+            overflow: hidden;
+
+
+            ul {
+                padding: 5px;
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    backdrop-filter: blur(5px);
+                    background-color: rgba(3, 3, 3, 0.447);
+                    z-index: -1;
+                    border-radius: 15px !important;
+                }
+
+
+                li {
+                    margin-bottom: 5px;
+                    list-style-type: none;
+                    padding: 8px 25px;
+                    border-radius: 15px;
+                    z-index: 10;
+                    transition: .2s;
+                }
+            }
+        }
+
+        .activeDropDownItemLine {
+            height: auto;
+            top: -20%;
+            left: 105%;
+            width: 30%;
+            z-index: 7;
+        }
+
+
+        .backgroundItemLine {
+            position: absolute;
+            border-radius: 20px;
+            width: 100%;
+            height: 150px;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 15px !important;
+
+            }
+        }
+
+        .frameIconPlay {
+            z-index: 2;
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            width: 60px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: rgb(226, 226, 225);
+        }
+
+        .leftItemLine {
+            z-index: 1;
+
+            .frameImg {
+                width: 80px;
+                height: 80px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 20px;
+                }
+            }
+
+            .frameLike {
+                margin-top: 10px;
+                display: flex;
+                height: 30px;
+                align-items: center;
+            }
+        }
+
+        .rigthItemLine {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+
+            .contentItemLine {
+                h1 {
+                    width: 100%;
+                    font-size: 25px;
+                    font-weight: 600;
+                }
+
+                h3 {
+                    width: 100%;
+                    font-size: 16px;
+                    // font-weight: 600;
+                    color: rgb(199, 199, 199);
+                }
+
+                .framePublic {
+                    display: flex;
+                    align-items: center;
+
+                    .dotPublic {
+                        margin-left: 10px;
+                        height: 15px;
+                        width: 15px;
+                        // background-color: aqua;
+                        border-radius: 50%;
+                    }
+                }
+
+                .songQuantity {
+                    margin-top: 4%;
+                    max-width: 100px;
+
+                }
+
+            }
+
+
+        }
+
+        .frameMore {
+            z-index: 1;
+            margin-top: 20%;
+            height: 30px;
+            width: 30px;
+            background-color: rgba(4, 4, 4, 0.082);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            transition: .2s;
+
+            &:hover {
+                background-color: rgb(91, 91, 91);
+            }
+        }
+    }
+}

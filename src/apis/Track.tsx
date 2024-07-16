@@ -1,6 +1,7 @@
 import header from "@/apis/@header";
 import { http } from "@/apis/@rootHttp";
 import { EnvConfig } from "@/configs/envConfig";
+import { create_TrackType } from "@/model/trackModel";
 
 
 export const Track = {
@@ -9,16 +10,16 @@ export const Track = {
             `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_TRACK}/${id}`
         ),
 
-    Create: async (body: any): Promise<any> =>
+    Create: async (body: create_TrackType): Promise<any> =>
         await http.post(
             `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_TRACK}`,
             body,
             header()
         ),
 
-    Delete: async (id: string) =>
+    Delete: async (Playlist_Id: string, Song_Id: string) =>
         await http.delete(
-            `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_TRACK}/${id}`,
-            header
+            `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_TRACK}/${Playlist_Id}/${Song_Id}`,
+            header()
         ),
 };

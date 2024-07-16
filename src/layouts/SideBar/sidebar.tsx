@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./_sidebar.scss";
 
 import { Logo_DarkHole } from "@/Icons/icon_Logo";
@@ -12,9 +12,26 @@ import {
   SidebarType,
 } from "@/configs/sidebarConfig";
 import { usePathname } from "next/navigation";
+import ModalPlaylist from "@/components/sidebar/ModalPlaylist/modalPlaylist";
 function Sidebar() {
   const route = usePathname();
+  const itemRef = useRef<HTMLInputElement | null>(null);
+  const [modal_Open, set_Open] = useState(false);
+  useEffect(() => {
+    let handle = (e: any) => {
+      if (itemRef.current && !itemRef.current.contains(e.target)) {
+        set_Open(false);
+      }
+    };
+    document.addEventListener("mousedown", handle);
+    return () => {
+      document.removeEventListener("mousedown", handle);
+    };
+  }, []);
 
+  const handle_CloseModal = () => {
+    set_Open(false);
+  };
   return (
     <aside className="Sidebar">
       <div className="HeaderSidebar">
@@ -35,7 +52,6 @@ function Sidebar() {
               <Link
                 href={item.url}
                 key={index}
-                // "active" : "inactive"
                 className={route == item.url ? "active" : "inactive"}
               >
                 <li>
@@ -47,14 +63,21 @@ function Sidebar() {
         </ul>
       </div>
 
-      <div className="CenterSidebar">
+      <div className="CenterSidebar" ref={itemRef}>
         <div className="title">
           <h1>Library</h1>
         </div>
-        <div onClick={() => {}} className="btnPlaylist">
+        <div
+          onClick={() => {
+            set_Open((prev) => !prev);
+          }}
+          className="btnPlaylist"
+        >
           <AddListMusicIcon />
           <span>Create playlist</span>
         </div>
+
+        <ModalPlaylist modal_Open={modal_Open} onClose={handle_CloseModal} />
       </div>
 
       <div className="ContentLF">
@@ -77,8 +100,6 @@ function Sidebar() {
           })}
         </ul>
       </div>
-
-      {/* <LeftListMusic Value_Change={Togo} /> */}
     </aside>
   );
 }

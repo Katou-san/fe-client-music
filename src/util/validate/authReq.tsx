@@ -3,7 +3,18 @@ const HandleErrors = {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
     },
     CheckLenght: (value: string) => {
-        return value.trim().length > 4;
+        const a = value.trim().length;
+        if (a < 25 && a > 4) {
+            return true;
+        }
+        return false;
+    },
+    CheckLenghtPass: (value: string) => {
+        const a = value.trim().length;
+        if (a < 32 && a > 8) {
+            return true;
+        }
+        return false;
     },
     isNotEqual: (value1: string, value2: string) => {
         return value1 === value2;
@@ -38,12 +49,12 @@ const signupValidate = (email: string, name: string, pass: string, confirmPass: 
         status = true;
     }
     if (!HandleErrors.CheckLenght(name)) {
-        Error["name"] = "name need more than 4 characters";
+        Error["name"] = "Name must be 4 to 25 characters ";
         status = true;
     }
 
-    if (!HandleErrors.CheckLenght(pass)) {
-        Error["pass"] = "Please enter password";
+    if (!HandleErrors.CheckLenghtPass(pass)) {
+        Error["pass"] = "Password must be 8 to 32 characters ";
         status = true;
     }
 

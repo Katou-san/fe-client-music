@@ -30,7 +30,7 @@ const ItemListPlayList = ({ active, item, index }: Prop) => {
     } else {
       set_url(item.Image);
     }
-  }, [item]);
+  }, [item.Image]);
 
   const handleClick = () => {
     if (info_Playlist?.Playlist_Id != item.Playlist_Id) {
@@ -52,13 +52,12 @@ const ItemListPlayList = ({ active, item, index }: Prop) => {
 
   return (
     <div
-      className={`itemListPlaylist ${
-        info_Playlist?.Playlist_Id == item.Playlist_Id
-          ? "itemActive"
-          : "itemNotActive"
-      }`}
+      className={`itemListPlaylist ${info_Playlist?.Playlist_Id == item.Playlist_Id
+        ? "itemActive"
+        : "itemNotActive"
+        }`}
     >
-      <Image alt="" src={url} width={10000} height={10000} />
+      <Image alt="" src={url} width={200} height={200} loading='lazy' />
       <div className="contentItemPlaylist" onClick={handleRoutes}>
         <h1 className="overflow__Text">{item.Playlist_Name}</h1>
         <h3 className="overflow__Text">by {item.Artist}</h3>

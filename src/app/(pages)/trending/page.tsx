@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from "react";
 import "./_tredding.scss";
 import Image from "next/image";
-import { Pause_Icon, Play_Icon, Star_Icon } from "@/Icons/icon_Figma";
+import { Pause_Icon, Play_Icon } from "@/Icons/icon_Figma";
 import { useAudio } from "@/contexts/providerAudio";
 import { Propose } from "@/apis/Trending";
 import { list_songType } from "@/model/songModel";
-import ItemTrending from "@/components/trending/itemTrending";
+import ItemPlaylist from "@/components/playlist/itemPlaylist";
+import { playlistModel } from "@/model/playlistModel";
 const Page = () => {
   const { is_Playing } = useAudio();
   const [url, set_Url] = useState({ img: "", thumbnail: "" });
@@ -48,10 +49,10 @@ const Page = () => {
           <div className="btnPlay ">
             {is_Playing ? <Pause_Icon w={40} /> : <Play_Icon w={50} />}
           </div>
-          <div className="starIconPlaylist">
+          {/* <div className="starIconPlaylist">
             <Star_Icon w={40} />
             <h3>12</h3>
-          </div>
+          </div> */}
         </div>
 
         <div className="listSongPlaylistDetail">
@@ -64,7 +65,8 @@ const Page = () => {
           </div>
 
           {list.map((song, index) => (
-            <ItemTrending song={song} key={index} list={list} index={index} />
+            <ItemPlaylist song={song} key={index} list={list} index={index} info_Playlist={playlistModel.init} />
+
           ))}
         </div>
       </div>

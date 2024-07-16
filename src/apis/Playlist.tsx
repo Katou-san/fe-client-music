@@ -1,9 +1,25 @@
 import header from "@/apis/@header";
 import { http } from "@/apis/@rootHttp";
 import { EnvConfig } from "@/configs/envConfig";
+import { create_Playlist } from "@/model/playlistModel";
 // import { Update_User_Type } from "@/util/respone_Type/user-respone";
 
 export const Playlist = {
+  Get_Default: async (): Promise<any> =>
+    await http.get(
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST_MANAGE}/0`,
+      header()
+    ),
+  Get_User_Playlist: async (): Promise<any> =>
+    await http.get(
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST_MANAGE}/1`,
+      header()
+    ),
+  Get_User_Album: async (): Promise<any> =>
+    await http.get(
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST_MANAGE}/2`,
+      header()
+    ),
   Get_Id: async (type: number, id: string): Promise<any> =>
     await http.get(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}/${type}/${id}`
@@ -18,7 +34,7 @@ export const Playlist = {
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}/1`,
       header()
     ),
-  Create: async (body: any): Promise<any> =>
+  Create: async (body: create_Playlist): Promise<any> =>
     await http.post(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}`,
       body,

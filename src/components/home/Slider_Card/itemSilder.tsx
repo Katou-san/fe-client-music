@@ -6,6 +6,7 @@ import { list_songType, songType } from '@/model/songModel';
 import { URLValidate } from '@/util/validate/url';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import imgTemp from "../../../../public/temp.jpg"
 type Prop = {
     active: boolean
     func: () => void
@@ -25,12 +26,10 @@ const ItemSilder = ({ active, func, itemSilder, list, index }: Prop) => {
         } else {
             set_url(itemSilder.Song_Image)
         }
-
-
-    }, [itemSilder])
+    }, [itemSilder.Song_Image])
     return (
         <div className={` itemSlider ${active ? "itemActive" : `itemNotActive`} ${is_Popup && 'isPopup'}`} >
-            <Image alt='' src={url} width={10000} height={10000} />
+            <Image alt='' src={url || imgTemp} width={800} height={500} loading='lazy' />
             <div className='contentItemSilder' onClick={() => {
                 setList([...list])
                 setIndex(index)

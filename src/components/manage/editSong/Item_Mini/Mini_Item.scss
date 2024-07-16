@@ -1,0 +1,131 @@
+.Mini_Item_Frame{
+    display: flex;
+    justify-content: center;
+    width: 400px;
+}
+
+.Mini_Item_Frame .Content_Mini_Item{
+    width: 80%;
+    height: 80px;
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    background-color: aqua;
+    border-radius: 10px;
+    align-items: center;
+    justify-items: center;
+    border: 0px solid;
+    box-shadow: -3px 8px 20px #888888;
+}
+
+.Content_Mini_Item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.Content_Mini_Item .Content_Song_Mini_Item{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    align-items: center;
+}
+
+.Content_Mini_Item  .controll_Mini_Item{
+    display: grid;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}       
+
+.Content_Mini_Item .controll_Mini_Item svg{
+    border: 0px solid;
+   filter: drop-shadow(0px 0px 1px #00000095);
+    transform: translate(0);
+}
+
+.Content_Mini_Item .Name_Song_Mini_Item{
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.Content_Mini_Item .User_Song_Mini_Item{
+    color: rgb(93, 93, 93);
+}
+
+.notification_Mini_Item{
+    height: 190px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    align-items: center;
+    justify-items: center;
+    gap: 0 30px;
+}
+
+.notification_Mini_Item p{
+    font-size: 18px;
+    font-family: 600;
+}
+
+.notification_Mini_Item .checkbox.style-c {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .notification_Mini_Item .checkbox.style-c input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .notification_Mini_Item .checkbox.style-c input:checked ~ .checkbox__checkmark {
+    background-color: #f7cb15;
+  }
+  .notification_Mini_Item .checkbox.style-c input:checked ~ .checkbox__checkmark:after {
+    opacity: 1;
+  }
+  .notification_Mini_Item .checkbox.style-c:hover input ~ .checkbox__checkmark {
+    background-color: #eee;
+  }
+  .notification_Mini_Item .checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
+    background-color: #f7cb15;
+  }
+  .notification_Mini_Item .checkbox.style-c .checkbox__checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    transition: background-color 0.25s ease;
+    border-radius: 4px;
+  }
+  .notification_Mini_Item .checkbox.style-c .checkbox__checkmark:after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .notification_Mini_Item .checkbox.style-c .checkbox__body {
+    color: #333;
+    line-height: 1.4;
+    font-size: 16px;
+  }

@@ -11,6 +11,7 @@ import { list_playlistType } from "@/model/playlistModel";
 import { list_userType } from "@/model/userModel";
 import { useRouter } from "next/navigation";
 
+
 export default function Page() {
   const [silder, set_Slider] = useState<list_songType>([]);
   const [listSong, set_ListSong] = useState<list_songType>([]);
@@ -19,15 +20,19 @@ export default function Page() {
 
   const routes = useRouter();
   useEffect(() => {
-    Promise.all([
-      Propose.Get_Silder().then((res) => {
-        set_Slider(res.data as list_songType);
-      }),
-      Propose.Get_Playlist().then((res) =>
-        set_ListPlaylist(res.data as list_playlistType)
-      ),
-      Propose.Get_Song().then((res) => set_ListSong(res.data as list_songType)),
-    ]);
+    if (silder.length == 0) {
+      Promise.all([
+        Propose.Get_Silder().then((res) => {
+          set_Slider(res.data as list_songType);
+        }),
+        Propose.Get_Playlist().then((res) =>
+          set_ListPlaylist(res.data as list_playlistType)
+        ),
+        Propose.Get_Song().then((res) =>
+          set_ListSong(res.data as list_songType)
+        ),
+      ]);
+    }
   }, []);
 
   return (
