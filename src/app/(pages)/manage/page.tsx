@@ -16,8 +16,9 @@ import { LoadingSVGWatting } from "@/Icons/Loading";
 import { Circle_Icon } from "@/Icons/icon_Figma";
 import { storageModel, storageType } from "@/model/storageModel";
 import { Storages } from "@/apis/Storages";
+import { useRouter } from "next/navigation";
 const Page = () => {
-
+  const routes = useRouter()
   const userProvider = useSelector((state: RootState) => state.auth)
   const [showAdd, set_ShowAdd] = useState(false)
   const [infoPlaylist, set_info] = useState<playlistType>(playlistModel.init)
@@ -102,6 +103,14 @@ const Page = () => {
               </div>
 
             </div>
+          </div>
+          <div className="frameUpgradeSub" >
+            <div className="UpgradeSub cursor_pointer" onClick={() => {
+              routes.push('/subscription')
+            }}>
+              <h1>Upgrade plan</h1>
+            </div>
+
           </div>
           <div className="btnCreate" onClick={handleShowAdd}>Add Song</div>
         </div>

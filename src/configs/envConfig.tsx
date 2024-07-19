@@ -14,7 +14,11 @@ export const EnvConfig = {
 
   NEXT_PUBLIC_TRACK: "/track",
 
+  NEXT_PUBLIC_SEARCH: "/searchs",
+
   NEXT_PUBLIC_ROLE: "/role",
+
+  NEXT_PUBLIC_REPOST: "/repost",
 
   NEXT_PUBLIC_LIKE: "/like",
   NEXT_PUBLIC_LIKES: "/likes",

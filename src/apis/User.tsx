@@ -5,7 +5,7 @@ import { EnvConfig } from "@/configs/envConfig";
 
 export const User = {
     Get_Id: async (id: string): Promise<any> =>
-        await http.get(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_USER}/${id}`, header()),
+        await http.get(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_USER}/id/${id}`, header()),
     Update: async (id: string, body: any): Promise<any> =>
         await http.put(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_USER}/${id}`, body, header()),
     Delete: async (id: string) =>

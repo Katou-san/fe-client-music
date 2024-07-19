@@ -56,12 +56,12 @@ a {
     .HeaderSidebar {
         margin: 20px 0;
         width: 100%;
-        display: grid;
-        grid-template-columns: 28% 20% 20% 32%;
-        justify-items: center;
+        display: flex;
+        justify-content: center;
         align-items: center;
 
         h1 {
+            margin-left: -5px;
             font-size: 25px;
         }
     }

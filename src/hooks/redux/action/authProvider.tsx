@@ -1,3 +1,4 @@
+import { EnvConfig } from "@/configs/envConfig";
 import { authModel, authResType } from "@/model/authModel";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -6,7 +7,10 @@ export const authSlice = createSlice({
     name: "auth",
     initialState: authModel.authRes,
     reducers: {
-        logoutProvider: () => authModel.authRes,
+        logoutProvider: () => {
+            localStorage.removeItem(EnvConfig.LocalToken)
+            return authModel.authRes
+        },
         loginProvider: (state, action: PayloadAction<authResType>) => {
             return state = action.payload
         },

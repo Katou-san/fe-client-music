@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from "react";
 import "./_favorite.scss";
 import Image from "next/image";
-import { Pause_Icon, Play_Icon, Star_Icon } from "@/Icons/icon_Figma";
+import { Pause_Icon, Play_Icon } from "@/Icons/icon_Figma";
 import { useAudio } from "@/contexts/providerAudio";
 import { list_songType } from "@/model/songModel";
-import { useSearchParams } from "next/navigation";
 import { Playlist } from "@/apis/Playlist";
 import { list_playlistType, playlistType } from "@/model/playlistModel";
 import { Track } from "@/apis/Track";
@@ -13,7 +12,6 @@ import { Send } from "@/apis/Send";
 import { URLValidate } from "@/util/validate/url";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
-import { toast } from "react-toastify";
 import ItemPlaylist from "@/components/playlist/itemPlaylist";
 const Page = () => {
   const {
@@ -84,9 +82,11 @@ const Page = () => {
 
   return (
     <>
-      {info_Playlist_like == null && <div>Not found playlist</div>}
-      {info_Playlist_like != null && (
-        <div className="frameDetailPlaylist">
+
+
+      <div className="frameDetailPlaylist">
+        {userProvider.Access_Token == "" && !userProvider.is_Login && <div className="frameContentError"> <h1>You need login</h1> </div>}
+        {userProvider.Access_Token != "" && userProvider.is_Login && info_Playlist_like != null && (<>
           <header>
             <div className="frameBackground">
               <div className="frameImage">
@@ -143,9 +143,9 @@ const Page = () => {
 
               {list.length == 0 && <div>Empty</div>}
             </div>
-          </div>
-        </div>
-      )}
+          </div> </>)}
+      </div>
+
     </>
   );
 };

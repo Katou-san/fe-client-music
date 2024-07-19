@@ -37,7 +37,7 @@ function Sidebar() {
       <div className="HeaderSidebar">
         <span></span>
         <Logo_DarkHole w={70} color="#A5D7E8" />
-        <h1>Yuta</h1>
+        <h1>Hotaru</h1>
         <span></span>
       </div>
       <div className="CenterSidebar">

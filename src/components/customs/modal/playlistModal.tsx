@@ -36,11 +36,18 @@ const PlaylistModalDropDown = ({ drop_Down, set_Drop, song, style }: Props) => {
     useEffect(() => {
         set_Loading(true);
         if (drop_Down) {
-            Playlist.Get_User_Playlist().then((res) => {
-                set_list(res.data)
+            if (userProvider.Access_Token != '' && userProvider.is_Login) {
+                Playlist.Get_User_Playlist().then((res) => {
+                    set_list(res.data)
+                    set_Loading(false);
+                });
+            } else {
                 set_Loading(false);
-            });
+                toast.error('You need to login')
+            }
         }
+
+
     }, [drop_Down]);
 
     const handleAddToPlaylist = (Playlist_Id: string) => {
@@ -71,7 +78,7 @@ const PlaylistModalDropDown = ({ drop_Down, set_Drop, song, style }: Props) => {
             {!is_Loading && <>
                 <h1>Your playlist</h1>
                 <ul>
-                    {list_Playlits.map((playlist, index) => {
+                    {list_Playlits.length != 0 && list_Playlits.map((playlist, index) => {
                         return (<li
                             className=" overflow__Text"
                             key={index}
@@ -80,6 +87,9 @@ const PlaylistModalDropDown = ({ drop_Down, set_Drop, song, style }: Props) => {
                             {playlist?.Playlist_Name}
                         </li>)
                     })}
+                    {
+                        list_Playlits.length == 0 && <li className="falseI"> Playlist emty </li>
+                    }
                 </ul> </>}
         </div>
     );

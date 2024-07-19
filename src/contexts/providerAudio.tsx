@@ -29,6 +29,7 @@ interface contextType {
   info_Playlist: null | playlistType;
   Set_InfoPlaylist: (playlist: playlistType | null) => void;
   Set_RefInputRange2: (progressbarRef: RefObject<HTMLInputElement>) => void;
+  Set_RefInputRange3: (progressbarRef: RefObject<HTMLInputElement>) => void;
   Set_RefInputRange: (progressbarRef: RefObject<HTMLInputElement>) => void;
   setIndex: (index: number) => void;
   setVolume: (value: number) => void;
@@ -40,6 +41,7 @@ interface contextType {
   prev: (progressbarRef: RefObject<HTMLInputElement>) => void;
   changeRange: (progressbarRef: RefObject<HTMLInputElement>) => void;
   changeRange2: (progressbarRef: RefObject<HTMLInputElement>) => void;
+  changeRange3: (progressbarRef: RefObject<HTMLInputElement>) => void;
 }
 
 const defaultContext = {
@@ -57,9 +59,11 @@ const defaultContext = {
   Set_InfoPlaylist: (playlist: playlistType | null) => { },
   Set_RefInputRange: (progressbarRef: RefObject<HTMLInputElement>) => { },
   Set_RefInputRange2: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  Set_RefInputRange3: (progressbarRef: RefObject<HTMLInputElement>) => { },
   setIndex: (index: number) => { },
   changeRange: (progressbarRef: RefObject<HTMLInputElement>) => { },
   changeRange2: (progressbarRef: RefObject<HTMLInputElement>) => { },
+  changeRange3: (progressbarRef: RefObject<HTMLInputElement>) => { },
   setPlay: () => { },
   setList: (args: any[]) => { },
   setShuffle: (progressbarRef: RefObject<HTMLInputElement>) => { },
@@ -77,6 +81,9 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
     useState<RefObject<HTMLInputElement>>();
   const [progressbarRef2, set_progressbarRef2] =
     useState<RefObject<HTMLInputElement>>();
+  const [progressbarRef3, set_progressbarRef3] =
+    useState<RefObject<HTMLInputElement>>();
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTime, set_currentTime] = useState(0);
   const [volume, set_volume] = useState(5);
@@ -139,20 +146,44 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
     }
   };
 
+
+  const changeRange3 = () => {
+    if (
+      audioRef.current?.currentTime != null &&
+      progressbarRef3?.current?.value != null
+    ) {
+      audioRef.current.currentTime = Number(progressbarRef3.current?.value);
+      progressbarRef3.current?.style.setProperty(
+        "--seek-before-width",
+        `${(Number(progressbarRef3.current.value) / duration) * 100}`
+      );
+      set_currentTime(Number(progressbarRef3.current?.value));
+    } else {
+      set_currentTime(Number(progressbarRef?.current?.value));
+    }
+  };
+
+
   const renderDotRange: any = () => {
     setInterval(() => {
       if (
         progressbarRef?.current?.value != null &&
-        progressbarRef2?.current?.value != null
+        progressbarRef2?.current?.value != null &&
+        progressbarRef3?.current?.value != null
       ) {
         if (audioRef?.current?.currentTime) {
           progressbarRef.current.value = String(audioRef.current?.currentTime);
           progressbarRef2.current.value = String(audioRef.current?.currentTime);
+          progressbarRef3.current.value = String(audioRef.current?.currentTime);
           progressbarRef.current?.style.setProperty(
             "--seek-before-width",
             `${(Number(progressbarRef.current.value) / duration) * 100}`
           );
           progressbarRef2.current?.style.setProperty(
+            "--seek-before-width",
+            `${(Number(progressbarRef.current.value) / duration) * 100}`
+          );
+          progressbarRef3.current?.style.setProperty(
             "--seek-before-width",
             `${(Number(progressbarRef.current.value) / duration) * 100}`
           );
@@ -319,6 +350,7 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
         Set_InfoPlaylist: Set_InfoPlaylist,
         Set_RefInputRange2: Set_RefInputRange2,
         Set_RefInputRange: Set_RefInputRange,
+        Set_RefInputRange3: set_progressbarRef3,
         setIndex: setIndex,
         setVolume: handle_Volume,
         setPlay: handle_play,
@@ -329,6 +361,7 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
         prev: handle_Prev,
         changeRange: changeRange,
         changeRange2: changeRange2,
+        changeRange3: changeRange3
       }}
     >
       <audio

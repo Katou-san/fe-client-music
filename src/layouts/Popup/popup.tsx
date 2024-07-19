@@ -33,6 +33,7 @@ import { Like } from "@/apis/Like";
 import { Track } from "@/apis/Track";
 import { toast } from "react-toastify";
 import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
+import { Repost } from "@/apis/Repost";
 const Popup = () => {
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
@@ -141,6 +142,21 @@ const Popup = () => {
     })
   }
 
+  const handleRepost = () => {
+    if (userProvider.Access_Token != '' && userProvider.is_Login) {
+      Repost.Create(currentList[currentIndex]?.Song_Id)
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(res.message)
+          } else {
+            toast.error(res.message)
+          }
+        })
+    } else {
+      toast.error('You need login!')
+    }
+  }
+
 
 
 
@@ -162,7 +178,7 @@ const Popup = () => {
         <div className="frameImage">
           <Image alt="" src={url} width={100} height={100} loading="lazy" />
         </div>
-        <div className="frameBtnShare">
+        <div className="frameBtnShare" onClick={handleRepost}>
           <div className="btnShare cursor_pointer">
             <Repost_Icon />
             <span>Repost</span>

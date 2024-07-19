@@ -5,7 +5,7 @@
     left: 80%;
     width: 10px;
     z-index: -1;
-    background-color: rgba(86, 86, 86, 0.726);
+    // background-color: rgb(9, 9, 9);
     border-radius: 15px;
     transition: .2s;
     overflow: hidden;
@@ -17,7 +17,7 @@
         font-size: 20px;
         font-weight: 600;
         color: aliceblue;
-        background-color: rgba(3, 3, 3, 0.447);
+        background-color: rgba(3, 3, 3, 0.789);
     }
 
     ul {
@@ -30,7 +30,7 @@
         padding: 10px;
         transition: .2s;
         max-height: 200px;
-        background-color: rgba(3, 3, 3, 0.447);
+        background-color: rgba(3, 3, 3, 0.789);
         overflow: auto;
 
 

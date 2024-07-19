@@ -1,10 +1,7 @@
 "use client";
-
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "./_avatar.scss";
 import Image from "next/image";
-import { UserIcon } from "@/Icons/icon_v1";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 import { Send } from "@/apis/Send";
@@ -32,14 +29,6 @@ export default function Avartar() {
   };
   return (
     <div className="FrameBtnLogin cursor_pointer">
-      <Link href={"/auths"}>
-        <div className="LoginButton" id={getStateAuth.is_Login ? "Hidden" : ""}>
-          <i>
-            <UserIcon />
-          </i>
-          <span>{getStateAuth.User_Name}</span>
-        </div>
-      </Link>
       <div
         className="btnAvartar cursor_pointer"
         id={!getStateAuth.is_Login ? "Hidden" : ""}
@@ -48,7 +37,6 @@ export default function Avartar() {
         <Image src={avatar || imgTemp} alt="" width={10} height={10} loading="lazy" />
         <span className="overflow__Text">{getStateAuth.User_Name}</span>
       </div>
-      {/* <Menu showMenu={StatusMenu} event={TogoMenu} /> */}
     </div>
   );
 }

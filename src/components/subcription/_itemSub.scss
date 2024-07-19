@@ -1,0 +1,113 @@
+.itemSub {
+    min-width: 250px;
+    min-height: 400px;
+    background-color: rgb(239, 239, 239);
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: .2s ease-in-out;
+    cursor: pointer;
+
+
+    .headerItemPlan {
+        .titleSubPlan {
+            h1 {
+                font-size: 20px;
+                font-weight: 600;
+            }
+        }
+
+        .priceSubPlan {
+            margin-top: 20px;
+
+            h1 {
+                font-size: 35px;
+                font-weight: 600;
+            }
+
+
+            h3 {
+                transition: .2s;
+                color: #6f6f6f;
+            }
+
+        }
+    }
+
+    .bodyItemPlan {
+        width: 100%;
+        height: 100%;
+        margin-top: 20px;
+
+        .frameBtnPlan {
+
+            display: grid;
+            place-items: center;
+
+            .btnPlan {
+                transition: .2s;
+                width: 100%;
+                padding: 8px 10px;
+                background-color: rgb(51, 190, 250);
+                border-radius: 10px;
+                display: grid;
+                place-items: center;
+                font-weight: 600;
+                color: #f7f7f7;
+                transition: .2s;
+            }
+
+        }
+
+        ul {
+            margin-top: 25px;
+
+            li {
+                padding: 5px 0;
+                display: grid;
+                grid-template-columns: 15% 85%;
+
+                svg {
+                    fill: rgb(63, 237, 208);
+                }
+
+            }
+        }
+    }
+
+    &:hover {
+        background-color: rgb(45, 145, 252);
+        color: #fff;
+
+        .priceSubPlan {
+            h3 {
+                color: #ffffff;
+            }
+
+        }
+
+        .bodyItemPlan {
+            .frameBtnPlan {
+                .btnPlan {
+                    background-color: #f7f7f7;
+                    color: rgb(51, 190, 250);
+                }
+            }
+
+            ul {
+                li {
+                    // transition: .2s;
+
+                    svg {
+                        transition: .2s;
+                        fill: rgb(241, 241, 241);
+                    }
+
+                }
+            }
+        }
+
+
+
+    }
+
+}

@@ -8,6 +8,7 @@ import { Propose } from "@/apis/Trending";
 import { list_songType } from "@/model/songModel";
 import ItemPlaylist from "@/components/playlist/itemPlaylist";
 import { playlistModel } from "@/model/playlistModel";
+import imgTemp from '../../../../public/temp.jpg'
 const Page = () => {
   const { is_Playing } = useAudio();
   const [url, set_Url] = useState({ img: "", thumbnail: "" });
@@ -23,13 +24,13 @@ const Page = () => {
       <header>
         <div className="frameBackground">
           <div className="frameImage">
-            <Image alt="" src={url.img} width={1000} height={1000} />
+            <Image alt="" src={url.img || imgTemp} width={100} height={100} loading="lazy" />
           </div>
         </div>
         <div className="frameBanner">
           <div className="contentHeader">
             <div className="frameImange">
-              <Image alt="" src={url.img} width={1000} height={1000} />
+              <Image alt="" src={url.img || imgTemp} width={100} height={100} loading="lazy" />
             </div>
             <div className="frameTitleHeader">
               <div className="typePlaylist">Playlist</div>

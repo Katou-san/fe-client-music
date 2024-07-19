@@ -70,8 +70,9 @@
         }
 
         .itemActive {
-            flex: 12;
-            width: 80%;
+            flex: 1 !important;
+            width: 100%;
+            border-radius: 20px;
 
             img {
                 height: 100% !important;
@@ -95,11 +96,12 @@
         }
 
         .itemNotActive {
-            flex: 1;
+            flex: 0;
             width: 5%;
-            min-width: 80px;
+            visibility: hidden;
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
 
             img {
                 height: 100% !important;
@@ -161,9 +163,10 @@
     .btnClick {
         position: absolute;
         top: calc(50% - 25px);
+        left: 2.5%;
         height: 50px;
         padding: 0 10px;
-        width: 100%;
+        width: 95%;
         display: flex;
         justify-content: space-between;
 

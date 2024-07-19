@@ -27,10 +27,11 @@ const SliderCard = ({ arraySilder }: Props) => {
 
     return (
         <div className='farmeSliderCard'>
-            <div className="btnClick">
-                <div className="btnSlider next" onClick={() => HandleCount("redu")}><ArrowLeftIcon /></div>
-                <div className="btnSlider back" onClick={() => HandleCount("plus")}><ArrowRightIcon /></div>
-            </div>
+            {arraySilder.length > 1 &&
+                <div className="btnClick">
+                    <div className="btnSlider next" onClick={() => HandleCount("redu")}><ArrowLeftIcon /></div>
+                    <div className="btnSlider back" onClick={() => HandleCount("plus")}><ArrowRightIcon /></div>
+                </div>}
 
             <div className="slider">
                 {arraySilder.map((item, index) => {

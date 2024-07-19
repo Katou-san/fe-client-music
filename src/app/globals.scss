@@ -95,6 +95,33 @@ body {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
+  // -moz-transform: translateX(100%);
+  // -webkit-transform: translateX(100%);
+  // transform: translateX(100%);
+
+  // -moz-animation: my-animation 15s linear infinite;
+  // -webkit-animation: my-animation 15s linear infinite;
+  // animation: my-animation 15s linear infinite;
+}
+
+// @keyframes my-animation {
+//   from {
+//     -moz-transform: translateX(100%);
+//     -webkit-transform: translateX(100%);
+//     transform: translateX(100%);
+//   }
+
+//   to {
+//     -moz-transform: translateX(-100%);
+//     -webkit-transform: translateX(-100%);
+//     transform: translateX(-100%);
+//   }
+// }
+.loading {
+  min-height: 300px;
+  width: 100%;
+  display: grid;
+  place-items: center;
 }
 
 .overflow__Text_Endline {
@@ -126,8 +153,13 @@ body {
 
 .trueI,
 .active {
-  background-color: #18c96433;
-  color: #18c964;
+  background-color: #18c96433 !important;
+  color: #18c964 !important;
+
+  &:hover {
+    color: #85f8b7da !important;
+    background-color: #18c964 !important;
+  }
 }
 
 .vacation {

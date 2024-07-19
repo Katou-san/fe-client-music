@@ -50,7 +50,7 @@ const ItemListPopup = ({ item, index, active }: Props) => {
   }, [item, index, active]);
 
   useEffect(() => {
-    if (userProvider.Access_Token != "" && userProvider.is_Login)
+    if (userProvider.Access_Token != "" && userProvider.is_Login) {
       if (item && active) {
         Like.Get_Current(item.Song_Id, 0).then((res) => {
           if (res.status == 200) {
@@ -59,6 +59,8 @@ const ItemListPopup = ({ item, index, active }: Props) => {
           }
         });
       }
+    }
+    set_Loading(false);
   }, [active])
 
   const handleLike = () => {

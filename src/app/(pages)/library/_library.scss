@@ -10,6 +10,17 @@
         padding-top: 50px;
         overflow-y: auto;
 
+        .frameContentError {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+
         .lineLibrary {
             margin-top: 20px;
             width: 100%;

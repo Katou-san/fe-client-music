@@ -1,63 +1,71 @@
-
-.inputSearch
-{
+.inputSearch {
     height: 50px;
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 5% 70% 25%;
     align-items: center;
     justify-content: center;
     justify-items: center;
-    width:80%;
-    background-color:#0f5e97b7;
+    width: 80%;
+    background-color: #0f5e97b7;
     border-radius: 40px;
     color: #A5D7E8;
     transition: .5s;
+
+    .btnSearch {
+        height: 35px;
+        display: grid;
+        place-items: center;
+        background-color: #A5D7E8;
+        padding: 0 10px;
+        border-radius: 20px;
+        color: #19a4d1;
+        transition: .5s;
+
+    }
 }
 
-.inputSearch input
-{
-    background-color:transparent;
+.inputSearch input {
+    background-color: transparent;
     border: none;
     height: 40px;
     width: 100%;
     border-radius: 8px;
-    padding:0 40px 0 5px;
+    padding: 0 10px 0 5px;
     outline: none;
     color: #fff;
     font-size: 17px;
 }
 
-.inputSearch input::-webkit-input-placeholder
-{
+.inputSearch input::-webkit-input-placeholder {
     font-size: 16px;
     color: #fff;
 }
 
-.inputSearch button{
-    transform: scale(1);
-    opacity: 1;
-    padding: 10px 25px;
-    border-radius: 20px;
-    border: none;
-    color: #5bc5ff;
-    transition: .5s;
-}
+// .inputSearch .btnSearch {
+//     transform: scale(1);
+//     opacity: 1;
+//     padding: 10px 25px;
+//     border-radius: 20px;
+//     border: none;
+//     color: #5bc5ff;
+//     transition: .5s;
+// }
 
-#notSearchValue{
+#notSearchValue {
     width: 60%;
-    grid-template-columns: 20% 80% 0%;
+    grid-template-columns: 5% 95% 0%;
 }
 
-#notSearchValue button{
+#notSearchValue .btnSearch {
     transform: scale(0);
     opacity: 0;
 }
 
-#hasSearchValue{
+#hasSearchValue {
     background-color: #19a4d1;
 }
 
 .inputSearch circle,
-.inputSearch path{
+.inputSearch path {
     color: #fff;
 }
