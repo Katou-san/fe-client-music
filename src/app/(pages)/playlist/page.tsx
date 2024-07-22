@@ -150,7 +150,7 @@ const Page = () => {
                   </div>
                   <div className="artistPlaylist"></div>
                   <div className="footerTitle">
-                    <div className="nameWeb">{info_Playlist?.User_Id}</div>
+                    <div className="nameWeb">{info_Playlist?.Artist}</div>
                     <span></span>
                     <h3>{list?.length} songs</h3>
                   </div>

@@ -31,6 +31,8 @@ export default function Page() {
         Propose.Get_Song().then((res) =>
           set_ListSong(res.data as list_songType)
         ),
+        Propose.Get_Artist().then((res) => set_ListArtist(res.data as list_userType))
+
       ]).then((res) => set_Loading(false));
     }
   }, []);
@@ -54,7 +56,7 @@ export default function Page() {
           <ListPlaylist arrayPlaylist={listPlaylist} />
         </div>
         <div className="listArtist">
-          <ListArtist />
+          <ListArtist arrayArtist={listArtist} />
         </div></>}
     </div>
   );

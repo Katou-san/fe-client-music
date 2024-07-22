@@ -166,30 +166,38 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
 
   const renderDotRange: any = () => {
     setInterval(() => {
-      if (
-        progressbarRef?.current?.value != null &&
-        progressbarRef2?.current?.value != null &&
-        progressbarRef3?.current?.value != null
-      ) {
-        if (audioRef?.current?.currentTime) {
+      if (audioRef?.current?.currentTime) {
+        if (progressbarRef?.current?.value != null) {
           progressbarRef.current.value = String(audioRef.current?.currentTime);
-          progressbarRef2.current.value = String(audioRef.current?.currentTime);
-          progressbarRef3.current.value = String(audioRef.current?.currentTime);
           progressbarRef.current?.style.setProperty(
             "--seek-before-width",
             `${(Number(progressbarRef.current.value) / duration) * 100}`
           );
+        }
+
+        if (progressbarRef2?.current?.value != null) {
+          progressbarRef2.current.value = String(audioRef.current?.currentTime);
           progressbarRef2.current?.style.setProperty(
             "--seek-before-width",
-            `${(Number(progressbarRef.current.value) / duration) * 100}`
+            `${(Number(progressbarRef2.current.value) / duration) * 100}`
           );
+        }
+
+        if (progressbarRef3?.current?.value != null) {
+          progressbarRef3.current.value = String(audioRef.current?.currentTime);
           progressbarRef3.current?.style.setProperty(
             "--seek-before-width",
-            `${(Number(progressbarRef.current.value) / duration) * 100}`
+            `${(Number(progressbarRef3.current.value) / duration) * 100}`
           );
-          set_currentTime(Number(progressbarRef.current.value));
         }
+
+
+
+
+
+
       }
+
     }, 1000);
   };
 

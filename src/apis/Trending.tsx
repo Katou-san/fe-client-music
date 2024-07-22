@@ -14,4 +14,8 @@ export const Propose = {
     await http.get(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PROPOSE}/playlist`
     ),
+  Get_Artist: async () =>
+    await http.get(
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PROPOSE}/artist`
+    ),
 };

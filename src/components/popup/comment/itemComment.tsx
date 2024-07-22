@@ -1,17 +1,20 @@
 
+import { Like } from "@/apis/Like";
 import { Reply } from "@/apis/Reply";
 import { Send } from "@/apis/Send";
 import MoreModalDropDown from "@/components/customs/more/moreModal";
 import ItemReplyPopup from "@/components/popup/comment/ItemReply";
 import { RootState } from "@/hooks/redux/store";
-import { ArrowLineDown_Icon, ArrowLineUp_Icon, Dislike_Icon, Like_Icon, Star_Icon } from "@/Icons/icon_Figma";
+import { ArrowLineDown_Icon, ArrowLineUp_Icon, Dislike_Icon, Star_Icon } from "@/Icons/icon_Figma";
 import { MoreIcon } from "@/Icons/icon_v1";
 import { commentType } from "@/model/commentModel";
+import { create_likeType, likeModel, list_likeType } from "@/model/likeModel";
 import { list_replyType, replyType } from "@/model/replyModel";
 import { URLValidate } from "@/util/validate/url";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 type Props = {
     comment: commentType
@@ -23,6 +26,10 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
     const [drop_Down, set_DropDown] = useState(false)
     const [url, set_url] = useState('')
     const [listReply, set_listReply] = useState<list_replyType>([])
+    const [listLikeComment, set_listLikeComment] = useState<list_likeType>([])
+    const [stateLike, set_StateLike] = useState<create_likeType>(
+        likeModel.init_create
+    );
     useEffect(() => {
         if (URLValidate.isUrl(comment.Avatar)) {
             Send.Avatar(comment.Avatar)
@@ -30,19 +37,80 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
         } else {
             set_url(comment.Avatar)
         }
+        if (comment?.Comment_Id) {
+            Promise.all([
+                Like.Get_Current(comment.Comment_Id, 3).then((res) => {
+                    if (res.status == 200) {
+                        set_StateLike(res.data)
+                    }
+                }),
+                Like.Get_Comment(comment.Comment_Id).then((res) => {
+                    if (res.status == 200) {
+                        set_listLikeComment(res.data)
+                    }
+                })
+            ])
+
+        }
     }, [comment])
 
     useEffect(() => {
         if (showReply) {
+
             Reply.Get_Id(comment.Comment_Id)
                 .then(res => set_listReply(res.data))
         }
     }, [showReply])
 
-    const handleLike = () => {
-        if (userProvider.Access_Token != '' && userProvider.is_Login) {
-            // Like.Togo_Create_Update({Topic_Id:comment.Comment_Id,})
+    const handleLike = (type: "like" | "dislike") => {
+        if (userProvider.Access_Token != "" && userProvider.is_Login) {
+            if (comment.Comment_Id != null && comment.Comment_Id != '') {
+                if (type == "like") {
+                    if (stateLike.State == 1) {
+                        Like.Togo_Create_Update({ ...stateLike, Topic_Id: comment.Comment_Id, State: 0, Type: 3 })
+                            .then(res => {
+                                Get_Like()
+                            })
+                    } else {
+                        Like.Togo_Create_Update({ ...stateLike, Topic_Id: comment.Comment_Id, State: 1, Type: 3 })
+                            .then(res => {
+                                Get_Like()
+                            })
+                    }
+                } else {
+                    if (stateLike.State == -1) {
+                        Like.Togo_Create_Update({ ...stateLike, Topic_Id: comment.Comment_Id, State: 0, Type: 3 })
+                            .then(res => {
+                                Get_Like()
+                            })
+                    } else {
+                        Like.Togo_Create_Update({ ...stateLike, Topic_Id: comment.Comment_Id, State: -1, Type: 3 })
+                            .then(res => {
+                                Get_Like()
+                            })
+                    }
+                }
+
+            }
+        } else {
+            toast.error("You need login");
         }
+    }
+
+    const Get_Like = () => {
+        Promise.all([
+            Like.Get_Comment(comment.Comment_Id).then((res) => {
+                if (res.status == 200) {
+                    set_listLikeComment(res.data)
+                }
+            }),
+            Like.Get_Current(comment.Comment_Id, 3).then((res) => {
+                if (res.status == 200) {
+                    set_StateLike(res.data)
+                }
+            })
+        ])
+
     }
 
     return (
@@ -59,13 +127,13 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
                         <div className="textComment overflow__Text_Endline">{comment?.Content}</div>
                         <div className="iconComment cursor_pointer">
                             <div className="frameStarIcon">
-                                <div className="frameIcon">
+                                <div className="frameIcon" onClick={() => handleLike('like')}>
                                     <Star_Icon w={25} color="rgb(150, 149, 149)" />
                                 </div>
-                                <h3>12</h3>
+                                <h3>{listLikeComment.length}</h3>
                             </div>
                             <div className="frameDislikeIcon">
-                                <div className="frameIcon">
+                                <div className="frameIcon" onClick={() => handleLike('dislike')}>
                                     <Dislike_Icon w={25} color="rgb(150, 149, 149)" />
                                 </div>
                             </div>

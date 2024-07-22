@@ -1,0 +1,157 @@
+.activeframeEditUser {
+    top: 20% !important;
+}
+
+.frameEditUser {
+    position: absolute;
+    top: 120%;
+    left: calc(50% - 200px);
+    min-width: 400px;
+    transition: .2s ease-in-out;
+    ;
+
+    .formEdit {
+        padding: 10px;
+        border-radius: 20px;
+        background-color: rgb(244, 248, 252);
+
+        .Title {
+            font-size: 20px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .contentImage {
+            width: 100%;
+            display: grid;
+            justify-content: center;
+            justify-items: center;
+
+            .frameImage {
+                width: 100px;
+                height: 100px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    border: 1px solid #000;
+                }
+            }
+
+            .labelContent {
+                width: 100%;
+                display: grid;
+                align-items: center;
+                justify-items: center;
+                margin-top: 10px;
+
+                label {
+                    padding: 7px 10px;
+                    background-color: #0063d5;
+                    border-radius: 20px;
+                }
+            }
+
+        }
+
+        .contentFrame {
+            margin: 10px 0;
+            padding: 0 20px;
+
+            input {
+                height: 50px;
+                width: 100%;
+                padding: 0 5px;
+                border-radius: 15px;
+                outline: none;
+                border: none;
+                background-color: rgb(207, 207, 207);
+                color: rgb(94, 94, 94);
+                margin-bottom: 7px;
+            }
+
+            .inputCheck {
+                margin-top: 10px;
+                height: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: 2%;
+                color: #000;
+
+
+                #inputModalPlaylist {
+                    width: 20px;
+                    height: 20px;
+                    background-color: 50%;
+                    vertical-align: middle;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    transition: .2s ease-in-out;
+
+                    &:checked {
+                        background-color: #33e8f5;
+                    }
+                }
+            }
+
+            .lableColor {
+                width: 45%;
+                height: 30px;
+                margin-top: 10px;
+
+
+                label {
+                    background-color: #000;
+                    padding: 10px 40px;
+                    border-radius: 20px;
+                    width: 100%;
+                }
+            }
+        }
+
+        .footerModalPlaylist {
+
+            width: 100%;
+            display: flex;
+            justify-content: end;
+            gap: 2%;
+
+            .btnModal {
+                // margin-top: 10px;
+                height: 40px;
+                width: 80px;
+                padding: 0 16px;
+                display: grid;
+                border-radius: 15px;
+                place-items: center;
+                cursor: pointer;
+                background-color: #006fee;
+                transition: .2s;
+            }
+
+            .btnAction {
+                background-color: #006fee !important;
+                color: aliceblue;
+
+                &:hover {
+                    background-color: #0063d5 !important;
+                }
+            }
+
+            .btnClose {
+                background-color: transparent !important;
+                color: #f31260;
+
+                &:hover {
+                    background-color: #f3126137 !important;
+                }
+            }
+        }
+
+    }
+
+}

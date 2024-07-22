@@ -3,8 +3,13 @@ import React, { useRef } from 'react';
 import './_listArtist.scss'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/Icons/icon_v1';
 import ItemListArtist from '@/components/home/Artists/itemListArtist';
+import { list_userType } from '@/model/userModel';
 
-const ListArtist = () => {
+type Props = {
+    arrayArtist: list_userType
+}
+
+const ListArtist = ({ arrayArtist }: Props) => {
     const listRef = useRef<HTMLDivElement>(null)
     const arrayTemp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
 
@@ -31,8 +36,8 @@ const ListArtist = () => {
             </div>
             <div className="frameArtistPlaylist" ref={listRef}>
 
-                {arrayTemp.map((item, index) => {
-                    return <ItemListArtist key={index} active={index == 0} />
+                {arrayArtist.map((item, index) => {
+                    return <ItemListArtist key={index} active={index == 0} user={item} />
 
                 })}
             </div></>

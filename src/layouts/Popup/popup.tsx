@@ -34,6 +34,7 @@ import { Track } from "@/apis/Track";
 import { toast } from "react-toastify";
 import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 import { Repost } from "@/apis/Repost";
+import { repostModel, repostType } from "@/model/repostModel";
 const Popup = () => {
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
@@ -41,6 +42,7 @@ const Popup = () => {
   const [stateLike, set_StateLike] = useState<create_likeType>(
     likeModel.init_create
   );
+  const [stateRepost, set_StateRepost] = useState<repostType>(repostModel.init)
   const [url, set_url] = useState("");
   const {
     is_listPopup,
@@ -106,6 +108,14 @@ const Popup = () => {
             set_StateLike(res.data)
           }
         });
+        Repost.Get_Current(userProvider.User_Id, currentList[currentIndex]?.Song_Id)
+          .then((res) => {
+            if (res.status == 200) {
+              set_StateRepost(res.data)
+            } else {
+              set_StateRepost(repostModel.init)
+            }
+          });
       }
   }, [userProvider, is_listPopup, currentIndex])
 
@@ -147,11 +157,21 @@ const Popup = () => {
       Repost.Create(currentList[currentIndex]?.Song_Id)
         .then((res) => {
           if (res.status == 200) {
-            toast.success(res.message)
+            Repost.Get_Current(userProvider.User_Id, currentList[currentIndex]?.Song_Id)
+              .then((res) => {
+                if (res.status == 200) {
+                  toast.success(res.message)
+                  set_StateRepost(res.data)
+                } else {
+                  set_StateRepost(repostModel.init)
+                }
+              })
+
           } else {
             toast.error(res.message)
           }
         })
+
     } else {
       toast.error('You need login!')
     }
@@ -179,7 +199,7 @@ const Popup = () => {
           <Image alt="" src={url} width={100} height={100} loading="lazy" />
         </div>
         <div className="frameBtnShare" onClick={handleRepost}>
-          <div className="btnShare cursor_pointer">
+          <div className={`btnShare iconRepost cursor_pointer ${stateRepost.Repost_Id != '' && 'activeIconRepost'}`}>
             <Repost_Icon />
             <span>Repost</span>
           </div>

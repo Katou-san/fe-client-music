@@ -28,7 +28,7 @@ const ItemYourSong = ({ storage }: Props) => {
               </div>
               <div className="storageDetail">
                 <h3>Limit: {storage.Limit} mb</h3>
-                <h3>Used: {storage.Used} mb</h3>
+                <h3>Used: {Math.round(storage.Used)} mb</h3>
               </div>
             </div>
           </div>

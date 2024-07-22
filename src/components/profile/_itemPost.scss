@@ -1,7 +1,18 @@
 .itemPost {
     margin-bottom: 20px;
 
+    .frameInfoPost {
+        position: relative;
+        width: 440px;
+        background-color: rgba(52, 52, 52, 0.512);
+        padding: 10px 30px 10px 10px;
+        border-radius: 20px;
+    }
+
     .headerPost {
+        width: 100%;
+        position: relative;
+
         .frameIcon {
             display: flex;
             align-items: center;
@@ -10,6 +21,7 @@
 
             h1 {
                 font-weight: 600;
+
             }
         }
 
@@ -41,68 +53,290 @@
                 }
 
             }
-        }
 
-        .frameInfoSong {
-            margin-top: 5px;
-            max-width: 50%;
-            padding-left: 5%;
+            .frameFollow {
+                position: absolute;
+                right: 0;
+                font-size: 16px;
+                color: #e0e0e0;
+                transition: .2s;
+                cursor: pointer;
 
+                .frameIconMore {
+                    padding: 5px;
+                    border-radius: 50%;
+                    transition: .2s;
 
-            .infoSong {
-                height: 100%;
-                border-radius: 20px;
-                background-color: rgb(152, 152, 152);
-                padding: 10px;
+                    svg {
+                        transition: .2s;
 
-                .headerInfoSong {
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    gap: 2%;
+                        path {
+                            transition: .2s;
+                        }
 
-                    .frameImg {
-                        img {
-                            height: 120px;
-                            min-width: 120px;
-                            object-fit: cover;
-                            border-radius: 20px;
+                        circle {
+                            transition: .2s;
                         }
                     }
 
-                    .ContentSong {
-                        width: 100%;
+                    &:hover {
+                        background-color: #e6e6e6;
+                        color: #000;
 
-                        .infoSong {
-                            align-items: normal;
+                        svg {
+                            path {
+                                fill: #000;
+                                stroke: #000;
+                            }
 
-                            h1 {
-                                font-size: 30px;
-                                font-weight: 600;
+                            circle {
+                                stroke: #000;
                             }
                         }
 
-                        .footerSong {
-                            display: flex;
-                            align-items: center;
-                            gap: 2%;
+                    }
 
-                            .frameBtnPlay {
-                                padding: 10px;
-                                border-radius: 50%;
-                                background-color: black;
+                }
 
+                .frameIconFolow {
+                    height: min-content;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    background-color: transparent;
+                    transition: .2s;
+                    border: 2px solid #fff;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+
+                    svg {
+                        transition: .2s;
+
+                        path {
+                            transition: .2s;
+                        }
+
+                        circle {
+                            transition: .2s;
+                        }
+                    }
+
+                    &:hover {
+                        background-color: #e6e6e6;
+                        color: #000;
+
+                        svg {
+                            path {
+                                fill: #000;
+                                stroke: #000;
                             }
 
-                            .frameRange {
-                                display: flex;
-                                align-items: center;
-                                width: 100%;
-
-                                input {
-                                    width: 100%;
-                                }
+                            circle {
+                                stroke: #000;
                             }
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    .frameInfoSong {
+        margin: 5px 0 10px 0;
+        width: 100%;
+        transition: .2s;
+        overflow: hidden;
+        padding: 0 0 0 40px;
+
+        .infoSong {
+            width: 100%;
+
+            .headerInfoSong {
+                padding: 5px;
+                height: 100%;
+                width: 100%;
+                padding-right: 10px;
+                display: grid;
+                align-items: center;
+                gap: 2%;
+                grid-template-columns: 35% 65%;
+                background-color: rgb(152, 152, 152);
+                border-radius: 10px;
+                transition: .2s;
+
+                .frameImg {
+                    img {
+                        height: 120px;
+                        min-width: 100%;
+                        object-fit: cover;
+                        border-radius: 20px;
+                    }
+                }
+
+                .infoSongDetail {
+                    h1 {
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+
+
+
+                }
+
+                .footerSong {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    margin-top: 2px;
+                    gap: 2%;
+
+                    .frameBtnPlay {
+                        padding: 10px;
+                        border-radius: 50%;
+                        background-color: black;
+                        z-index: 3;
+                        transition: .2s;
+
+                    }
+
+                    .tranformBtn {
+                        transform: translate(220%);
+                    }
+
+                    .frameRange {
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+
+                        input {
+                            height: 4px;
+                            width: 100%;
+                            transition: .2s;
+                        }
+
+                        .hiddenInput {
+                            width: 0 !important;
+                            transform: translate(100%, 0);
+                            visibility: hidden;
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .footerPost {
+        width: 100%;
+        margin-top: 20px;
+
+        .framelistIcon {
+            display: flex;
+            gap: 5%;
+            align-items: center;
+            justify-content: space-around;
+
+            .frameIcon {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                padding: 5px 10px;
+                border-radius: 20px;
+                transition: .2s;
+                // background-color: aliceblue;
+
+            }
+
+            .activeIconStar {
+                color: rgb(229, 229, 91);
+
+                svg {
+                    path {
+                        stroke: rgb(229, 229, 91);
+                    }
+                }
+            }
+
+            .iconstar {
+                transition: .2s;
+
+                svg {
+                    transition: .2s;
+
+                    path {
+                        transition: .2s;
+                    }
+                }
+
+                &:hover {
+                    background-color: rgba(254, 246, 27, 0.312);
+                    color: rgb(241, 241, 1);
+
+                    svg {
+                        path {
+                            stroke: rgb(241, 241, 1);
+                        }
+                    }
+                }
+            }
+
+            .activeIconRepost {
+
+                color: #18c964 !important;
+
+                svg {
+                    path {
+                        stroke: #18c964 !important;
+                    }
+                }
+            }
+
+            .iconRepost {
+                transition: .2s;
+
+                svg {
+                    transition: .2s;
+
+                    path {
+                        transition: .2s;
+                    }
+                }
+
+                &:hover {
+                    background-color: #18c96433 !important;
+                    color: #18c964 !important;
+
+                    svg {
+                        path {
+                            stroke: #18c964 !important;
+                        }
+                    }
+                }
+            }
+
+            .iconComment {
+                transition: .2s;
+
+                svg {
+                    transition: .2s;
+
+                    path {
+                        transition: .2s;
+                    }
+                }
+
+                &:hover {
+                    color: #f5a524 !important;
+                    background-color: #f5a52433 !important;
+
+                    svg {
+                        path {
+                            stroke: #f5a524 !important;
                         }
                     }
                 }

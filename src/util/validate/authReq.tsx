@@ -19,6 +19,17 @@ const HandleErrors = {
     isNotEqual: (value1: string, value2: string) => {
         return value1 === value2;
     },
+    checkPhone: (value: string) => {
+        if (typeof Number(value) == 'number') {
+            if (value.length == 10) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 };
 
 
@@ -66,7 +77,30 @@ const signupValidate = (email: string, name: string, pass: string, confirmPass: 
     return { status, Error };
 }
 
+
+const updateValidate = (name: string, phone: string) => {
+    const Error: any = {};
+    let status = false;
+
+    if (!HandleErrors.CheckLenght(name)) {
+        Error["name"] = "Name must be 4 to 25 characters ";
+        status = true;
+    }
+
+    if (phone != 'null') {
+        if (!HandleErrors.checkPhone(phone)) {
+            Error["phone"] = "phone must be 10 characters or not in correct format";
+            status = true;
+        }
+    }
+
+
+
+    return { status, Error };
+}
+
 export const authValidate = {
     login: loginValidate,
-    signup: signupValidate
+    signup: signupValidate,
+    update: updateValidate
 }

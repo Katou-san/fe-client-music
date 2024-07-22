@@ -5,72 +5,65 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Selector } from "@reduxjs/toolkit";
+import { authValidate } from "@/util/validate/authReq";
+import { auth } from "@/apis/Auth";
+import { useDispatch } from "react-redux";
+import { signupProvider } from "@/hooks/redux/action/authProvider";
 
 function Register({ Value }: { Value: any }) {
 
 
   const routes = useRouter()
+  const dispatch = useDispatch()
   const [req_state, req_dispatch] = useRequest();
   const { Is_Loading } = req_state;
   const [valueSignup, setValueSignup] = useState<authSignupType>(authModel.initSignup);
   const [ValueError, setValueError] = useState({});
 
 
-  // const SubmitRegister = (e) => {
-  //   e.preventDefault();
-  //   if (!Is_Loading) {
-  //     dispatch({ type: "REQUEST" });
-  //     setValueError(Check_Error_Register(FormValue).Detail_Error);
-  //     if (!Check_Error_Register(FormValue).Has_Error) {
-  //       const Name = FormValue.User_Email.split("@");
-  //       const value = {
-  //         ...FormValue,
-  //         User_ConfirmPass: FormValue.User_Confirm_Pass,
-  //       };
-  //       SigupService(value)
-  //         .then((res) => {
-  //           if (res.status === 200) {
-  //             toast.success(res.message);
-  //             dispatch_Login({ type: "CHANGE", payload: res.data });
-  //             Get_Playlist_User(
-  //               res.data.Data_User.User_Id,
-  //               res.data.Access_Token
-  //             )
-  //               .then((resopne) => {
-  //                 dispatch_Playlist_user({
-  //                   type: "CHANGE",
-  //                   payload: resopne.data,
-  //                 });
-  //               })
-  //               .catch((err) => console.error(err));
+  const SubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!Is_Loading) {
+      req_dispatch({ type: "REQUEST" });
+      const checkError = authValidate.signup(valueSignup.User_Email, valueSignup.User_Name, valueSignup.User_Pass, valueSignup.User_ConfirmPass)
+      setValueError(checkError.Error);
+      if (!checkError.status) {
+        auth.Sigup(valueSignup)
+          .then((res) => {
+            if (res.status === 200) {
+              toast.success(res.message);
+              localStorage.setItem("Access_Token", res.data.Access_Token);
+              localStorage.setItem("is_Login", res.data.is_Login);
+              req_dispatch({ type: "SUCCESS" });
+              dispatch(signupProvider(res.data))
+              setValueSignup(authModel.initSignup);
+              routes.push('/')
+            } else {
+              req_dispatch({ type: "SUCCESS" });
+              toast.error(res.message);
+            }
+          })
+          .catch((err) => {
+            req_dispatch({ type: "SUCCESS" });
+            toast.error("Error" + err.status);
+          });
+      } else {
 
-  //             dispatch({ type: "SUCCESS", payload: { data: res.data } });
-  //             localStorage.setItem("Access_Token", res.data.Access_Token);
-  //             localStorage.setItem("is_Login", res.data.is_Login);
-  //             Navigate("/");
-  //           } else {
-  //             dispatch({ type: "ERROR", payload: {} });
-  //             toast.error(res.message);
-  //           }
-  //         })
-  //         .catch((err) => {
-  //           dispatch({ type: "ERROR", payload: { error: err.data } });
-  //           toast.error("2");
-  //         });
-  //     } else {
-  //       dispatch({ type: "ERROR", payload: {} });
-  //       const Error_Value = Check_Error_Register(FormValue).Detail_Error;
-  //       let Arraykey = Object.keys(Error_Value);
-  //       Arraykey.map((key) => toast.error(Error_Value[key]));
-  //     }
-  //   } else {
-  //     toast.warning("Please dont spam");
-  //   }
-  // };
+        let Arraykey = Object.keys(checkError.Error);
+        Arraykey.map(key => {
+          toast.error(checkError.Error[key]);
+
+        })
+
+      }
+    } else {
+      toast.warning("Please dont spam");
+    }
+  };
 
   return (
     <div className={`FromLS RegisterForm `}>
-      <form onSubmit={() => { }}>
+      <form onSubmit={SubmitRegister}>
         <h1>Sign Up</h1>
         <div className="inputText">
           <label htmlFor="SEmail"> Email</label>

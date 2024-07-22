@@ -19,6 +19,7 @@ export const EnvConfig = {
   NEXT_PUBLIC_ROLE: "/role",
 
   NEXT_PUBLIC_REPOST: "/repost",
+  NEXT_PUBLIC_REPOSTS: "/reposts",
 
   NEXT_PUBLIC_LIKE: "/like",
   NEXT_PUBLIC_LIKES: "/likes",
@@ -32,6 +33,8 @@ export const EnvConfig = {
 
   NEXT_PUBLIC_PLAYLIST: "/playlist",
   NEXT_PUBLIC_PLAYLIST_MANAGE: "/playlists",
+
+  NEXT_PUBLIC_FOLLOW: '/follow',
 
   NEXT_PUBLIC_EMPLOYESS: "/employess",
 
