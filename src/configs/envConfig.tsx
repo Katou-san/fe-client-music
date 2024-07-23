@@ -7,6 +7,8 @@ export const EnvConfig = {
   NEXT_PUBLIC_AUTH: "/user/Oauth",
   NEXT_PUBLIC_USER: "/user",
 
+  NEXT_PUBLIC_VISIT: "/visit",
+
   NEXT_PUBLIC_PROPOSE: "/trending",
 
   NEXT_PUBLIC_SONG: "/song",

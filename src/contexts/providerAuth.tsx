@@ -1,6 +1,7 @@
 'use client'
 import { auth } from '@/apis/Auth';
 import { Playlist } from '@/apis/Playlist';
+import { Visit } from '@/apis/Visit';
 import { EnvConfig } from '@/configs/envConfig';
 import { loginProvider } from '@/hooks/redux/action/authProvider';
 import { setInfoProvider } from '@/hooks/redux/action/infoProvider';
@@ -29,6 +30,11 @@ const ProviderAuth = ({ children }: { children: ReactNode }) => {
 
                         }
                     })
+            }
+            const session = sessionStorage.getItem('visit')
+            if (session == undefined) {
+                sessionStorage.setItem('visit', 'active')
+                Visit.Get()
             }
         }
     }, [])

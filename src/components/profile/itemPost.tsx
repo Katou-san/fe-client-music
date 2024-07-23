@@ -92,7 +92,6 @@ const ItemPost = ({ post }: Props) => {
             Repost.Get_Current(userProvider.User_Id, post.Song_Id)
                 .then((res) => {
                     if (res.status == 200) {
-                        console.log(res.data)
                         set_StateRepost(res.data)
                     }
                 })
