@@ -36,7 +36,7 @@
         flex-direction: column;
         overflow: auto;
         height: 500px;
-        padding-bottom: 90px;
+        padding-bottom: 140px;
 
 
         .itemCommentPopup {
@@ -130,6 +130,16 @@
                                 }
                             }
 
+                            .activeframeStarIcon {
+                                color: rgb(216, 216, 85);
+
+                                svg {
+                                    path {
+                                        stroke: rgb(229, 229, 91);
+                                    }
+                                }
+                            }
+
                             .frameDislikeIcon {
                                 padding: 2px;
                                 color: rgb(150, 149, 149);
@@ -150,6 +160,14 @@
                                         path {
                                             stroke: #f54281;
                                         }
+                                    }
+                                }
+                            }
+
+                            .activeframeDislikeIcon {
+                                svg {
+                                    path {
+                                        stroke: #f54281;
                                     }
                                 }
                             }
@@ -202,29 +220,40 @@
 
     .listReplyPopup {
         width: 100%;
+        padding: 0;
 
         .itemReplyPopup {
-            margin-top: 5px;
+            position: relative;
+            margin-top: 8px;
             width: 100%;
 
             .contentReply {
                 width: 100%;
-                display: flex;
-                gap: 2%;
-
+                display: grid;
+                align-items: start;
+                justify-items: center;
+                grid-template-columns: 17% 83%;
 
                 img {
-                    min-width: 50px;
-                    height: 50px !important;
-                    width: 50px !important;
+                    height: 50px;
+                    width: 50px;
                     object-fit: cover;
                     border-radius: 50%;
                 }
 
+
                 .ReplyText {
+                    display: grid;
+                    align-items: start;
                     width: 100%;
 
                     .headerItemReply {
+                        min-height: 30px;
+                        display: flex;
+                        width: 100%;
+                        align-items: center;
+                        gap: 10px;
+
                         h1 {
                             font-size: 20px;
                             color: black;
@@ -233,22 +262,109 @@
                     }
 
                     .content {
+                        position: relative;
+                        width: 100%;
+
                         .textReply {
-                            max-width: 227px;
-                            padding: 10px;
+                            // max-width: 283px;
+                            padding: 12px 10px;
                             background-color: rgba(143, 143, 143, 0.399);
                             border-radius: 5px 15px 15px 15px;
                             color: black;
+                        }
+
+                        .iconReply {
+                            position: absolute;
+                            width: 40%;
+                            top: 80%;
+                            right: 0;
+                            transition: .2s ease-in-out;
+                            display: flex;
+                            justify-content: end;
+                            gap: 2%;
+
+                            .frameStarIcon {
+                                display: flex;
+                                padding: 2px 10px;
+                                border-radius: 20px;
+                                align-items: center;
+                                color: rgb(150, 149, 149);
+                                transition: .2s ease-in-out;
+                                background-color: rgb(248, 248, 248);
+
+
+                                svg {
+                                    transition: .2s ease-in-out;
+
+                                    path {
+                                        transition: .2s ease-in-out;
+                                    }
+                                }
+
+                                &:hover {
+
+                                    color: rgb(216, 216, 85);
+
+                                    svg {
+                                        path {
+                                            stroke: rgb(229, 229, 91);
+                                        }
+                                    }
+                                }
+                            }
+
+                            .activeframeStarIcon {
+                                color: rgb(216, 216, 85);
+
+                                svg {
+                                    path {
+                                        stroke: rgb(229, 229, 91);
+                                    }
+                                }
+                            }
+
+                            .frameDislikeIcon {
+                                padding: 2px;
+                                color: rgb(150, 149, 149);
+                                transition: .2s ease-in-out;
+                                background-color: rgb(248, 248, 248);
+                                border-radius: 50%;
+
+                                svg {
+                                    transition: .2s;
+
+                                    path {
+                                        transition: .2s;
+                                    }
+                                }
+
+                                &:hover {
+                                    svg {
+                                        path {
+                                            stroke: #f54281;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .activeframeDislikeIcon {
+                                svg {
+                                    path {
+                                        stroke: #f54281;
+                                    }
+                                }
+                            }
                         }
                     }
 
                     .footerItemReply {
                         color: rgb(115, 115, 115);
-                        margin-top: 5px;
+                        margin-top: 2px;
                         display: flex;
                         grid-template-columns: auto 5% 10% 10% 30%;
                         align-items: center;
                         gap: 6px;
+                        font-size: 14px;
 
                         span {
                             height: 3px;
@@ -256,8 +372,30 @@
                             background-color: rgb(115, 115, 115);
                             border-radius: 50%;
                         }
+
+                        .moreIcon {
+                            padding: 5px;
+                            background-color: rgb(220, 220, 220);
+                            border-radius: 50%;
+                            transition: .2s ease-in-out;
+
+                            svg {
+                                transition: .2s;
+                            }
+
+                            &:hover {
+                                background-color: #2020203c;
+
+                                svg {
+                                    fill: #fff;
+                                }
+                            }
+                        }
+
+
                     }
                 }
+
             }
         }
     }
@@ -270,6 +408,32 @@
         color: rgb(119, 118, 118);
         font-weight: 600;
         font-size: 15px;
+    }
+
+    .frameContentReplyComment {
+        position: absolute;
+        bottom: -60px;
+        height: 50px;
+        transition: .2s;
+        background-color: #f54281;
+        width: 95%;
+        padding: 5px;
+        border-radius: 20px 20px 0 0;
+        display: flex;
+        align-items: center;
+
+        .ContentCommentReply {
+            display: flex;
+            gap: 1%;
+
+            h1 {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .activeFrameContentReplyComment {
+        bottom: 60px !important;
     }
 
     .frameInputCommemt {

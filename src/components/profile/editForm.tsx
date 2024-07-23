@@ -50,36 +50,39 @@ const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
 
     const onSubmitUpdate = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (!is_Loading) {
-            set_Load(true)
-            const checkError = authValidate.update(infoUser.User_Name || '', change?.Phone == infoUser.Phone ? 'null' : change?.Phone || '')
-            if (!checkError.status) {
-                if (user.User_Id) {
-                    User.Update(user.User_Id, Form_Data(change, ['User_Id', 'User_Email', 'is_Admin', 'is_Premium']))
-                        .then((res) => {
-                            if (res.status == 200) {
-                                toast.success(res.message)
-                                set_Load(false)
-                                set_Show();
-                                set_Reload()
-                            } else {
-                                toast.error(res.message)
-                                set_Load(false)
-                            }
-                        })
-                    set_Load(false)
+        if (infoUser.User_Id != '' && infoUser.User_Id != undefined) {
+            if (!is_Loading) {
+                set_Load(true)
+                const checkError = authValidate.update(infoUser.User_Name || '', change?.Phone == infoUser.Phone ? 'null' : change?.Phone || '')
+                if (!checkError.status) {
+                    if (user.User_Id) {
+                        User.Update(user.User_Id, Form_Data(change, ['User_Id', 'User_Email', 'is_Admin', 'is_Premium']))
+                            .then((res) => {
+                                if (res.status == 200) {
+                                    toast.success(res.message)
+                                    set_Load(false)
+                                    set_Show();
+                                    set_Reload()
+                                } else {
+                                    toast.error(res.message)
+                                    set_Load(false)
+                                }
+                            })
+                        set_Load(false)
+                    } else {
+                        toast.error('Id user is emty');
+                        set_Load(false)
+                    }
                 } else {
-                    toast.error('Id user is emty');
+                    let Arraykey = Object.keys(checkError.Error);
+                    toast.error(checkError.Error[Arraykey[0]]);
                     set_Load(false)
                 }
             } else {
-                let Arraykey = Object.keys(checkError.Error);
-                toast.error(checkError.Error[Arraykey[0]]);
-                set_Load(false)
+                toast.warning('Please wait...');
             }
-        } else {
-            toast.warning('Please wait...');
         }
+
     }
 
     return (
@@ -109,7 +112,7 @@ const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
                             type="text"
                             className="inputNamePlaylist"
                             placeholder="Name"
-                            value={user.User_Name}
+                            value={user?.User_Name}
                             onChange={(e) => {
                                 set_user({ ...user, User_Name: e.target.value })
                                 set_Change({ ...change, User_Name: e.target.value })
@@ -121,7 +124,7 @@ const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
                             type="text"
                             className="inputNamePlaylist"
                             placeholder="Phone"
-                            value={user.Phone}
+                            value={user?.Phone}
                             onChange={(e) => {
                                 set_user({ ...user, Phone: e.target.value })
                                 set_Change({ ...change, Phone: e.target.value })
@@ -129,14 +132,14 @@ const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
                             }
                         />
                         <div className="lableColor" >
-                            <label htmlFor="colorUser" style={{ backgroundColor: `${user.Color}` }}>Color</label>
+                            <label htmlFor="colorUser" style={{ backgroundColor: `${user?.Color}` }}>Color</label>
                         </div>
                         <input
                             type="color"
                             className="none"
                             placeholder="Phone"
                             id='colorUser'
-                            value={""}
+                            value={user?.Color}
                             onChange={(e) => {
                                 set_user({ ...user, Color: e.target.value })
                                 set_Change({ ...change, Color: e.target.value })

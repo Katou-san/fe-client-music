@@ -35,6 +35,7 @@ export const EnvConfig = {
   NEXT_PUBLIC_PLAYLIST_MANAGE: "/playlists",
 
   NEXT_PUBLIC_FOLLOW: '/follow',
+  NEXT_PUBLIC_FOLLOWS: '/follows',
 
   NEXT_PUBLIC_EMPLOYESS: "/employess",
 

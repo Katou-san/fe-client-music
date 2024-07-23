@@ -35,9 +35,11 @@ import { toast } from "react-toastify";
 import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 import { Repost } from "@/apis/Repost";
 import { repostModel, repostType } from "@/model/repostModel";
+import { useReload } from "@/contexts/providerReload";
 const Popup = () => {
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
+  const { set_ReRepost, re_repost } = useReload()
   const [drop_Down, set_Drop] = useState(false)
   const [stateLike, set_StateLike] = useState<create_likeType>(
     likeModel.init_create
@@ -108,16 +110,23 @@ const Popup = () => {
             set_StateLike(res.data)
           }
         });
-        Repost.Get_Current(userProvider.User_Id, currentList[currentIndex]?.Song_Id)
-          .then((res) => {
-            if (res.status == 200) {
-              set_StateRepost(res.data)
-            } else {
-              set_StateRepost(repostModel.init)
-            }
-          });
+
       }
   }, [userProvider, is_listPopup, currentIndex])
+
+  useEffect(() => {
+    if (currentList[currentIndex]?.Song_Id != undefined) {
+      Repost.Get_Current(userProvider.User_Id, currentList[currentIndex]?.Song_Id)
+        .then((res) => {
+          if (res.status == 200) {
+            set_StateRepost(res.data)
+          } else {
+            set_StateRepost(repostModel.init)
+          }
+        });
+    }
+
+  }, [re_repost])
 
 
 
@@ -162,6 +171,7 @@ const Popup = () => {
                 if (res.status == 200) {
                   toast.success(res.message)
                   set_StateRepost(res.data)
+                  set_ReRepost()
                 } else {
                   set_StateRepost(repostModel.init)
                 }

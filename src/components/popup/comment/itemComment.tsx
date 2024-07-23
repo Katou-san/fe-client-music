@@ -4,12 +4,13 @@ import { Reply } from "@/apis/Reply";
 import { Send } from "@/apis/Send";
 import MoreModalDropDown from "@/components/customs/more/moreModal";
 import ItemReplyPopup from "@/components/popup/comment/ItemReply";
+import { useReload } from "@/contexts/providerReload";
 import { RootState } from "@/hooks/redux/store";
 import { ArrowLineDown_Icon, ArrowLineUp_Icon, Dislike_Icon, Star_Icon } from "@/Icons/icon_Figma";
 import { MoreIcon } from "@/Icons/icon_v1";
 import { commentType } from "@/model/commentModel";
 import { create_likeType, likeModel, list_likeType } from "@/model/likeModel";
-import { list_replyType, replyType } from "@/model/replyModel";
+import { create_replyType, list_replyType, replyType } from "@/model/replyModel";
 import { URLValidate } from "@/util/validate/url";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -18,10 +19,12 @@ import { toast } from "react-toastify";
 
 type Props = {
     comment: commentType
-    onReload: () => void
+    handle_Reply: (comment: commentType) => void
+
 }
-const ItemCommentPopup = ({ comment, onReload }: Props) => {
+const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
     const userProvider = useSelector((state: RootState) => state.auth)
+    const { set_ReReply, re_reply, set_ReComment } = useReload()
     const [showReply, set_ShowReply] = useState(false)
     const [drop_Down, set_DropDown] = useState(false)
     const [url, set_url] = useState('')
@@ -49,18 +52,18 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
                         set_listLikeComment(res.data)
                     }
                 })
+
             ])
 
         }
     }, [comment])
 
-    useEffect(() => {
-        if (showReply) {
 
-            Reply.Get_Id(comment.Comment_Id)
-                .then(res => set_listReply(res.data))
-        }
-    }, [showReply])
+    useEffect(() => {
+        Reply.Get_Id(comment.Comment_Id)
+            .then(res => set_listReply(res.data))
+    }, [comment, re_reply])
+
 
     const handleLike = (type: "like" | "dislike") => {
         if (userProvider.Access_Token != "" && userProvider.is_Login) {
@@ -126,23 +129,23 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
                     <div className="content">
                         <div className="textComment overflow__Text_Endline">{comment?.Content}</div>
                         <div className="iconComment cursor_pointer">
-                            <div className="frameStarIcon">
-                                <div className="frameIcon" onClick={() => handleLike('like')}>
+                            <div className={`frameStarIcon ${stateLike.State == 1 && 'activeframeStarIcon'}`} onClick={() => handleLike('like')}>
+                                <div className={`frameIcon`} >
                                     <Star_Icon w={25} color="rgb(150, 149, 149)" />
                                 </div>
                                 <h3>{listLikeComment.length}</h3>
                             </div>
-                            <div className="frameDislikeIcon">
-                                <div className="frameIcon" onClick={() => handleLike('dislike')}>
+                            <div className={`frameDislikeIcon ${stateLike.State == -1 && 'activeframeDislikeIcon'}`} onClick={() => handleLike('dislike')}>
+                                <div className={`frameIcon `} >
                                     <Dislike_Icon w={25} color="rgb(150, 149, 149)" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="footerItemComment">
-                        <div className="timeComment cursor_pointer">Yesterday</div>
+                        <div className="timeComment cursor_pointer">{new Date(comment.Post_Time).toLocaleDateString()}</div>
                         <span></span>
-                        <div className="replyComment cursor_pointer">Reply</div>
+                        <div className="replyComment cursor_pointer" onClick={() => handle_Reply(comment)}>Reply</div>
                         <span></span>
                         <div className="moreIcon cursor_pointer" onClick={() => set_DropDown(true)}>
                             <MoreIcon w={15} color="#20202092" />
@@ -153,7 +156,7 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
 
                         {listReply.length > 0 && showReply == true && listReply.map((reply: replyType, index) => {
                             return (
-                                <ItemReplyPopup key={index} />
+                                <ItemReplyPopup key={index} reply={reply} />
                             );
                         })}
 
@@ -170,7 +173,7 @@ const ItemCommentPopup = ({ comment, onReload }: Props) => {
                     </div>
                 </div>
             </div>
-            <MoreModalDropDown drop_Down={drop_Down} set_Drop={() => set_DropDown(false)} comment={comment} style={{ top: '60%', left: "60%" }} type={1} onReload={onReload} />
+            <MoreModalDropDown drop_Down={drop_Down} set_Drop={() => set_DropDown(false)} comment={comment} style={{ top: '60%', left: "60%" }} type={1} onReload={set_ReComment} />
         </div>
     );
 };

@@ -19,16 +19,19 @@ import { list_commentType } from '@/model/commentModel';
 import { Comment } from '@/apis/Comment';
 import { Repost } from '@/apis/Repost';
 import { Like } from '@/apis/Like';
-import { MoreIcon } from '@/Icons/icon_v1';
+import { CheckIcon, MoreIcon } from '@/Icons/icon_v1';
 import MoreRepostDropDown from '@/components/customs/more/moreRepost/moreRepost';
 import { Track } from '@/apis/Track';
 import { toast } from 'react-toastify';
+import { useReload } from '@/contexts/providerReload';
+import { Follow } from '@/apis/Follow';
+import { followModel, followType } from '@/model/followModel';
 
 type Props = {
     post: repostType
-    onReload: () => void
 }
-const ItemPost = ({ post, onReload }: Props) => {
+const ItemPost = ({ post }: Props) => {
+    const { set_ReRepost, re_follow, set_ReFollow } = useReload()
     const userProvider = useSelector((state: RootState) => state.auth)
     const infoProvider = useSelector((state: RootState) => state.info)
     const [infoUser, set_info] = useState<userType>(userModel.init)
@@ -39,9 +42,8 @@ const ItemPost = ({ post, onReload }: Props) => {
     const [listCommnet, set_ListCommnet] = useState<list_commentType>([])
     const [listRepost, set_ListRepost] = useState<list_repostType>([])
     const [drop, set_Drop] = useState(false)
-    const [reload, set_Load] = useState(false)
     const [url, set_url] = useState('')
-
+    const [currentFollow, set_CurrentFollow] = useState<followType>(followModel.init)
     useEffect(() => {
         if (post) {
             Promise.all([
@@ -94,8 +96,9 @@ const ItemPost = ({ post, onReload }: Props) => {
                         set_StateRepost(res.data)
                     }
                 })
+
         ])
-    }, [post, reload])
+    }, [post])
 
     useEffect(() => {
         if (infoUser?.Avatar != '' && infoUser?.Avatar != undefined) {
@@ -106,7 +109,46 @@ const ItemPost = ({ post, onReload }: Props) => {
                 set_url(infoUser.Avatar)
             }
         }
-    }, [infoUser])
+    }, [infoUser, post])
+
+    useEffect(() => {
+        if (infoUser?.User_Id != undefined && infoUser?.User_Id != null && infoUser?.User_Id != '') {
+            Follow.Get_Current(infoUser.User_Id)
+                .then((res) => {
+                    if (res.status == 200) {
+                        set_CurrentFollow(res.data)
+                    } else {
+                        set_CurrentFollow(followModel.init)
+                    }
+                })
+        }
+
+    }, [infoUser, re_follow])
+
+    const handleFollow = () => {
+        if (userProvider.User_Id != undefined && userProvider.User_Id != '' && infoUser.User_Id != '' && infoUser.User_Id != undefined) {
+            if (currentFollow.Follower != '') {
+                Follow.Delete(infoUser.User_Id)
+                    .then((res) => {
+                        if (res.status == 200) {
+                            toast.success(res.message)
+                            set_ReFollow()
+                        } else {
+                            toast.error(res.message)
+                        }
+                    })
+            } else
+                Follow.Create({ Following: infoUser.User_Id })
+                    .then((res) => {
+                        if (res.status == 200) {
+                            toast.success(res.message)
+                            set_ReFollow()
+                        } else {
+                            toast.error(res.message)
+                        }
+                    })
+        }
+    }
 
     const handleLike = () => {
         if (userProvider.Access_Token != "" && userProvider.is_Login && infoProvider.Like != '') {
@@ -162,14 +204,22 @@ const ItemPost = ({ post, onReload }: Props) => {
                                 <h1 className='overflow__Text'>{infoUser.User_Name}</h1>
                                 <span></span>
                             </div>
-                            <h3>{new Date(post.Post_Time).toLocaleDateString()}</h3>
+                            <h3>{new Date(post?.Post_Time).toLocaleDateString()}</h3>
                         </div>
                         <div className="frameFollow">
                             {userProvider.User_Id != infoUser.User_Id &&
-                                <div className="frameIconFolow">
-                                    <Follow_Icon color={"#e0e0e0"} />
-                                    <h1>Follow</h1>
-                                </div>
+                                <>
+                                    {currentFollow.Follower == userProvider.User_Id &&
+                                        <div className="frameIconFolow frameFollowed" onClick={handleFollow}>
+                                            <><CheckIcon w={17} />
+                                                <h1>Followed</h1></>
+                                        </div>}
+                                    {currentFollow.Follower != userProvider.User_Id &&
+                                        <div className="frameIconFolow" onClick={handleFollow}>
+                                            <><Follow_Icon w={17} />
+                                                <h1>Follow</h1></>
+                                        </div>}</>
+
                             }
                             {userProvider.User_Id == infoUser.User_Id &&
                                 <div className="frameIconMore" onClick={() => set_Drop(true)}>
@@ -198,7 +248,7 @@ const ItemPost = ({ post, onReload }: Props) => {
                         </div>
                     </div>
                 </div>
-                <MoreRepostDropDown drop_Down={drop} set_Drop={() => set_Drop(false)} repost={post} onReload={onReload}
+                <MoreRepostDropDown drop_Down={drop} set_Drop={() => set_Drop(false)} repost={post} onReload={set_ReRepost}
                     style={{ top: "10%", left: '60%' }}
                     type={1}
                 />

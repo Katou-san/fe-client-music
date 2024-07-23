@@ -1,42 +1,83 @@
 import React, { useEffect, useState } from "react";
 import "./_listComment.scss";
-import { Close_Icon, Send_Icon } from "@/Icons/icon_Figma";
+import { ArrowLineRight_Icon, Close_Icon, Send_Icon } from "@/Icons/icon_Figma";
 import ItemCommentPopup from "@/components/popup/comment/itemComment";
 import { useLayout } from "@/contexts/providerLayout";
 import { SuperHappy_Icon } from "@/Icons/emoji_Figma";
-import { commentModel, commentType, create_commentType, list_commentType } from "@/model/commentModel";
+import {
+    commentModel,
+    commentType,
+    create_commentType,
+    list_commentType,
+} from "@/model/commentModel";
 import { Comment } from "@/apis/Comment";
 import { toast } from "react-toastify";
+import { Reply } from "@/apis/Reply";
+import { create_replyType, replyModel } from "@/model/replyModel";
+import { useSelector } from "react-redux";
+import { RootState } from "@/hooks/redux/store";
+import { useReload } from "@/contexts/providerReload";
 type Props = {
-    Song_Id: string
-}
+    Song_Id: string;
+};
 const ListComment = ({ Song_Id }: Props) => {
     const { setShowCommentPopup, is_commentPopup } = useLayout();
-    const [reload, set_Reload] = useState(false)
-    const [listComment, set_listCommnet] = useState<list_commentType>([])
-    const [valueComment, set_valueComment] = useState<create_commentType>(commentModel.init_create);
+    const { set_ReReply, set_ReComment, re_comment } = useReload()
+    const userProvider = useSelector((state: RootState) => state.auth);
+    const [listComment, set_listCommnet] = useState<list_commentType>([]);
+    const [valueComment, set_valueComment] = useState<create_commentType>(
+        commentModel.init_create
+    );
+    const [showReply, set_showReply] = useState(false);
+    const [valueComment_reply, set_ValueComment_reply] = useState<commentType>(
+        commentModel.init
+    );
+    const [valueReply, set_ValueReply] = useState<create_replyType>(
+        replyModel.inti_create
+    );
     const handle_SendComment = () => {
-        Comment.Create(valueComment)
-            .then((res) => {
-                if (res.status === 200) {
-                    toast.success(res.message)
-                    set_valueComment({ ...valueComment, Content: "" })
-                    set_Reload(prev => !prev)
-                } else {
-                    toast.error(res.message)
-                }
-            })
-    }
+        if (userProvider.is_Login && userProvider.Access_Token != "") {
+            if (valueComment_reply.Comment_Id != "" && showReply) {
+                Reply.Create({
+                    ...valueReply,
+                    Comment_Id: valueComment_reply.Comment_Id,
+                }).then((res) => {
+                    if (res.status == 200) {
+                        set_ReReply()
+                        set_showReply(false)
+                        set_ValueComment_reply(commentModel.init)
+                        set_ValueReply(replyModel.inti_create)
+
+                    } else {
+                        toast.error(res.message);
+                    }
+                });
+            } else {
+                Comment.Create(valueComment).then((res) => {
+                    if (res.status === 200) {
+                        set_valueComment({ ...valueComment, Content: "" });
+                        set_ReComment()
+                    } else {
+                        toast.error(res.message);
+                    }
+                });
+            }
+        } else {
+            toast.error("Please login to comment");
+        }
+    };
+
+    const handleReply = (reply: commentType) => {
+        set_showReply(true);
+        set_ValueComment_reply(reply);
+    };
+
     useEffect(() => {
         if (!!Song_Id && is_commentPopup) {
-            Comment.Get_SongId(Song_Id)
-                .then((res) => set_listCommnet(res.data))
+            Comment.Get_SongId(Song_Id).then((res) => set_listCommnet(res.data));
         }
-        set_valueComment({ ...valueComment, Song_Id })
-    }, [Song_Id, reload, is_commentPopup])
-
-
-
+        set_valueComment({ ...valueComment, Song_Id });
+    }, [Song_Id, re_comment, is_commentPopup]);
 
     return (
         <div className="frameComment">
@@ -53,14 +94,40 @@ const ListComment = ({ Song_Id }: Props) => {
             <div className="ListCommentPopup">
                 {listComment.length > 0 &&
                     listComment.map((comment: commentType, index: number) => {
-                        return <ItemCommentPopup comment={comment} key={index} onReload={() => set_Reload(pre => !pre)} />;
+                        return (
+                            <ItemCommentPopup
+                                comment={comment}
+                                key={index}
+                                handle_Reply={handleReply}
+                            />
+                        );
                     })}
 
                 {listComment.length == 0 && (
                     <div className="nothingInComment">Be the first to comment</div>
                 )}
             </div>
-
+            <div
+                className={`frameContentReplyComment ${showReply && "activeFrameContentReplyComment"
+                    }`}
+            >
+                <div className="frameIcon">
+                    <ArrowLineRight_Icon />
+                </div>
+                <div className="ContentCommentReply overflow__Text">
+                    <h1>{valueComment_reply.User_Name}</h1>
+                    <span>:</span> <h3>{valueComment_reply.Content}</h3>
+                </div>
+                <div
+                    className="frameIcon cursor_pointer"
+                    onClick={() => {
+                        set_showReply(false);
+                        set_ValueComment_reply(commentModel.init);
+                    }}
+                >
+                    <Close_Icon w={30} />
+                </div>
+            </div>
             <div className="frameInputCommemt">
                 <div className="contentInputComment">
                     <div className="frameIcon">
@@ -71,9 +138,16 @@ const ListComment = ({ Song_Id }: Props) => {
                             name=""
                             id=""
                             placeholder="Enter your message..."
-                            value={valueComment.Content}
+                            value={showReply ? valueReply.Content : valueComment.Content}
                             onChange={(e) => {
-                                set_valueComment({ ...valueComment, Content: e.target.value });
+                                if (showReply && valueComment_reply.Comment_Id != "") {
+                                    set_ValueReply({ ...valueReply, Content: e.target.value });
+                                } else {
+                                    set_valueComment({
+                                        ...valueComment,
+                                        Content: e.target.value,
+                                    });
+                                }
                             }}
                         />
                     </div>

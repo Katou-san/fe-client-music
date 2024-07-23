@@ -141,6 +141,31 @@
                 }
 
             }
+
+            .frameFollowed {
+                background-color: #8cd4ec !important;
+                transition: .2s;
+                border: 2px solid #8cd4ec !important;
+
+                &:hover {
+                    border: 2px solid #f54281 !important;
+
+                    color: #fae8eecd !important;
+                    background-color: #f54281 !important;
+
+                    svg {
+                        path {
+                            fill: #fae8eecd !important;
+                            stroke: #fae8eecd !important;
+                        }
+
+                        circle {
+                            stroke: #fae8eecd !important;
+                        }
+                    }
+
+                }
+            }
         }
 
 

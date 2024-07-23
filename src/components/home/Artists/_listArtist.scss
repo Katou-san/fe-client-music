@@ -18,8 +18,8 @@
     }
 
     .itemListArtist {
-        min-width: 200px;
-        width: 280px !important;
+        // height: 200px;
+        width: 200px !important;
         position: relative;
         transition: .2s;
         scroll-snap-align: start;
@@ -32,6 +32,7 @@
 
             img {
                 height: 200px;
+                width: 200px;
                 border-radius: 50%;
                 object-fit: cover;
                 transition: .2s;

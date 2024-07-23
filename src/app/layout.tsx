@@ -7,6 +7,7 @@ import { ProviderAudio } from "@/contexts/providerAudio";
 import { ProviderLayout } from "@/contexts/providerLayout";
 import { ProviderStore } from "@/hooks/redux/provider";
 import ProviderAuth from "@/contexts/providerAuth";
+import { ProviderReload } from "@/contexts/providerReload";
 
 const inter = Tilt_Neon({ subsets: ["latin"] });
 
@@ -25,9 +26,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <ProviderStore>
           <ProviderAuth>
-            <ProviderLayout>
-              <ProviderAudio>{children}</ProviderAudio>
-            </ProviderLayout>
+            <ProviderReload>
+              <ProviderLayout>
+                <ProviderAudio>{children}</ProviderAudio>
+              </ProviderLayout>
+            </ProviderReload>
           </ProviderAuth>
         </ProviderStore>
         <ToastContainer />

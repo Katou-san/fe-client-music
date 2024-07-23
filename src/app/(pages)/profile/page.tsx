@@ -9,22 +9,27 @@ import { User } from "@/apis/User";
 import { URLValidate } from "@/util/validate/url";
 import { Send } from "@/apis/Send";
 import imgTemp from '../../../../public/temp.jpg'
-import { Follow_Icon, Repost_Icon } from "@/Icons/icon_Figma";
+import { Follow_Icon } from "@/Icons/icon_Figma";
 import ItemPost from "@/components/profile/itemPost";
 import { useSearchParams } from "next/navigation";
 import { Repost } from "@/apis/Repost";
 import { list_repostType } from "@/model/repostModel";
-import { followModel } from "@/model/followModel";
+import { followModel, followType } from "@/model/followModel";
 import { Follow } from "@/apis/Follow";
 import EditForm from "@/components/profile/editForm";
+import { useReload } from "@/contexts/providerReload";
+import { toast } from "react-toastify";
+import { CheckIcon } from "@/Icons/icon_v1";
 const Page = () => {
+  const { set_ReFollow, re_follow } = useReload()
   const [showEdit, set_ShowEdit] = useState(false)
   const [Reload, set_Reload] = useState(false)
-  const [ReloadPost, set_ReloadPost] = useState(false)
+  const { re_repost } = useReload()
   const userProvider = useSelector((state: RootState) => state.auth)
   const [listRepost, set_ListRepost] = useState<list_repostType>([])
   const [infoUser, set_Info] = useState<userType>(userModel.init)
   const [follow, set_follow] = useState(followModel.init_res)
+  const [currentFollow, set_CurrentFollow] = useState<followType>(followModel.init)
   const [url, set_url] = useState('')
   const seachParam = useSearchParams();
   const UserId = seachParam.get("id");
@@ -33,17 +38,11 @@ const Page = () => {
     if (UserId != undefined && UserId != null && UserId != '') {
       Promise.all([
         User.Get_Id(UserId)
-          .then((res) => set_Info(res.data)),
-        Follow.Get_Follow(UserId)
-          .then((res) => {
-            if (res.status == 200) {
-              set_follow(res.data)
-            }
-          })
+          .then((res) => set_Info(res.data))
       ])
 
     }
-  }, [UserId, Reload])
+  }, [UserId])
 
 
 
@@ -55,7 +54,6 @@ const Page = () => {
       } else {
         set_url(infoUser.Avatar)
       }
-
     }
   }, [infoUser])
 
@@ -69,8 +67,52 @@ const Page = () => {
           }
         })
     }
-  }, [ReloadPost, infoUser])
+  }, [infoUser, re_repost])
 
+  useEffect(() => {
+    if (UserId != undefined && UserId != null && UserId != '') {
+      Follow.Get_Follow(UserId)
+        .then((res) => {
+          if (res.status == 200) {
+            set_follow(res.data)
+          }
+        }),
+        Follow.Get_Current(UserId)
+          .then((res) => {
+            if (res.status == 200) {
+              set_CurrentFollow(res.data)
+            } else {
+              set_CurrentFollow(followModel.init)
+            }
+          })
+    }
+
+  }, [re_follow])
+
+  const handleFollow = () => {
+    if (userProvider.User_Id != undefined && userProvider.User_Id != '' && UserId != '' && UserId != undefined) {
+      if (currentFollow.Follower != '') {
+        Follow.Delete(UserId)
+          .then((res) => {
+            if (res.status == 200) {
+              toast.success(res.message)
+              set_ReFollow()
+            } else {
+              toast.error(res.message)
+            }
+          })
+      } else
+        Follow.Create({ Following: infoUser.User_Id })
+          .then((res) => {
+            if (res.status == 200) {
+              toast.success(res.message)
+              set_ReFollow()
+            } else {
+              toast.error(res.message)
+            }
+          })
+    }
+  }
 
   return <div className="frameProfile">
     <div className="headerProfile">
@@ -82,23 +124,29 @@ const Page = () => {
       <div className="infoUser">
         {userProvider.User_Id != UserId &&
           <div className="frameOption">
-            <div className="frameFollow">
-              <Follow_Icon />
-              <h1>Follow</h1>
-            </div>
+            {currentFollow.Follower == userProvider.User_Id &&
+              <div className="frameFollow frameFollowed" onClick={handleFollow}>
+                <><CheckIcon w={17} />
+                  <h1>Followed</h1></>
+              </div>}
+            {currentFollow.Follower != userProvider.User_Id &&
+              <div className="frameFollow" onClick={handleFollow}>
+                <><Follow_Icon w={17} />
+                  <h1>Follow</h1></>
+              </div>}
           </div>}
         {userProvider.User_Id == UserId && <div className="frameOption" >
           <div className="editProfile" onClick={() => set_ShowEdit(true)}>Edit profile</div>
         </div>}
 
         <div className="frameName">
-          <h1>{infoUser.User_Name}</h1>
+          <h1>{infoUser?.User_Name}</h1>
         </div>
         <div className="frameId">
-          <h1>{infoUser.User_Email}</h1>
+          <h1>{infoUser?.User_Email}</h1>
         </div>
         <div className="frameCreate">
-          <h1>create date: {new Date(infoUser.Create_date).toLocaleDateString()}</h1>
+          <h1>create date: {new Date(infoUser?.Create_date).toLocaleDateString()}</h1>
         </div>
         <div className="frameFollow">
           <div className="following">
@@ -118,7 +166,7 @@ const Page = () => {
       </div>
       <div className="listPost">
         {listRepost.length == 0 && <div className="loading">No repost</div>}
-        {listRepost.length > 0 && listRepost.map((post, index) => <ItemPost key={index} post={post} onReload={() => set_ReloadPost(prev => !prev)} />)}
+        {listRepost.length > 0 && listRepost.map((post, index) => <ItemPost key={index} post={post} />)}
       </div>
     </div>
     <EditForm infoUser={infoUser} is_Show={showEdit} set_Show={() => set_ShowEdit(false)} set_Reload={() => set_Reload(prev => !prev)} />

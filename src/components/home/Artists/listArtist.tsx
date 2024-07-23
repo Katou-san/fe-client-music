@@ -9,9 +9,8 @@ type Props = {
     arrayArtist: list_userType
 }
 
-const ListArtist = ({ arrayArtist }: Props) => {
+const ListArtist = ({ arrayArtist = [] }: Props) => {
     const listRef = useRef<HTMLDivElement>(null)
-    const arrayTemp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
 
     const handeNext = (type: 'next' | 'prev') => {
         if (type == 'next') {
