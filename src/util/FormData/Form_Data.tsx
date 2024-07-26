@@ -4,9 +4,13 @@ const Form_Data = (data: any, deny: Array<any> = []) => {
     ArrayKey.map((key, i) => {
         if (!deny.includes(key)) {
             if (data[key] != undefined && data[key] != null && data[key] != '') {
-                formdata.append(key, data[key]);
-            }
+                if (typeof data[key] == 'boolean') {
+                    formdata.append(key, data[key].toString());
+                } else {
+                    formdata.append(key, data[key]);
+                }
 
+            }
         }
     })
     return formdata

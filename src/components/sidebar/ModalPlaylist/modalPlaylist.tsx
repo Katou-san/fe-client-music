@@ -33,9 +33,8 @@ const ModalPlaylist = ({ modal_Open, onClose }: Props) => {
 
   return (
     <div
-      className={`frameModalPlaylist ${
-        modal_Open == true && "ActiveframeModalPlaylist"
-      }`}
+      className={`frameModalPlaylist ${modal_Open == true && "ActiveframeModalPlaylist"
+        }`}
     >
       <header>
         <h3>Create playlist</h3>

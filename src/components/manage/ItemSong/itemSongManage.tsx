@@ -61,7 +61,7 @@ const ItemSongManage = ({ song, index, handle_Detail, handle_Delete, handle_Upda
                     <h3>{song.Artist}</h3>
                 </div>
             </div>
-            <div className="frameLike">
+            <div className="frameCate">
                 {cate?.Category_Name}
             </div>
             <div className="indexState">

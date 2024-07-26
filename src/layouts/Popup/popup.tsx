@@ -36,6 +36,8 @@ import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 import { Repost } from "@/apis/Repost";
 import { repostModel, repostType } from "@/model/repostModel";
 import { useReload } from "@/contexts/providerReload";
+import WaveIcon from "@/Icons/cusIcons/wave/waveIcon";
+import Wavev2Icon from "@/Icons/cusIcons/wave/wavev2";
 const Popup = () => {
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
@@ -54,6 +56,7 @@ const Popup = () => {
     setShowCommentPopup,
   } = useLayout();
   const {
+    percent_Load,
     is_Playing,
     repeat,
     shuffle,
@@ -126,7 +129,7 @@ const Popup = () => {
         });
     }
 
-  }, [re_repost])
+  }, [re_repost, currentIndex, currentList])
 
 
 
@@ -252,6 +255,7 @@ const Popup = () => {
             </div>
             <div className="frameRage">
               <input
+                style={{ accentColor: currentList[currentIndex]?.Color || '#fff' }}
                 type="range"
                 name=""
                 id=""
@@ -261,6 +265,9 @@ const Popup = () => {
                   changeRange2(progressbarRef);
                 }}
               />
+              <div className="frameWaveIcon" style={{ width: `${percent_Load}%` }}>
+                <Wavev2Icon h={200} w={`${percent_Load}%`} color={currentList[currentIndex]?.Color || '#fff'} />
+              </div>
             </div>
             <div className="timePlayerEnd">{secondsToMinute(duration)}</div>
           </div>

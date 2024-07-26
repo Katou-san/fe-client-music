@@ -4,6 +4,7 @@ import { AudioLineIcon, ImageIcon } from "@/Icons/icon_v1";
 import { create_songType, songType, update_songType } from "@/model/songModel";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import imgTemp from '../../../../../public/temp.jpg'
 type Props = {
   Get_Value_Form: (value: any) => void;
   Value_Form: create_songType;
@@ -19,7 +20,10 @@ export default function FormStep1Edit({ Get_Value_Form, Value_Form, Song, Set_Ch
     }
 
     if (typeof Value_Form.Song_Image == 'string') {
-      Send.Image_S(Value_Form.Song_Image).then(res => set_UrlImg(URL.createObjectURL(res)))
+      if (Value_Form.Song_Image != '') {
+        Send.Image_S(Value_Form.Song_Image).then(res => set_UrlImg(URL.createObjectURL(res)))
+      }
+
     } else {
       set_UrlImg(URL.createObjectURL(Value_Form.Song_Image))
     }
@@ -43,7 +47,7 @@ export default function FormStep1Edit({ Get_Value_Form, Value_Form, Song, Set_Ch
         </div>
         <div className="ImgShow">
           {Value_Form.Song_Image ? (
-            <Image src={urlImg} alt="" width={1000} height={1000} />
+            <Image src={urlImg || imgTemp} alt="" width={1000} height={1000} />
           ) : (
             <ImageIcon w={80} />
           )}

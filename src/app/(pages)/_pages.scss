@@ -17,6 +17,8 @@
         gap: 10px;
         grid-template-columns: 69% 30%;
         transition: .2s;
+        position: relative;
+        overflow: hidden;
 
         .MainContent {
             position: relative;

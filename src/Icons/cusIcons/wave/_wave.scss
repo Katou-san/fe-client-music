@@ -1,0 +1,53 @@
+.waveV2 {
+    width: 100%;
+    transition: .2s;
+}
+
+.waveV1 {
+    border-radius: 50px 50px 0 0;
+}
+
+.frameWaveIcon {
+    svg path {
+        animation: oceanWave 7s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    svg path:nth-child(2) {
+        animation-delay: 1s;
+    }
+
+    svg path:nth-child(3) {
+        animation-delay: 4s;
+    }
+
+    svg path:nth-child(4) {
+        animation-delay: 6s;
+    }
+
+    @keyframes oceanWave {
+
+        0% {
+            d: path("M 0 500 C 0 500 0 500 -1 500 C 446 491 479 499 1320 499 L 1320 500 L 0 500");
+        }
+
+        25% {
+            d: path("M -1 498 C 220 315 441 325 684 457 C 855 499 1041 197 1320 499 L 1320 500 L 0 500");
+        }
+
+        50% {
+            d: path("M -1 498 C 489 347 573 329 918 425 C 1022 453 1223 332 1320 499 L 1320 500 L 0 500");
+        }
+
+        75% {
+            d: path("M -1 498 C 780 497 1124 284 1320 500 C 1319 500 1320 500 1320 499 L 1320 500 L 0 500");
+        }
+
+        100% {
+            d: path("M -1 498 C 10 481 -12 501 1321 499 C 1321 499 1322 499 1320 499 L 1320 500 L 0 500");
+        }
+
+
+    }
+}

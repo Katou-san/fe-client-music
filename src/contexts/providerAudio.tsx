@@ -76,6 +76,7 @@ const defaultContext = {
 const contextAudio = createContext<contextType>(defaultContext);
 
 const ProviderAudio = ({ children }: { children: ReactNode }) => {
+  const [fist, set_fist] = useState(false)
   const urltemp = "http://localhost:8080/api/v1/send/audio/57534667333.mp3";
   const [progressbarRef, set_progressbarRef] =
     useState<RefObject<HTMLInputElement>>();
@@ -205,8 +206,11 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
     let newState = is_Playing;
     set_isPlaying(!newState);
     if (!newState) {
+
       audioRef.current?.play();
       renderDotRange();
+
+
     } else {
       audioRef.current?.pause();
     }
@@ -251,11 +255,10 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
     }
 
     if (repeat == 2) {
-      const newstate = currentIndex;
-      set_CurrentIndex(currentIndex + 1);
-      set_CurrentIndex(newstate);
-      set_isPlaying(false);
-      set_isPlaying(true);
+      if (audioRef?.current?.currentTime != null && audioRef?.current?.currentTime != undefined) {
+        audioRef.current.currentTime = 0
+        audioRef.current.play()
+      }
       renderDotRange();
     }
   };
@@ -263,11 +266,14 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
   const handle_shuffle = () => {
     const state = shuffle;
     if (!state) {
-      set_CurrentList(HandleSong.shuffle(playlist));
+      const getSong = currentList[currentIndex]
+      const newlist = HandleSong.shuffle(currentList)
+      set_CurrentList(newlist);
+      setIndex(newlist.map(e => e.Song_Id).indexOf(getSong.Song_Id))
     } else {
       set_CurrentList(playlist);
     }
-    set_shuffle((prev) => !prev);
+    set_shuffle(!state);
     renderDotRange();
   };
 
@@ -309,8 +315,13 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
   }, [currentIndex, duration, currentTime, currentList]);
 
   useEffect(() => {
-    if (audioRef.current != null) {
-      audioRef.current?.play();
+    if (audioRef?.current != undefined && audioRef?.current != null) {
+      if (fist) {
+        audioRef.current.play();
+      } else {
+        set_fist(pre => !pre)
+      }
+
     }
     renderDotRange();
   }, [currentIndex, duration]);
@@ -326,9 +337,12 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (currentList.length > 0) {
       if (!URLValidate.isUrl(currentList[currentIndex]?.Song_Audio)) {
-        Send.Audio(currentList[currentIndex]?.Song_Audio).then((res) =>
-          set_src(URL.createObjectURL(res))
-        );
+        if (currentList[currentIndex]?.Song_Audio != '' && currentList[currentIndex]?.Song_Audio != undefined) {
+          Send.Audio(currentList[currentIndex].Song_Audio).then((res) =>
+            set_src(URL.createObjectURL(res))
+          );
+        }
+
       } else {
         set_src(currentList[currentIndex].Song_Audio);
       }

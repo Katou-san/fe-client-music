@@ -6,6 +6,7 @@ import "./_pages.scss"
 import React, { ReactNode } from 'react';
 import { useLayout } from '@/contexts/providerLayout';
 import Popup from '@/layouts/Popup/popup';
+import AlbumModal from '@/components/customs/modal/Album/albumModal';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const { is_Popup } = useLayout()
@@ -17,6 +18,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     <div className="MainContent">
                         <Header />
                         {children}
+                        <AlbumModal />
                     </div>
                     <div className="PopupContent">
                         <Popup />

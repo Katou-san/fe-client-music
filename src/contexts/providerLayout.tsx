@@ -12,6 +12,8 @@ interface contextType {
     is_Popup: boolean;
     is_listPopup: boolean,
     is_commentPopup: boolean,
+    is_albumForm: boolean,
+    setAlbumForm: (value: boolean) => void;
     setShowPopup: () => void;
     setShowListPopup: () => void;
     setShowCommentPopup: () => void;
@@ -21,6 +23,8 @@ const defaultContext = {
     is_Popup: false,
     is_listPopup: false,
     is_commentPopup: false,
+    is_albumForm: false,
+    setAlbumForm: (value: boolean) => { },
     setShowPopup: () => { },
     setShowListPopup: () => { },
     setShowCommentPopup: () => { }
@@ -32,6 +36,7 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
     const [is_Popup, set_Popup] = useState(false)
     const [is_listPopup, set_listPopup] = useState(false)
     const [is_commentPopup, set_conmmentPopup] = useState(false)
+    const [is_AlbumForm, set_AlbumForm] = useState(false)
 
     const HandelPopup = () => {
         const state_Popup = is_Popup
@@ -69,6 +74,8 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
                 is_Popup: is_Popup,
                 is_listPopup: is_listPopup,
                 is_commentPopup: is_commentPopup,
+                is_albumForm: is_AlbumForm,
+                setAlbumForm: (value: boolean) => set_AlbumForm(value),
                 setShowCommentPopup: set_ShowCommentPopup,
                 setShowPopup: HandelPopup,
                 setShowListPopup: set_ShowListPopup,

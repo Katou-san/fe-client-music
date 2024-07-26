@@ -22,9 +22,7 @@ const infoUser = {
 }
 
 const initUpdate = {
-    User_Name: "",
-    Phone: "",
-    Color: "",
+
     Avatar: undefined
 }
 

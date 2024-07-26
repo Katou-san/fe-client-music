@@ -41,15 +41,19 @@ export const EnvConfig = {
 
   NEXT_PUBLIC_EMPLOYESS: "/employess",
 
-  NEXT_PUBLIC_BILL: "/bill",
+  NEXT_PUBLIC_BILL: "/bills",
 
-  NEXT_PUBLIC_SUBSCRIPTION: "/subscription",
+  NEXT_PUBLIC_SUBSCRIPTION: "/sub",
 
   NEXT_PUBLIC_GET_AVATAR: "/send/user/avatar",
   NEXT_PUBLIC_GET_AUDIO: "/send/audio",
   NEXT_PUBLIC_GET_IMAGE: "/send/image",
   NEXT_PUBLIC_GET_IMAGE_P: "/send/image_P",
   NEXT_PUBLIC_GET_THUMNAIL_P: "/send/thumbnail",
+
+  NEXT_PUBLIC_PAYMENT: "/pay",
+  NEXT_PUBLIC_ZALO: "/zalopay",
+  NEXT_PUBLIC_VNPAY: "/vnpay",
 
   LocalToken: "Access_Token",
 };

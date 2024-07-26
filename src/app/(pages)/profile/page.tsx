@@ -21,7 +21,7 @@ import { useReload } from "@/contexts/providerReload";
 import { toast } from "react-toastify";
 import { CheckIcon } from "@/Icons/icon_v1";
 const Page = () => {
-  const { set_ReFollow, re_follow } = useReload()
+  const { set_ReFollow, re_follow, re_profile } = useReload()
   const [showEdit, set_ShowEdit] = useState(false)
   const [Reload, set_Reload] = useState(false)
   const { re_repost } = useReload()
@@ -42,7 +42,7 @@ const Page = () => {
       ])
 
     }
-  }, [UserId])
+  }, [UserId, re_profile])
 
 
 
@@ -67,16 +67,17 @@ const Page = () => {
           }
         })
     }
-  }, [infoUser, re_repost])
+  }, [UserId, re_repost])
 
   useEffect(() => {
     if (UserId != undefined && UserId != null && UserId != '') {
-      Follow.Get_Follow(UserId)
-        .then((res) => {
-          if (res.status == 200) {
-            set_follow(res.data)
-          }
-        }),
+      Promise.all([
+        Follow.Get_Follow(UserId)
+          .then((res) => {
+            if (res.status == 200) {
+              set_follow(res.data)
+            }
+          }),
         Follow.Get_Current(UserId)
           .then((res) => {
             if (res.status == 200) {
@@ -85,6 +86,8 @@ const Page = () => {
               set_CurrentFollow(followModel.init)
             }
           })
+      ])
+
     }
 
   }, [re_follow])

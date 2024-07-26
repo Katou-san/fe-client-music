@@ -1,3 +1,17 @@
+.acticeItemSub {
+    background-color: rgb(65, 64, 64) !important;
+    color: #f7f7f7;
+
+    .btnPlan {
+        background-color: #6f6f6f !important;
+        color: #fff !important;
+
+        &:hover {
+            color: #f7f7f7;
+        }
+    }
+}
+
 .itemSub {
     min-width: 250px;
     min-height: 400px;

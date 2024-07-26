@@ -1,3 +1,5 @@
+import { update_userType } from "@/model/userModel";
+
 const HandleErrors = {
     isEmail: (value: string) => {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
@@ -78,21 +80,26 @@ const signupValidate = (email: string, name: string, pass: string, confirmPass: 
 }
 
 
-const updateValidate = (name: string, phone: string) => {
+const updateValidate = (value: update_userType) => {
     const Error: any = {};
     let status = false;
 
-    if (!HandleErrors.CheckLenght(name)) {
-        Error["name"] = "Name must be 4 to 25 characters ";
-        status = true;
+    if (value.User_Name != undefined) {
+        if (!HandleErrors.CheckLenght(value.User_Name)) {
+            Error["name"] = "Name must be 4 to 25 characters ";
+            status = true;
+        }
     }
 
-    if (phone != 'null') {
-        if (!HandleErrors.checkPhone(phone)) {
+
+    if (value.Phone != undefined) {
+        if (!HandleErrors.checkPhone(value.Phone)) {
             Error["phone"] = "phone must be 10 characters or not in correct format";
             status = true;
         }
     }
+
+
 
 
 

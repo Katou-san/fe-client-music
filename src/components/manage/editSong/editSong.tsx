@@ -189,7 +189,7 @@ export default function EditSong({ song, editSong, onReload, handle_Edit }: Prop
                 ) : (
                   ""
                 ))}
-              Create Song
+              Update Song
             </button>
           )}
         </div>

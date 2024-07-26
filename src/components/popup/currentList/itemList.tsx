@@ -24,7 +24,7 @@ type Props = {
   active: boolean;
 };
 const ItemListPopup = ({ item, index, active }: Props) => {
-  const { setIndex, currentIndex } = useAudio();
+  const { setIndex, currentIndex, currentList } = useAudio();
 
   const userProvider = useSelector((state: RootState) => state.auth)
   const infoProvider = useSelector((state: RootState) => state.info)
@@ -41,6 +41,7 @@ const ItemListPopup = ({ item, index, active }: Props) => {
       if (URLValidate.isUrl(item.Song_Image)) {
         Send.Image_S(item.Song_Image).then((res) => {
           set_url(URL.createObjectURL(res))
+          set_Loading(false)
         }
         );
       } else {
@@ -93,6 +94,7 @@ const ItemListPopup = ({ item, index, active }: Props) => {
       }
     })
   }
+
 
 
 

@@ -134,7 +134,7 @@ const ItemTopResult = ({ song, list, index, info_Playlist }: Props) => {
                 </div>
             </div>
             <div className="frameInfoUser cursor_pointer">
-                Upload by: {infoUser.User_Name}
+                Upload by: {infoUser?.User_Name}
             </div>
             <div className="btnPlayResult cursor_pointer" onClick={Handle_Play}>
                 {is_Playing && currentList[currentIndex].Song_Id == song?.Song_Id ? <Pause_Icon w={50} /> : <Play_Icon w={60} />}

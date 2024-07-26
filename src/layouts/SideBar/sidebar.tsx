@@ -76,9 +76,10 @@ function Sidebar() {
           <AddListMusicIcon />
           <span>Create playlist</span>
         </div>
-
         <ModalPlaylist modal_Open={modal_Open} onClose={handle_CloseModal} />
       </div>
+
+
 
       <div className="ContentLF">
         <ul>

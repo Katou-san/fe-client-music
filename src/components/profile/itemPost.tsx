@@ -89,14 +89,18 @@ const ItemPost = ({ post }: Props) => {
                         set_StateLike(res.data)
                     }
                 }),
+
+
+        ])
+
+        if (userProvider.User_Id != '') {
             Repost.Get_Current(userProvider.User_Id, post.Song_Id)
                 .then((res) => {
                     if (res.status == 200) {
                         set_StateRepost(res.data)
                     }
                 })
-
-        ])
+        }
     }, [post])
 
     useEffect(() => {

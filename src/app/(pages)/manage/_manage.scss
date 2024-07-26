@@ -122,17 +122,18 @@
             }
 
             .btnCreate {
-                height: 50px;
+                // height: 50px;
                 background-color: #3dccfb;
                 border-radius: 15px;
                 color: rgb(251, 251, 251);
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 600;
                 display: grid;
-                padding: 0 20px;
+                padding: 10px 20px;
                 place-items: center;
                 cursor: pointer;
                 transition: .2s;
+                // padding: 5px 10px;
 
                 &:hover {
                     background-color: #38bae6;

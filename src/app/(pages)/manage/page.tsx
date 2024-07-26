@@ -17,8 +17,10 @@ import { Circle_Icon } from "@/Icons/icon_Figma";
 import { storageModel, storageType } from "@/model/storageModel";
 import { Storages } from "@/apis/Storages";
 import { useRouter } from "next/navigation";
+import { useLayout } from "@/contexts/providerLayout";
 const Page = () => {
   const routes = useRouter()
+  const { setAlbumForm } = useLayout()
   const userProvider = useSelector((state: RootState) => state.auth)
   const [showAdd, set_ShowAdd] = useState(false)
   const [infoPlaylist, set_info] = useState<playlistType>(playlistModel.init)
@@ -105,14 +107,15 @@ const Page = () => {
             </div>
           </div>
           <div className="frameUpgradeSub" >
-            <div className="UpgradeSub cursor_pointer" onClick={() => {
+            <div className="UpgradeSub cursor_pointer overflow__Text" onClick={() => {
               routes.push('/subscription')
             }}>
-              <h1>Upgrade plan</h1>
+              <h1 className="overflow__Text">Upgrade plan</h1>
             </div>
 
           </div>
-          <div className="btnCreate" onClick={handleShowAdd}>Add Song</div>
+          <div className="btnCreate " onClick={() => setAlbumForm(true)}> <h1 className="overflow__Text">Create Album</h1> </div>
+          <div className="btnCreate" onClick={handleShowAdd}> <h1 className="overflow__Text"> Create Song</h1></div>
         </div>
         <div className="bodyManage">
           <div className="headerTable">

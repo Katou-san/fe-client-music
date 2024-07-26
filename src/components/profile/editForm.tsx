@@ -9,6 +9,7 @@ import { authValidate } from '@/util/validate/authReq';
 import { User } from '@/apis/User';
 import { Form_Data } from '@/util/FormData/Form_Data';
 import { toast } from 'react-toastify';
+import { useReload } from '@/contexts/providerReload';
 
 type Props = {
     infoUser: userType
@@ -17,6 +18,7 @@ type Props = {
     set_Reload: () => void
 }
 const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
+    const { set_ReProfile } = useReload()
     const [change, set_Change] = useState<update_userType>(userModel.init_update)
     const itemRef = useRef<HTMLInputElement | null>(null);
     const [is_Loading, set_Load] = useState(false)
@@ -53,7 +55,7 @@ const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
         if (infoUser.User_Id != '' && infoUser.User_Id != undefined) {
             if (!is_Loading) {
                 set_Load(true)
-                const checkError = authValidate.update(infoUser.User_Name || '', change?.Phone == infoUser.Phone ? 'null' : change?.Phone || '')
+                const checkError = authValidate.update(change)
                 if (!checkError.status) {
                     if (user.User_Id) {
                         User.Update(user.User_Id, Form_Data(change, ['User_Id', 'User_Email', 'is_Admin', 'is_Premium']))
@@ -62,7 +64,7 @@ const EditForm = ({ infoUser, set_Show, is_Show, set_Reload }: Props) => {
                                     toast.success(res.message)
                                     set_Load(false)
                                     set_Show();
-                                    set_Reload()
+                                    set_ReProfile()
                                 } else {
                                     toast.error(res.message)
                                     set_Load(false)
