@@ -23,6 +23,7 @@
         .frameImg {
             height: 70px;
             width: 70px;
+            min-width: 70px;
             background-color: aliceblue;
             border-radius: 15px;
             overflow: hidden;
@@ -35,6 +36,8 @@
         }
 
         .infoSong {
+            width: 100%;
+
             h1 {
                 font-size: 20px;
                 font-weight: 600;

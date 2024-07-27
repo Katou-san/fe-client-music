@@ -9,7 +9,7 @@ import { User } from "@/apis/User";
 import { URLValidate } from "@/util/validate/url";
 import { Send } from "@/apis/Send";
 import imgTemp from '../../../../public/temp.jpg'
-import { Follow_Icon } from "@/Icons/icon_Figma";
+import { Check_Icon, Follow_Icon, Sound_Icon } from "@/Icons/icon_Figma";
 import ItemPost from "@/components/profile/itemPost";
 import { useSearchParams } from "next/navigation";
 import { Repost } from "@/apis/Repost";
@@ -20,6 +20,8 @@ import EditForm from "@/components/profile/editForm";
 import { useReload } from "@/contexts/providerReload";
 import { toast } from "react-toastify";
 import { CheckIcon } from "@/Icons/icon_v1";
+import { Role } from "@/apis/Role";
+import { roleModel } from "@/model/roleModel";
 const Page = () => {
   const { set_ReFollow, re_follow, re_profile } = useReload()
   const [showEdit, set_ShowEdit] = useState(false)
@@ -29,6 +31,7 @@ const Page = () => {
   const [listRepost, set_ListRepost] = useState<list_repostType>([])
   const [infoUser, set_Info] = useState<userType>(userModel.init)
   const [follow, set_follow] = useState(followModel.init_res)
+  const [inforole, set_infoRole] = useState(roleModel.init)
   const [currentFollow, set_CurrentFollow] = useState<followType>(followModel.init)
   const [url, set_url] = useState('')
   const seachParam = useSearchParams();
@@ -40,7 +43,6 @@ const Page = () => {
         User.Get_Id(UserId)
           .then((res) => set_Info(res.data))
       ])
-
     }
   }, [UserId, re_profile])
 
@@ -53,6 +55,15 @@ const Page = () => {
           .then((res) => set_url(URL.createObjectURL(res)))
       } else {
         set_url(infoUser.Avatar)
+      }
+
+      if (infoUser?.User_Id != '') {
+        Role.Get_Id(infoUser.Role_Id)
+          .then((res) => {
+            if (res.status == 200) {
+              set_infoRole(res.data)
+            }
+          })
       }
     }
   }, [infoUser])
@@ -89,8 +100,8 @@ const Page = () => {
       ])
 
     }
-
   }, [re_follow])
+
 
   const handleFollow = () => {
     if (userProvider.User_Id != undefined && userProvider.User_Id != '' && UserId != '' && UserId != undefined) {
@@ -144,6 +155,7 @@ const Page = () => {
 
         <div className="frameName">
           <h1>{infoUser?.User_Name}</h1>
+          <span>{infoUser?.is_Premium ? inforole.Role_Name == 'creator' ? <Sound_Icon w={30} /> : <Check_Icon w={30} /> : ''} </span>
         </div>
         <div className="frameId">
           <h1>{infoUser?.User_Email}</h1>

@@ -18,6 +18,9 @@ import { RootState } from "@/hooks/redux/store";
 import { toast } from "react-toastify";
 import ItemPlaylist from "@/components/playlist/itemPlaylist";
 import imgTemp from "../../../../public/temp.jpg"
+import { MoreIcon } from "@/Icons/icon_v1";
+import MorePlaylistDropDown from "@/components/customs/more/morePlaylist/morePlaylist";
+import UpdatePlaylistModal from "@/components/customs/modal/updatePlaylist/updatePlaylist";
 const Page = () => {
   const {
     setList,
@@ -31,33 +34,39 @@ const Page = () => {
   const userProvider = useSelector((state: RootState) => state.auth);
   const seachParam = useSearchParams();
   const PlaylistId = seachParam.get("id");
+  const type = seachParam.get("type");
 
   const [imageUrl, set_ImgUrl] = useState("");
   const [thumbUrl, set_ThumbUrl] = useState("");
   const [info_Playlist, set_info] = useState<playlistType | null>(null);
   const [list, set_List] = useState<list_songType>([]);
+  const [drop_Down, set_DropDown] = useState(false)
+  const [show_update, set_ShowUpdate] = useState(false)
 
   const [listLike, setListLike] = useState<list_likeType>([]);
   const [stateLike, set_StateLike] = useState<create_likeType>(
     likeModel.init_create
   );
+  const [reload, set_Reload] = useState(false)
+
+  const [showMore, set_ShowMore] = useState(false)
 
   useEffect(() => {
     if (PlaylistId != undefined && PlaylistId != null) {
       Promise.all([
-        Playlist.Get_Id(1, PlaylistId).then((res) => set_info(res.data)),
+        Playlist.Get_Id(Number(type) || 1, PlaylistId).then((res) => set_info(res.data)),
         Track.Get_Track(PlaylistId).then((res) => set_List(res.data)),
         Like.Get_Playlist(PlaylistId).then((res) => {
           setListLike(res.data);
         }),
-        Like.Get_Current(PlaylistId, 1).then((res) => {
+        Like.Get_Current(PlaylistId, Number(type) || 1).then((res) => {
           if (res.status == 200) {
             set_StateLike(res.data)
           }
         })
       ]);
     }
-  }, [PlaylistId, userProvider]);
+  }, [PlaylistId, userProvider, reload]);
 
   useEffect(() => {
     if (info_Playlist != undefined && info_Playlist != null) {
@@ -171,6 +180,15 @@ const Page = () => {
                 <Star_Icon w={40} />
                 <h3>{listLike?.length}</h3>
               </div>
+              {userProvider.User_Id == info_Playlist.User_Id && <>
+                <div className="frameMoreIcon" onClick={() => set_ShowMore(true)}>
+                  <MoreIcon />
+                </div>
+
+                <MorePlaylistDropDown set_Drop={() => set_ShowMore(false)} drop_Down={showMore} playlist={info_Playlist} style={{ left: '20%', top: '15%' }} event={() => set_ShowUpdate(true)} />
+              </>}
+
+
             </div>
 
             <div className="listSongPlaylistDetail">
@@ -196,6 +214,7 @@ const Page = () => {
               {list.length == 0 && <div>Empty</div>}
             </div>
           </div>
+          <UpdatePlaylistModal drop_down={show_update} on_DropDown={() => set_ShowUpdate(false)} playlist={info_Playlist} on_Reload={() => set_Reload(pre => !pre)} />
         </div>
       )}
     </>

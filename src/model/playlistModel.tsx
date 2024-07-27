@@ -22,10 +22,15 @@ const Create_Playlist = {
 };
 
 
+const Update_Playlist = {
+  Image: "",
+  Thumbnail: "",
+}
 export const playlistModel = {
   init: list_Playlist_init[0],
   init_list: list_Playlist_init,
   init_create: Create_Playlist,
+  init_update: Update_Playlist
 };
 
 const Create_Album = {
@@ -37,11 +42,15 @@ const Create_Album = {
   Artist: "",
 }
 
+
 export const albumModel = {
   init: list_Playlist_init[0],
   init_list: list_Playlist_init,
   init_create: Create_Album,
+
 };
+
+
 
 export type playlistType = (typeof list_Playlist_init)[0];
 export type list_playlistType = typeof list_Playlist_init;
@@ -53,4 +62,13 @@ export type create_Album = {
   is_Publish: boolean,
   Type: number,
   Artist: string,
+};
+
+export type update_Playlist = {
+  Image: any,
+  Thumbnail: any,
+  Playlist_Name?: string,
+  is_Publish?: boolean,
+  Type?: number,
+  Artist?: string,
 };

@@ -56,7 +56,7 @@ const ItemAlbumLibrary = ({ playlist }: Props) => {
   }, []);
 
   const handleRoutes = () => {
-    routes.push(`/playlist?id=${playlist.Playlist_Id}`);
+    routes.push(`/playlist?id=${playlist.Playlist_Id}&type=2`);
   };
 
   return (

@@ -3,7 +3,7 @@
     padding: 5px 10px 0;
     position: relative;
     transition: .2s;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 
     .BackgroundPlayer {
         position: absolute;
@@ -243,20 +243,18 @@
                     svg {
                         transform: translateX(2%);
                     }
-
                 }
-
-
             }
         }
 
         .footerPlayer {
-            margin-top: 20px;
+            margin-top: 10px;
             width: 100%;
             display: grid;
             grid-template-columns: 30% 30%;
             align-items: center;
             justify-content: space-between;
+            // padding-bottom: 10px;
 
             .frameVolume {
                 display: grid;

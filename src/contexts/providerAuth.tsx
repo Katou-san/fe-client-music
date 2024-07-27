@@ -56,8 +56,10 @@ const ProviderAuth = ({ children }: { children: ReactNode }) => {
                     dispacth(setInfoProvider(infoTemp))
                 }
             })
+
         }
     }, [userProvider])
+
 
     return (
         <contextAuth.Provider value={''}>

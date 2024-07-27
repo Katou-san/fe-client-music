@@ -6,8 +6,9 @@ import ItemListPlayList from "@/components/home/Playlists/itemListPlayList";
 import { list_playlistType } from "@/model/playlistModel";
 type Props = {
   arrayPlaylist: list_playlistType;
+  type?: 'album' | 'playlist'
 };
-const ListPlaylist = ({ arrayPlaylist }: Props) => {
+const ListPlaylist = ({ arrayPlaylist, type = 'playlist' }: Props) => {
   const listRef = useRef<HTMLDivElement>(null);
 
   const handeNext = (type: "next" | "prev") => {
@@ -25,7 +26,7 @@ const ListPlaylist = ({ arrayPlaylist }: Props) => {
   return (
     <>
       <div className="titleHome">
-        <h1>List playlist</h1>
+        <h1>List {type}</h1>
         <div className="btnListPlaylist">
           <div className="back btnClick" onClick={() => handeNext("prev")}>
             <ArrowLeftIcon />

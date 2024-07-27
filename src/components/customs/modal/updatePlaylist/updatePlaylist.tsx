@@ -1,76 +1,75 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { albumModel, create_Album, create_Playlist, playlistModel } from "@/model/playlistModel";
-import './_albumModal.scss'
+import { albumModel, playlistModel, playlistType, update_Playlist } from "@/model/playlistModel";
+import './_updatePlaylist.scss'
 import Image from "next/image";
 import imgTemp from '../../../../../public/temp.jpg'
 import { Close_Icon } from "@/Icons/icon_Figma";
-import { useLayout } from "@/contexts/providerLayout";
 import { playlistValidate } from "@/util/validate/playlistReq";
 import { Form_Data } from "@/util/FormData/Form_Data";
 import { Playlist } from "@/apis/Playlist";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
-import { User } from "@/apis/User";
-import { userModel } from "@/model/userModel";
-import { Role } from "@/apis/Role";
-import { roleModel, roleType } from "@/model/roleModel";
-import { RoleConfigCreator } from "@/configs/rolesConfig";
+import { Send } from "@/apis/Send";
 type Prop = {
-    isOpen: boolean;
-    onOpenChange: () => void;
-    table: string;
-    data?: any;
+    playlist: playlistType
+    drop_down: boolean
+    on_DropDown: () => void
+    on_Reload: () => void
 };
 
-const AlbumModal = () => {
+const UpdatePlaylistModal = ({ playlist, drop_down, on_DropDown, on_Reload }: Prop) => {
     const userProvider = useSelector((state: RootState) => state.auth)
-    const { is_albumForm, setAlbumForm } = useLayout()
-    const [infoRole, set_infoRole] = useState<roleType>(roleModel.init)
-    const [value_Album, set_ValueAlbum] = useState<create_Album>(
-        albumModel.init_create
-    );
-    const [url_load, Set_url] = useState<{ img: any, thumnail: any }>({ img: "", thumnail: "" })
+    const [valuePlaylist, set_ValuePlaylist] = useState<playlistType>(playlist)
+    const [change, set_Change] = useState<update_Playlist>(playlistModel.init_update)
+    const [urlImg, Set_urlImg] = useState('')
+    const [urlThumnail, Set_urlThum] = useState('')
 
     useEffect(() => {
-        if (userProvider.Access_Token != '' && userProvider.is_Login) {
-            Role.Get_Current()
-                .then((res) => {
-                    if (res.status == 200) {
-                        set_infoRole(res.data)
-                    }
-                })
+        if (drop_down) {
+            if (playlist?.Playlist_Id != '' && playlist?.Image != '' && playlist?.Thumbnail != '') {
+                Promise.all([
+                    Send.Image_P(playlist.Image).then((res) => {
+                        Set_urlImg(URL.createObjectURL(res))
+                    }),
+                    Send.Thumnail_P(playlist.Thumbnail).then((res) => {
+                        Set_urlThum(URL.createObjectURL(res))
+                    })
+                ])
+            }
+            set_ValuePlaylist(playlist)
         }
-    }, [is_albumForm])
+
+
+    }, [playlist, drop_down])
 
 
     const SubmitForm = (e: any) => {
         e.preventDefault();
-        const Error_Check = playlistValidate.create(value_Album.Playlist_Name, value_Album.Artist)
-        if (!Error_Check.status) {
-            if (infoRole?.Role_Id != '' && RoleConfigCreator.includes(String(infoRole?.Role_Name).toLowerCase())) {
-                const formdata = Form_Data({ ...value_Album, Type: 2 });
-                Playlist.Create_Album(formdata).then((res) => {
+        if (userProvider.Access_Token != '' && userProvider.is_Login) {
+            const Error_Check = playlistValidate.update(change)
+            if (!Error_Check.status) {
+                const formdata = Form_Data({ ...change });
+                Playlist.Update(playlist.Playlist_Id, formdata).then((res) => {
                     if (res.status == 200) {
-                        setAlbumForm(false)
-                        set_ValueAlbum(albumModel.init)
+                        on_DropDown()
+                        on_Reload()
+                        set_ValuePlaylist(playlistModel.init)
                     } else {
                         toast.error(res.message);
                     }
-                });
-                toast.success('Album created successfully')
-            } else {
-                toast.warning('You need come to creator to create a new album')
-            }
+                })
 
-        } else {
-            let Array_Key = Object.keys(Error_Check.Error);
-            toast.error(Error_Check.Error[Array_Key[0]]);
+            } else {
+                let Array_Key = Object.keys(Error_Check.Error);
+                toast.error(Error_Check.Error[Array_Key[0]]);
+            }
         }
+
     };
     return (
-        <div className={`formAddAlbum ${is_albumForm && 'activeformAddAlbum'}`}>
+        <div className={`formAddAlbum  ${drop_down && 'activeformAddAlbum'}`}>
 
             <form
                 action=""
@@ -81,10 +80,10 @@ const AlbumModal = () => {
 
 
                 <header>
-                    <h3>Create album</h3>
+                    <h3>Update Playlist</h3>
                     <div className="frameIcon" onClick={() => {
-                        set_ValueAlbum(albumModel.init)
-                        setAlbumForm(false)
+                        set_ValuePlaylist(albumModel.init)
+                        on_DropDown()
                     }}>
                         <Close_Icon color="#000" w={30} />
                     </div>
@@ -94,18 +93,20 @@ const AlbumModal = () => {
                         type="text"
                         className="inputNamePlaylist"
                         placeholder="Name"
-                        value={value_Album.Playlist_Name}
+                        value={valuePlaylist.Playlist_Name}
                         onChange={(e) => {
-                            set_ValueAlbum({ ...value_Album, Playlist_Name: e.target.value })
+                            set_ValuePlaylist({ ...valuePlaylist, Playlist_Name: e.target.value })
+                            set_Change({ ...change, Playlist_Name: e.target.value })
                         }}
                     />
                     <input
                         type="text"
                         className="inputNamePlaylist"
                         placeholder="Artist"
-                        value={value_Album.Artist}
+                        value={valuePlaylist.Artist}
                         onChange={(e) => {
-                            set_ValueAlbum({ ...value_Album, Artist: e.target.value })
+                            set_ValuePlaylist({ ...valuePlaylist, Artist: e.target.value })
+                            set_Change({ ...change, Artist: e.target.value })
                         }}
                     />
                     <div className="inputCheck">
@@ -114,21 +115,23 @@ const AlbumModal = () => {
                             type="checkbox"
                             name=""
                             id="inputModalPlaylist"
+                            defaultChecked={playlist.is_Publish}
                             onChange={(e) => {
-                                set_ValueAlbum({
-                                    ...value_Album,
+                                set_ValuePlaylist({
+                                    ...valuePlaylist,
                                     is_Publish: e.currentTarget.checked,
                                 });
+                                set_Change({ ...change, is_Publish: Boolean(e.target.value) })
                             }}
                         />
                     </div>
                 </div>
                 <div className="Playlist_Layout">
-                    <div className="thumnail_playlist" style={{ backgroundImage: `url(${url_load.thumnail})` }}>
+                    <div className="thumnail_playlist" style={{ backgroundImage: `url(${urlThumnail})` }}>
                         <div className="content_Playlist">
-                            <Image src={url_load.img || imgTemp} alt="" width={70} height={70} loading="lazy" />
+                            <Image src={urlImg || imgTemp} alt="" width={70} height={70} loading="lazy" />
                             <div className="">
-                                <h1>{value_Album.Playlist_Name != '' ? value_Album.Playlist_Name : "Name"}</h1>
+                                <h1>{valuePlaylist.Playlist_Name != '' ? valuePlaylist.Playlist_Name : "Name"}</h1>
                                 <div className="Quality"><span>13  </span>Songs</div>
                             </div>
                         </div>
@@ -140,24 +143,24 @@ const AlbumModal = () => {
                     <label htmlFor="image_Playlist">Image</label>
                     <input type="file" name="image_Playlist" id="image_Playlist" className="none"
                         onChange={(e) => {
-                            Set_url({ ...url_load, img: e.target.files ? URL.createObjectURL(e.target.files[0]) : url_load.thumnail })
-                            set_ValueAlbum({ ...value_Album, Image: e.target?.files ? e.target.files[0] : null })
+                            Set_urlImg(e.target.files ? URL.createObjectURL(e.target.files[0]) : '')
+                            set_Change({ ...change, Image: e.target?.files ? e.target.files[0] : undefined })
                         }}
                     />
 
                     <label htmlFor="thumnail_Playlist">Thumnail</label>
                     <input type="file" name="thumnail_Playlist" id="thumnail_Playlist" className="none"
                         onChange={(e) => {
-                            Set_url({ ...url_load, thumnail: e.target.files ? URL.createObjectURL(e.target.files[0]) : url_load.thumnail })
-                            set_ValueAlbum({ ...value_Album, Thumbnail: e.target?.files ? e.target.files[0] : null })
+                            Set_urlThum(e.target.files ? URL.createObjectURL(e.target.files[0]) : '')
+                            set_Change({ ...change, Thumbnail: e.target?.files ? e.target.files[0] : undefined })
                         }}
                     />
                 </div>
 
                 <div className="footerModalPlaylist">
                     <div className="btnModal btnClose" onClick={() => {
-                        set_ValueAlbum(albumModel.init)
-                        setAlbumForm(false)
+                        set_ValuePlaylist(playlistModel.init)
+                        on_DropDown()
                     }
                     }>
                         Close
@@ -172,4 +175,4 @@ const AlbumModal = () => {
     );
 };
 
-export default AlbumModal;
+export default UpdatePlaylistModal;

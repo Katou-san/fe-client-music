@@ -56,9 +56,9 @@ const ItemSongManage = ({ song, index, handle_Detail, handle_Delete, handle_Upda
                 <div className="frameImg">
                     <Image src={url} alt='0' width={50} height={50} loading='lazy' />
                 </div>
-                <div className="infoSong">
-                    <h1>{song.Song_Name}</h1>
-                    <h3>{song.Artist}</h3>
+                <div className="infoSong overflow__Text">
+                    <h1 className='overflow__Text'>{song.Song_Name}</h1>
+                    <h3 className='overflow__Text'>{song.Artist}</h3>
                 </div>
             </div>
             <div className="frameCate">
@@ -100,7 +100,7 @@ const ItemSongManage = ({ song, index, handle_Detail, handle_Delete, handle_Upda
                     <AddSongIcon />
                 </div>
 
-                <ModalDropdownPlaylist drop_Down={drop_Down} set_Drop={() => set_DropDown(false)} song={song} />
+                <ModalDropdownPlaylist drop_Down={drop_Down} set_Drop={() => set_DropDown(false)} song={song} style={{ left: '0%' }} />
             </div>
         </div>
     );

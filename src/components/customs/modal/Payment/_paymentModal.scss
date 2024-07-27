@@ -1,0 +1,196 @@
+.dropDownPayment {
+    position: absolute;
+    height: 0;
+    top: 10%;
+    left: 80%;
+    width: 400px;
+    z-index: -1;
+    background-color: #f4f8fc;
+    border-radius: 15px;
+    transition: .2s;
+    overflow: hidden;
+    visibility: hidden;
+    z-index: 100;
+    padding: 0px;
+
+    h1 {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    ul {
+        padding: 5px;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        gap: 5px;
+        padding: 10px;
+        transition: .2s;
+        max-height: 200px;
+        // background-color: rgba(3, 3, 3, 0.789);
+        overflow: auto;
+
+
+
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backdrop-filter: blur(5px);
+            // background-color: rgba(3, 3, 3, 0.447);
+            z-index: -1;
+            border-radius: 15px !important;
+        }
+
+
+        li {
+            list-style-type: none;
+            padding: 8px 25px;
+            border-radius: 15px;
+            z-index: 10;
+            transition: .2s;
+            cursor: pointer;
+
+            background-color: rgb(135, 135, 135);
+            color: aliceblue;
+
+            &:hover {
+                background-color: aliceblue;
+                color: rgb(82, 82, 82);
+            }
+        }
+
+        .btnOption {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: 10px calc(50% - 90%/2) 10px calc(50% - 90%/2);
+            width: 90%;
+            height: 40px;
+            background-color: transparent;
+            font-size: 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            transform-origin: center;
+            transition: .5s;
+
+            justify-content: center;
+        }
+
+        .Zalo {
+            border: 2px solid #0088f0;
+            color: #5ac8fa;
+
+            svg {
+                transition: .2s;
+
+                path {
+                    transition: .2s;
+                }
+
+                polyline {
+                    transition: .2s;
+                }
+
+                line {
+                    transition: .2s;
+                }
+            }
+
+            &:hover {
+                background-color: #0088f0;
+                color: #afe0f7;
+
+                svg {
+
+
+                    path {
+                        stroke: #afe0f7;
+                    }
+
+                    polyline {
+                        stroke: #afe0f7;
+                    }
+
+                    line {
+                        stroke: #afe0f7;
+                    }
+                }
+            }
+        }
+
+        .VNPay {
+
+            border: 2px solid #e81111;
+
+            span:nth-child(1) {
+                transition: .2s;
+                color: #e81111;
+            }
+
+            span:nth-child(2) {
+                color: #085fad;
+            }
+
+            svg {
+                transition: .2s;
+
+                path {
+                    transition: .2s;
+                }
+
+                polyline {
+                    transition: .2s;
+                }
+
+                line {
+                    transition: .2s;
+                }
+            }
+
+            &:hover {
+                background-color: #e81111;
+
+                span:nth-child(1) {
+
+                    color: #085fad;
+                }
+
+                svg {
+                    transition: .2s;
+
+                    path {
+                        stroke: #085fad;
+                    }
+
+                    polyline {
+                        stroke: #085fad;
+
+                    }
+
+                    line {
+                        stroke: #085fad;
+
+                    }
+                }
+
+            }
+
+
+        }
+    }
+}
+
+.activeDropDownPayment {
+    height: min-content;
+    top: -30%;
+    visibility: inherit;
+    min-width: 400px;
+    z-index: 100;
+    padding: 20px;
+}

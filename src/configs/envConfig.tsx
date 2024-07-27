@@ -19,6 +19,7 @@ export const EnvConfig = {
   NEXT_PUBLIC_SEARCH: "/searchs",
 
   NEXT_PUBLIC_ROLE: "/role",
+  NEXT_PUBLIC_ROLES: "/roles",
 
   NEXT_PUBLIC_REPOST: "/repost",
   NEXT_PUBLIC_REPOSTS: "/reposts",
@@ -41,7 +42,8 @@ export const EnvConfig = {
 
   NEXT_PUBLIC_EMPLOYESS: "/employess",
 
-  NEXT_PUBLIC_BILL: "/bills",
+  NEXT_PUBLIC_BILL: "/bill",
+  NEXT_PUBLIC_BILLS: "/bills",
 
   NEXT_PUBLIC_SUBSCRIPTION: "/sub",
 

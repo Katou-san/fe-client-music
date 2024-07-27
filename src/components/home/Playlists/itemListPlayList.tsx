@@ -47,7 +47,7 @@ const ItemListPlayList = ({ active, item, index }: Prop) => {
   };
 
   const handleRoutes = () => {
-    routes.push(`/playlist?id=${item.Playlist_Id}`);
+    routes.push(`/playlist?id=${item.Playlist_Id}&type=${item.Type}`);
   };
 
   return (

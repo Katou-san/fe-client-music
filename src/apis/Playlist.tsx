@@ -40,6 +40,12 @@ export const Playlist = {
       body,
       header()
     ),
+  Create_Album: async (body: any): Promise<any> =>
+    await http.post(
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}`,
+      body,
+      header()
+    ),
   Update: async (id: string, body: any): Promise<any> =>
     await http.put(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PLAYLIST}/${id}`,

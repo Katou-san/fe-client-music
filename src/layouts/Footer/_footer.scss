@@ -9,119 +9,306 @@ footer {
   height: 80px;
   background-color: #000000;
   color: #ffff;
-  padding: 0 10px;
+  padding: 0 10px 0 0;
   justify-content: center;
   align-items: center;
   z-index: 10000;
   overflow: hidden;
 
+  // .frameFooter {
+  //   width: 100%;
+  //   height: 100%;
+  //   display: grid;
+  //   grid-template-columns: 25% 50% 10% 15%;
+
+  //   .contentStart {
+  //     padding-left: 20px;
+  //     display: grid;
+  //     align-items: center;
+
+  //     grid-template-columns: 25% 75%;
+
+  //     img {
+  //       height: 70px;
+  //       width: 70px;
+  //       object-fit: cover;
+  //       border-radius: 20px;
+  //     }
+
+  //     .contentFooter {
+  //       h1 {
+  //         font-size: 25px;
+  //         font-weight: 600;
+  //       }
+
+  //       h3 {
+  //         color: #afafaf;
+  //       }
+  //     }
+
+
+  //   }
+
+  //   .frameCenter {
+  //     width: 100%;
+  //     display: grid;
+  //     place-items: center;
+
+  //     .contentCenter {
+  //       width: 100%;
+  //       display: grid;
+  //       place-items: center;
+
+  //       .topCenter {
+  //         width: 100%;
+  //         display: grid;
+  //         place-items: center;
+
+  //         .btnFooter {
+  //           width: 50%;
+  //           display: grid;
+  //           place-items: center;
+  //           grid-template-columns: 20% 10% 10% 20% 10% 10% 20%;
+
+  //           .btnPlayPause {
+  //             width: 50px;
+  //             height: 50px;
+  //             border-radius: 50%;
+  //             background-color: rgb(56, 56, 56);
+  //             display: grid;
+  //             place-items: center;
+
+  //             svg {
+  //               transform: translateX(2%);
+  //             }
+  //           }
+  //         }
+  //       }
+
+  //       .bottonCenter {
+  //         width: 80%;
+  //         display: grid;
+  //         grid-template-columns: 10% 80% 10%;
+
+  //         .timeFooterStart {
+  //           padding: 5px 10px;
+  //         }
+
+  //         .timeFooterEnd {
+  //           padding: 5px 10px;
+  //         }
+
+  //         #lineSong {
+  //           width: 100%;
+  //           height: 2px;
+  //         }
+  //       }
+
+  //     }
+  //   }
+
+  //   .contentEnd {
+  //     width: 100%;
+  //     display: grid;
+  //     align-items: center;
+  //     grid-template-columns: 22% 78%;
+
+  //     .frameVolume {
+  //       display: grid;
+  //       grid-template-columns: 15% 90%;
+  //       align-items: center;
+
+  //       .rangeVolume {
+  //         display: grid;
+  //         place-items: center;
+  //         height: 4px;
+  //       }
+  //     }
+  //   }
+  // }
+
   .frameFooter {
     width: 100%;
     height: 100%;
+    padding: 0 20px 0 40px;
     display: grid;
-    grid-template-columns: 25% 50% 10% 15%;
+    align-items: center;
+    grid-template-columns: 13% 22% 12% 38% 15%;
+    overflow: hidden;
 
-    .contentStart {
-      padding-left: 20px;
-      display: grid;
+    .frameBtnSong {
+      display: flex;
+      gap: 2%;
       align-items: center;
 
-      grid-template-columns: 25% 75%;
-
-      img {
-        height: 70px;
-        width: 70px;
-        object-fit: cover;
-        border-radius: 20px;
+      .frameIcon {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        background-color: #00000000;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        transition: .2s;
       }
 
-      .contentFooter {
+      .btnNextPre {
+        &:hover {
+          background-color: rgba(60, 60, 60, 0.6);
+        }
+      }
+
+      .btnPlay {
+        background-color: rgb(226, 226, 226);
+
+        &:hover {
+          background-color: #ffffff;
+        }
+      }
+    }
+
+    .frameInfoSong {
+      display: flex;
+      align-items: center;
+      gap: 4%;
+      height: 100%;
+      padding-right: 10px;
+
+      .frameImg {
+        height: 70px;
+        width: 70px;
+        min-width: 70px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 20px;
+        }
+      }
+
+      .infoDetail {
         h1 {
           font-size: 25px;
           font-weight: 600;
         }
 
-        h3 {
-          color: #afafaf;
+        h4 {
+          color: #777777;
+        }
+      }
+    }
+
+    .frameIconsSong {
+      display: flex;
+      align-items: center;
+      gap: 4%;
+
+      .frameIcon {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        background-color: #00000000;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        transition: .2s;
+
+        &:hover {
+          background-color: rgba(60, 60, 60, 0.6);
+        }
+      }
+    }
+
+    .frameRage {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      gap: 2%;
+      grid-template-columns: 10% 80% 10%;
+      padding: 0 30px;
+
+      .numberRage {
+        font-size: 17px;
+      }
+
+      .frameInputRage {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+
+        .frameWaveIcon {
+          position: absolute;
+          bottom: 94%;
+          left: 0;
+        }
+
+        input[type="range"] {
+          width: 100%;
+          height: 2px;
+          z-index: 10;
+        }
+      }
+    }
+
+    .frameBtnHandleSong {
+      display: flex;
+      align-items: center;
+      padding-left: 40px;
+      gap: 1%;
+
+      .frameIcon {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        background-color: #00000000;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        transition: .2s;
+
+        &:hover {
+          background-color: rgba(60, 60, 60, 0.6);
         }
       }
 
-
-    }
-
-    .frameCenter {
-      width: 100%;
-      display: grid;
-      place-items: center;
-
-      .contentCenter {
-        width: 100%;
+      .frameVolume {
+        position: relative;
         display: grid;
-        place-items: center;
+        align-items: center;
+        grid-template-columns: 100%;
+        gap: 2%;
+        transition: .2s;
 
-        .topCenter {
-          width: 100%;
-          display: grid;
-          place-items: center;
-
-          .btnFooter {
-            width: 50%;
-            display: grid;
-            place-items: center;
-            grid-template-columns: 20% 10% 10% 20% 10% 10% 20%;
-
-            .btnPlayPause {
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-              background-color: rgb(56, 56, 56);
-              display: grid;
-              place-items: center;
-
-              svg {
-                transform: translateX(2%);
-              }
-            }
+        &:hover {
+          .framerangeVolume {
+            width: 100%;
+            padding: 5px;
+            overflow: unset;
           }
         }
 
-        .bottonCenter {
-          width: 80%;
-          display: grid;
-          grid-template-columns: 10% 80% 10%;
+        .framerangeVolume {
+          position: absolute;
+          left: 90%;
+          top: calc(50% - 5px);
+          display: flex;
+          align-items: center;
+          width: 0%;
+          padding: 0;
+          background-color: #434343;
+          border-radius: 20px;
+          transition: .2s;
+          overflow: hidden;
 
-          .timeFooterStart {
-            padding: 5px 10px;
-          }
-
-          .timeFooterEnd {
-            padding: 5px 10px;
-          }
-
-          #lineSong {
+          input {
             width: 100%;
             height: 2px;
           }
-        }
-
-      }
-    }
-
-    .contentEnd {
-      width: 100%;
-      display: grid;
-      align-items: center;
-      grid-template-columns: 22% 78%;
-
-      .frameVolume {
-        display: grid;
-        grid-template-columns: 15% 90%;
-        align-items: center;
-
-        .rangeVolume {
-          display: grid;
-          place-items: center;
-          height: 4px;
         }
       }
     }

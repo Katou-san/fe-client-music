@@ -13,9 +13,10 @@ type Props = {
     drop_Down: boolean;
     set_Drop: () => void;
     song: songType
+    style?: React.CSSProperties
 };
 
-const ModalDropdownPlaylist = ({ drop_Down, set_Drop, song }: Props) => {
+const ModalDropdownPlaylist = ({ drop_Down, set_Drop, song, style }: Props) => {
     const userProvider = useSelector((state: RootState) => state.auth);
     const itemRef = useRef<HTMLInputElement | null>(null);
     const [is_Loading, set_Loading] = useState(false)
@@ -64,6 +65,7 @@ const ModalDropdownPlaylist = ({ drop_Down, set_Drop, song }: Props) => {
         <div
             className={`dropDownPlaylist ${drop_Down && "activeDropDownPlaylist"}`}
             ref={itemRef}
+            style={style}
         >
             {is_Loading && <div className="frameLoading">
                 <LoadingSVGWatting w={70} />

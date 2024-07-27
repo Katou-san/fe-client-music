@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     overflow-y: scroll;
+    position: relative;
 
     // background-color: aliceblue;
     header {
@@ -118,6 +119,8 @@
                     &:hover {
                         background-color: #3dccfb;
                     }
+
+
                 }
 
                 .activeBtnPlay {
@@ -206,6 +209,22 @@
                         stroke: rgb(229, 229, 91);
                     }
                 }
+            }
+
+            .frameMoreIcon {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                background-color: #5b5b5b5d;
+                cursor: pointer;
+                transition: .2s;
+
+                &:hover {
+                    background-color: #5b5b5bc3;
+                }
+
             }
         }
 

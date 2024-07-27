@@ -17,6 +17,7 @@ export default function Page() {
   const [listSong, set_ListSong] = useState<list_songType>([]);
   const [listPlaylist, set_ListPlaylist] = useState<list_playlistType>([]);
   const [listArtist, set_ListArtist] = useState<list_userType>([]);
+  const [listAlbum, set_ListAlbum] = useState<list_playlistType>([]);
 
   useEffect(() => {
     if (silder.length == 0) {
@@ -27,6 +28,9 @@ export default function Page() {
         }),
         Propose.Get_Playlist().then((res) =>
           set_ListPlaylist(res.data as list_playlistType)
+        ),
+        Propose.Get_Album().then((res) =>
+          set_ListAlbum(res.data as list_playlistType)
         ),
         Propose.Get_Song().then((res) =>
           set_ListSong(res.data as list_songType)
@@ -53,7 +57,7 @@ export default function Page() {
           <ListPlaylist arrayPlaylist={listPlaylist} />
         </div>
         <div className="listPlaylist">
-          <ListPlaylist arrayPlaylist={listPlaylist} />
+          <ListPlaylist arrayPlaylist={listAlbum} type="album" />
         </div>
         <div className="listArtist">
           <ListArtist arrayArtist={listArtist} />

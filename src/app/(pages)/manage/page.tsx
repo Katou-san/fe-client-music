@@ -18,12 +18,16 @@ import { storageModel, storageType } from "@/model/storageModel";
 import { Storages } from "@/apis/Storages";
 import { useRouter } from "next/navigation";
 import { useLayout } from "@/contexts/providerLayout";
+import { Role } from "@/apis/Role";
+import { roleModel, roleType } from "@/model/roleModel";
+import { RoleConfigCreator } from "@/configs/rolesConfig";
 const Page = () => {
   const routes = useRouter()
   const { setAlbumForm } = useLayout()
   const userProvider = useSelector((state: RootState) => state.auth)
   const [showAdd, set_ShowAdd] = useState(false)
   const [infoPlaylist, set_info] = useState<playlistType>(playlistModel.init)
+  const [infoRole, set_infoRole] = useState<roleType>(roleModel.init)
   const [list, set_List] = useState<list_songType>([])
   const [detail, setDetail] = useState({ index: 0, show: false, getStar: 0, cate: "" })
   const [deleteSong, set_DeleteSong] = useState({ index: 0, show: false })
@@ -35,19 +39,29 @@ const Page = () => {
   useEffect(() => {
     if (userProvider.is_Login && userProvider.Access_Token != '') {
       set_Loading(true)
-      Playlist.Get_Default().then(res => {
-        const listPlaylist = res.data as list_playlistType;
-        listPlaylist.map((playlist) => {
-          if (playlist.Playlist_Name.toLowerCase() == "upload") {
-            set_info(playlist);
+      Promise.all([
+        Playlist.Get_Default().then(res => {
+          const listPlaylist = res.data as list_playlistType;
+          listPlaylist.map((playlist) => {
+            if (playlist.Playlist_Name.toLowerCase() == "upload") {
+              set_info(playlist);
+            }
+          })
+        }),
+        Storages.Get_User().then((res) => {
+          if (res.status == 200) {
+            set_Storage(res.data)
           }
-        });
-      })
-      Storages.Get_User().then((res) => {
-        if (res.status == 200) {
-          set_Storage(res.data)
-        }
-      })
+        }),
+        Role.Get_Current()
+          .then((res) => {
+            if (res.status == 200) {
+              set_infoRole(res.data)
+            }
+          })
+
+      ])
+
     }
 
   }, [userProvider, reload])
@@ -114,7 +128,7 @@ const Page = () => {
             </div>
 
           </div>
-          <div className="btnCreate " onClick={() => setAlbumForm(true)}> <h1 className="overflow__Text">Create Album</h1> </div>
+          {RoleConfigCreator.includes(infoRole.Role_Name) && <div className="btnCreate " onClick={() => setAlbumForm(true)}> <h1 className="overflow__Text">Create Album</h1> </div>}
           <div className="btnCreate" onClick={handleShowAdd}> <h1 className="overflow__Text"> Create Song</h1></div>
         </div>
         <div className="bodyManage">
