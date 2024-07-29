@@ -2,6 +2,7 @@
 import { Like } from "@/apis/Like";
 import { Reply } from "@/apis/Reply";
 import { Send } from "@/apis/Send";
+import { User } from "@/apis/User";
 import MoreModalDropDown from "@/components/customs/more/moreModal";
 import ItemReplyPopup from "@/components/popup/comment/ItemReply";
 import { useReload } from "@/contexts/providerReload";
@@ -11,6 +12,8 @@ import { MoreIcon } from "@/Icons/icon_v1";
 import { commentType } from "@/model/commentModel";
 import { create_likeType, likeModel, list_likeType } from "@/model/likeModel";
 import { create_replyType, list_replyType, replyType } from "@/model/replyModel";
+import { songType } from "@/model/songModel";
+import { userModel, userType } from "@/model/userModel";
 import { URLValidate } from "@/util/validate/url";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -20,11 +23,13 @@ import { toast } from "react-toastify";
 type Props = {
     comment: commentType
     handle_Reply: (comment: commentType) => void
+    song: songType
 
 }
-const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
+const ItemCommentPopup = ({ comment, handle_Reply, song }: Props) => {
     const userProvider = useSelector((state: RootState) => state.auth)
-    const { set_ReReply, re_reply, set_ReComment } = useReload()
+    const { re_reply, set_ReComment } = useReload()
+    const [info_user, set_InfoUser] = useState<userType>(userModel.init)
     const [showReply, set_ShowReply] = useState(false)
     const [drop_Down, set_DropDown] = useState(false)
     const [url, set_url] = useState('')
@@ -33,6 +38,8 @@ const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
     const [stateLike, set_StateLike] = useState<create_likeType>(
         likeModel.init_create
     );
+
+
     useEffect(() => {
         if (URLValidate.isUrl(comment.Avatar)) {
             Send.Avatar(comment.Avatar)
@@ -41,6 +48,7 @@ const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
             set_url(comment.Avatar)
         }
         if (comment?.Comment_Id) {
+
             Promise.all([
                 Like.Get_Current(comment.Comment_Id, 3).then((res) => {
                     if (res.status == 200) {
@@ -51,10 +59,14 @@ const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
                     if (res.status == 200) {
                         set_listLikeComment(res.data)
                     }
-                })
-
+                }),
+                User.Get_Id(userProvider?.User_Id)
+                    .then((res) => {
+                        if (res.status == 200) {
+                            set_InfoUser(res.data)
+                        }
+                    })
             ])
-
         }
     }, [comment])
 
@@ -116,6 +128,8 @@ const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
 
     }
 
+    console.log(userProvider.User_Id == comment?.User_Id)
+    // console.log()
     return (
         <div className="itemCommentPopup">
             <div className="contentComment">
@@ -147,9 +161,12 @@ const ItemCommentPopup = ({ comment, handle_Reply }: Props) => {
                         <span></span>
                         <div className="replyComment cursor_pointer" onClick={() => handle_Reply(comment)}>Reply</div>
                         <span></span>
-                        <div className="moreIcon cursor_pointer" onClick={() => set_DropDown(true)}>
-                            <MoreIcon w={15} color="#20202092" />
-                        </div>
+                        {(userProvider.User_Id == comment.User_Id || userProvider.User_Id == song.User_Id) &&
+                            <div className="moreIcon cursor_pointer" onClick={() => set_DropDown(true)}>
+                                <MoreIcon w={15} color="#20202092" />
+                            </div>
+                        }
+
                         <div></div>
                     </div>
                     <div className="listReplyPopup">

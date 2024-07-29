@@ -19,31 +19,58 @@ type Props = {
 const DeleteSong = ({ song, deleteSong, handle_Delete, onReload }: Props) => {
     const userProvider = useSelector((state: RootState) => state.auth)
     const [is_loading, set_Loading] = useState(false)
+    const [checkDelete, set_CheckDelete] = useState(false)
     const Submitdelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.preventDefault()
         if (userProvider.is_Login && userProvider.Access_Token != '') {
+
             if (!is_loading) {
-                set_Loading(true)
-                Song.Delete(song.Song_Id)
-                    .then(res => {
-                        if (res.status === 200) {
-                            toast.success(res.message)
-                            onReload()
-                        } else {
-                            toast.error(res.message)
-                        }
-                    })
-                set_Loading(false)
-                handle_Delete({ show: false, index: 0 })
+                let tem = true
+                if (checkDelete) {
+                    tem = confirm("co bai hat nay trong danh sach")
+                }
+                if (tem) {
+                    Song.Delete(song.Song_Id)
+                        .then(res => {
+                            if (res.status === 200) {
+                                toast.success(res.message)
+                                onReload()
+                            } else {
+                                toast.error(res.message)
+                            }
+                        })
+                    set_Loading(false)
+                    handle_Delete({ show: false, index: 0 })
+                }
+
             } else {
                 toast.error('Is handling')
             }
+
+
 
         } else {
             toast.error('You need to login')
         }
 
     }
+
+    useEffect(() => {
+        if (song?.Song_Id != '') {
+            Song.DeleteCheck(song.Song_Id)
+                .then(res => {
+                    console.log(res.data.Noitification)
+                    if (res.status == 200) {
+                        set_CheckDelete(res.data.Noitification)
+                    } else {
+                        set_CheckDelete(res.data.Noitification)
+                    }
+                })
+        }
+    }, [song?.Song_Id])
+
+
+
 
     return (
         <div className={`frameDeleteSong ${deleteSong.show && 'activeFrameDeleteSong'}`}>

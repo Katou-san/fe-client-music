@@ -265,13 +265,14 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
 
   const handle_shuffle = () => {
     const state = shuffle;
+    const getSong = currentList[currentIndex]
     if (!state) {
-      const getSong = currentList[currentIndex]
       const newlist = HandleSong.shuffle(currentList)
       set_CurrentList(newlist);
       setIndex(newlist.map(e => e.Song_Id).indexOf(getSong.Song_Id))
     } else {
       set_CurrentList(playlist);
+      setIndex(playlist.map(e => e.Song_Id).indexOf(getSong.Song_Id))
     }
     set_shuffle(!state);
     renderDotRange();

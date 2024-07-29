@@ -13,13 +13,15 @@ const HandleSong = {
 
 function shuffle(array: Array<any>) {
     let currentIndex = array.length;
+    let arrayTemp = [...array]
+
     while (currentIndex != 0) {
         let randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
+        [arrayTemp[currentIndex], arrayTemp[randomIndex]] = [
+            arrayTemp[randomIndex], arrayTemp[currentIndex]];
     }
-    return array
+    return arrayTemp
 }
 
 export { HandleSong }

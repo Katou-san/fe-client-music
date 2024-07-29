@@ -34,4 +34,9 @@ export const Song = {
             `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_SONG}/${id}`,
             header()
         ),
+    DeleteCheck: async (id: string) =>
+        await http.get(
+            `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_SONG_MANAGE}/${id}`,
+            header()
+        ),
 };

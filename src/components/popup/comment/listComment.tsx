@@ -17,10 +17,11 @@ import { create_replyType, replyModel } from "@/model/replyModel";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 import { useReload } from "@/contexts/providerReload";
+import { songType } from "@/model/songModel";
 type Props = {
-    Song_Id: string;
+    Song: songType;
 };
-const ListComment = ({ Song_Id }: Props) => {
+const ListComment = ({ Song }: Props) => {
     const { setShowCommentPopup, is_commentPopup } = useLayout();
     const { set_ReReply, set_ReComment, re_comment } = useReload()
     const userProvider = useSelector((state: RootState) => state.auth);
@@ -73,11 +74,11 @@ const ListComment = ({ Song_Id }: Props) => {
     };
 
     useEffect(() => {
-        if (!!Song_Id && is_commentPopup) {
-            Comment.Get_SongId(Song_Id).then((res) => set_listCommnet(res.data));
+        if (!!Song && is_commentPopup) {
+            Comment.Get_SongId(Song.Song_Id).then((res) => set_listCommnet(res.data));
         }
-        set_valueComment({ ...valueComment, Song_Id });
-    }, [Song_Id, re_comment, is_commentPopup]);
+        set_valueComment({ ...valueComment, Song_Id: Song.Song_Id });
+    }, [Song, re_comment, is_commentPopup]);
 
     return (
         <div className="frameComment">
@@ -97,6 +98,7 @@ const ListComment = ({ Song_Id }: Props) => {
                         return (
                             <ItemCommentPopup
                                 comment={comment}
+                                song={Song}
                                 key={index}
                                 handle_Reply={handleReply}
                             />

@@ -38,6 +38,7 @@ import { repostModel, repostType } from "@/model/repostModel";
 import { useReload } from "@/contexts/providerReload";
 import WaveIcon from "@/Icons/cusIcons/wave/waveIcon";
 import Wavev2Icon from "@/Icons/cusIcons/wave/wavev2";
+import { SongModel } from "@/model/songModel";
 const Popup = () => {
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
@@ -349,7 +350,7 @@ const Popup = () => {
         className={`frameListCommentPopup ${is_commentPopup ? "" : "hidenframeCommentSong"
           }`}
       >
-        <ListComment Song_Id={currentList[currentIndex]?.Song_Id ?? ""} />
+        <ListComment Song={currentList[currentIndex] ?? SongModel.init} />
       </div>
     </div>
   );

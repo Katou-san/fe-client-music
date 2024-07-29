@@ -85,7 +85,7 @@ const Page = () => {
                         </div>}
                     {listArtist.length > 0 &&
                         <div className="frameArtist">
-                            <ListArtist />
+                            <ListArtist arrayArtist={listArtist} />
                         </div>}</>}
             </div>
         </div>

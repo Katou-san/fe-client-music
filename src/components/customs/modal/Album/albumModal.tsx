@@ -59,7 +59,6 @@ const AlbumModal = () => {
                         toast.error(res.message);
                     }
                 });
-                toast.success('Album created successfully')
             } else {
                 toast.warning('You need come to creator to create a new album')
             }
