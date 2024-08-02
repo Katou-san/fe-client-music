@@ -1,5 +1,5 @@
-'use client'
-import React, { useContext, useState } from "react";
+"use client";
+import React, { useContext, useEffect, useState } from "react";
 import { LogoFacebook, LogoGoogle } from "@/Icons/icon_Logo";
 
 import { toast } from "react-toastify";
@@ -13,33 +13,64 @@ import { loginProvider } from "@/hooks/redux/action/authProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 
+import { EnvConfig } from "@/configs/envConfig";
+import {
+  GoogleLogin,
+  GoogleOAuthProvider,
+  hasGrantedAnyScopeGoogle,
+  useGoogleLogin,
+} from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+
 function Login({ Value }: { Value: any }) {
-  const routes = useRouter()
+  const routes = useRouter();
   const [req_state, req_dispatch] = useRequest();
   const { Is_Loading } = req_state;
   const [ValueError, setValueError] = useState<any>({});
-  const [valueLogin, setValueLogin] = useState<authLoginType>(authModel.initLogin);
-  const dispacth = useDispatch()
-  const getState = useSelector((state: RootState) => state.auth)
+  const [valueLogin, setValueLogin] = useState<authLoginType>(
+    authModel.initLogin
+  );
 
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      // const userInfo = await axios
+      //   .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+      //     headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+      //   })
+      //   .then((res) => res.data);
+      console.log(tokenResponse);
+    },
+
+    onError: () => {
+      console.log("Login Failed");
+    },
+  });
+
+  const dispacth = useDispatch();
+  const getState = useSelector((state: RootState) => state.auth);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!Is_Loading) {
       req_dispatch({ type: "REQUEST" });
-      const checkError = authValidate.login(valueLogin.User_Email, valueLogin.User_Pass)
+      const checkError = authValidate.login(
+        valueLogin.User_Email,
+        valueLogin.User_Pass
+      );
       setValueError(checkError.Error);
       if (!checkError.status) {
-        auth.Login(valueLogin)
+        auth
+          .Login(valueLogin)
           .then((res) => {
             if (res.status === 200) {
               toast.success(res.message);
               localStorage.setItem("Access_Token", res.data.Access_Token);
               localStorage.setItem("is_Login", res.data.is_Login);
               req_dispatch({ type: "SUCCESS" });
-              dispacth(loginProvider(res.data))
+              dispacth(loginProvider(res.data));
               setValueLogin(authModel.initLogin);
-              routes.push('/')
+              routes.push("/");
             } else {
               req_dispatch({ type: "SUCCESS" });
               toast.error(res.message);
@@ -50,13 +81,10 @@ function Login({ Value }: { Value: any }) {
             toast.error("Error" + err.status);
           });
       } else {
-
         let Arraykey = Object.keys(checkError.Error);
-        Arraykey.map(key => {
+        Arraykey.map((key) => {
           toast.error(checkError.Error[key]);
-
-        })
-
+        });
       }
     } else {
       toast.warning("Please dont spam");
@@ -73,7 +101,9 @@ function Login({ Value }: { Value: any }) {
             type="text"
             required
             value={valueLogin.User_Email}
-            onChange={(e) => setValueLogin({ ...valueLogin, User_Email: e.target.value })}
+            onChange={(e) =>
+              setValueLogin({ ...valueLogin, User_Email: e.target.value })
+            }
           />
           <div className="toastInput">
             {ValueError?.email != undefined && ValueError.email}
@@ -85,7 +115,9 @@ function Login({ Value }: { Value: any }) {
             type="password"
             required
             value={valueLogin.User_Pass}
-            onChange={(e) => setValueLogin({ ...valueLogin, User_Pass: e.target.value })}
+            onChange={(e) =>
+              setValueLogin({ ...valueLogin, User_Pass: e.target.value })
+            }
           />
 
           <div className="toastInput">
@@ -95,7 +127,7 @@ function Login({ Value }: { Value: any }) {
         <div className="selection" style={{ color: "#000" }}>
           <div className="remeber">
             <input type="checkbox" name="" />
-            <p >Remember</p>
+            <p>Remember</p>
           </div>
           <p>Forgot Password</p>
         </div>
@@ -109,20 +141,31 @@ function Login({ Value }: { Value: any }) {
         </button>
       </form>
       <div className="otherOptions">
-        <div className="titleOther" style={{ color: "#000" }}>Or</div>
-        <button className="optionLogin google" >
-          <i><LogoGoogle /></i>
-          <h3 > Sign in with Google</h3>
+        <div className="titleOther" style={{ color: "#000" }}>
+          Or
+        </div>
 
+        <button
+          className="optionLogin google"
+          onClick={() => {
+            loginGoogle();
+          }}
+        >
+          <i>
+            <LogoGoogle />
+          </i>
+          <h3> Sign in with Google</h3>
         </button>
-        <button className="optionLogin facebook">
-          <i>  <LogoFacebook /> </i>
-          <h3 > Sign in with Facebook</h3>
 
+        <button className="optionLogin facebook">
+          <i>
+            {" "}
+            <LogoFacebook />{" "}
+          </i>
+          <h3> Sign in with Facebook</h3>
         </button>
       </div>
-      <div className="btnLink mt-20U " >
-
+      <div className="btnLink mt-20U ">
         <p style={{ color: "#000" }}>
           Dont have an account
           <span

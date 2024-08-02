@@ -37,8 +37,8 @@ export const EnvConfig = {
   NEXT_PUBLIC_PLAYLIST: "/playlist",
   NEXT_PUBLIC_PLAYLIST_MANAGE: "/playlists",
 
-  NEXT_PUBLIC_FOLLOW: '/follow',
-  NEXT_PUBLIC_FOLLOWS: '/follows',
+  NEXT_PUBLIC_FOLLOW: "/follow",
+  NEXT_PUBLIC_FOLLOWS: "/follows",
 
   NEXT_PUBLIC_EMPLOYESS: "/employess",
 
@@ -62,6 +62,9 @@ export const EnvConfig = {
   NEXT_PUBLIC_VNPAY: "/vnpay",
 
   LocalToken: "Access_Token",
+
+  NEXT_PUBLIC_CLIENT_ID:
+    "20252661917-vu3j9dg777pv15boog5afl0541qbbcsi.apps.googleusercontent.com",
 };
 
 export type EnvConfig_type = typeof EnvConfig;
