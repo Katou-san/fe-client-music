@@ -1,13 +1,16 @@
 'use client'
 import { auth } from '@/apis/Auth';
 import { Playlist } from '@/apis/Playlist';
+import { User } from '@/apis/User';
 import { Visit } from '@/apis/Visit';
 import { EnvConfig } from '@/configs/envConfig';
 import { loginProvider } from '@/hooks/redux/action/authProvider';
 import { setInfoProvider } from '@/hooks/redux/action/infoProvider';
 import { RootState } from '@/hooks/redux/store';
 import { list_playlistType } from '@/model/playlistModel';
-import React, { createContext, ReactNode, useEffect } from 'react';
+import { userModel, userType } from '@/model/userModel';
+import { useRouter } from 'next/navigation';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 type contextType = {}
@@ -16,6 +19,8 @@ const defaultContext = {}
 const contextAuth = createContext<contextType>(defaultContext);
 const ProviderAuth = ({ children }: { children: ReactNode }) => {
     const dispacth = useDispatch()
+    const routes = useRouter()
+    const [checkStatus, set_CheckStatus] = useState<userType>(userModel.init)
     const userProvider = useSelector((state: RootState) => state.auth)
     const infoProvider = useSelector((state: RootState) => state.info)
     useEffect(() => {
@@ -56,7 +61,16 @@ const ProviderAuth = ({ children }: { children: ReactNode }) => {
                     dispacth(setInfoProvider(infoTemp))
                 }
             })
-
+            if (userProvider.User_Id != '') {
+                User.Get_Id(userProvider.User_Id)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            if (res.data.Status == 0) {
+                                routes.push('/lock')
+                            }
+                        }
+                    })
+            }
         }
     }, [userProvider])
 

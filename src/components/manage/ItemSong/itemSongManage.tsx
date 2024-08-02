@@ -58,7 +58,7 @@ const ItemSongManage = ({ song, index, handle_Detail, handle_Delete, handle_Upda
                 </div>
                 <div className="infoSong overflow__Text">
                     <h1 className='overflow__Text'>{song.Song_Name}</h1>
-                    <h3 className='overflow__Text'>{song.Artist}</h3>
+                    <h3 className='overflow__Text'>{song?.Artist_Name}</h3>
                 </div>
             </div>
             <div className="frameCate">

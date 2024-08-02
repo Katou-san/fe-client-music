@@ -19,7 +19,7 @@
     background-color: #fafcff;
     border-radius: 10px;
     transition: .2s;
-
+    color: #000;
 }
 
 .none {
@@ -144,6 +144,7 @@
 
 
 .BoxInputAddSong {
+    position: relative;
     width: 100%;
 
     h4 {
@@ -161,6 +162,36 @@
         background-color: rgb(207, 207, 207);
         color: rgb(94, 94, 94);
         margin-bottom: 7px;
+    }
+
+    .listArtist {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        padding: 5px;
+        background-color: #fafcff;
+        z-index: 2;
+
+        ul {
+            max-height: 120px;
+            overflow: auto;
+
+            li {
+                padding: 7px 10px;
+                background-color: rgb(232, 232, 232);
+                border-radius: 10px;
+                margin-top: 2px;
+                cursor: pointer;
+                transition: .2s;
+
+                &:hover {
+                    background-color: rgb(197, 197, 197);
+                }
+            }
+        }
+
+
     }
 }
 

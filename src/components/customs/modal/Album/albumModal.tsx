@@ -17,6 +17,7 @@ import { userModel } from "@/model/userModel";
 import { Role } from "@/apis/Role";
 import { roleModel, roleType } from "@/model/roleModel";
 import { RoleConfigCreator } from "@/configs/rolesConfig";
+import { Artist } from "@/apis/Artist";
 type Prop = {
     isOpen: boolean;
     onOpenChange: () => void;
@@ -47,14 +48,15 @@ const AlbumModal = () => {
 
     const SubmitForm = (e: any) => {
         e.preventDefault();
-        const Error_Check = playlistValidate.create(value_Album.Playlist_Name, value_Album.Artist)
+        const Error_Check = playlistValidate.create(value_Album.Playlist_Name)
         if (!Error_Check.status) {
             if (infoRole?.Role_Id != '' && RoleConfigCreator.includes(String(infoRole?.Role_Name).toLowerCase())) {
-                const formdata = Form_Data({ ...value_Album, Type: 2 });
+                const formdata = Form_Data({ ...value_Album, Type: 2, Artist: userProvider.User_Name });
                 Playlist.Create_Album(formdata).then((res) => {
                     if (res.status == 200) {
                         setAlbumForm(false)
                         set_ValueAlbum(albumModel.init)
+                        toast.success(res.message)
                     } else {
                         toast.error(res.message);
                     }
@@ -96,15 +98,6 @@ const AlbumModal = () => {
                         value={value_Album.Playlist_Name}
                         onChange={(e) => {
                             set_ValueAlbum({ ...value_Album, Playlist_Name: e.target.value })
-                        }}
-                    />
-                    <input
-                        type="text"
-                        className="inputNamePlaylist"
-                        placeholder="Artist"
-                        value={value_Album.Artist}
-                        onChange={(e) => {
-                            set_ValueAlbum({ ...value_Album, Artist: e.target.value })
                         }}
                     />
                     <div className="inputCheck">

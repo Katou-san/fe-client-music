@@ -10,5 +10,4 @@ export const User = {
         await http.put(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_USER}`, body, header()),
     Delete: async (id: string) =>
         await http.delete(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_USER}/${id}`, header())
-
 };

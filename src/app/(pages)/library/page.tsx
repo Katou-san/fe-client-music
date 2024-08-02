@@ -11,10 +11,12 @@ import { storageModel, storageType } from "@/model/storageModel";
 import { LoadingSVGWatting } from "@/Icons/Loading";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
+import { Like } from "@/apis/Like";
 const Page = () => {
   const userProvider = useSelector((state: RootState) => state.auth)
   const [listPlaylist, setListPlaylist] = useState<list_playlistType>([]);
   const [listAlbum, setAlbum] = useState<list_playlistType>([]);
+  const [listLikeAlbum, setLikeAlbum] = useState<list_playlistType>([]);
   const [storage, set_Storage] = useState<storageType>(storageModel.init);
   const [is_Loading, set_Loading] = useState(false)
   useEffect(() => {
@@ -54,7 +56,12 @@ const Page = () => {
             {!is_Loading && <ListAlbumLib listAlbum={listAlbum} />}
 
           </div>
-          <div className="lineLibrary likePlaylist"></div>
+          <div className="lineLibrary likePlaylist">
+            {is_Loading && <div className="frameLoading">
+              <LoadingSVGWatting w={70} />
+            </div>}
+            {!is_Loading && <ListAlbumLib listAlbum={listAlbum} />}
+          </div>
           <div className="lineLibrary likeAlbum"></div></>}
         {userProvider.Access_Token == '' && !userProvider.is_Login && <>
           <div className="frameContentError">

@@ -6,7 +6,7 @@ import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 import { useAudio } from "@/contexts/providerAudio";
 import { RootState } from "@/hooks/redux/store";
 import { LineSoundAnimation } from "@/Icons/cusIcons/lineSound";
-import { Star_Icon } from "@/Icons/icon_Figma";
+import { Remove_Icon, Star_Icon } from "@/Icons/icon_Figma";
 import { AddIcon } from "@/Icons/icon_v1";
 import { create_likeType, likeModel, list_likeType } from "@/model/likeModel";
 import { playlistType } from "@/model/playlistModel";
@@ -16,6 +16,9 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import imgTemp from '../../../public/temp.jpg'
+import DeleteModal from "@/components/customs/modal/Remove/deleteModal";
+import { useReload } from "@/contexts/providerReload";
 
 type Props = {
   song: songType;
@@ -24,6 +27,7 @@ type Props = {
   info_Playlist: playlistType;
 };
 const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
+  const { set_RePlaylist } = useReload()
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
   const [drop_Down, set_Drop] = useState(false)
@@ -34,6 +38,8 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
   const [stateLike, set_StateLike] = useState<create_likeType>(
     likeModel.init_create
   );
+
+  const [drop_DownRemove, set_DropRemove] = useState(false)
 
 
   useEffect(() => {
@@ -99,6 +105,25 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
       toast.error("You need login");
     }
   };
+
+  const handleRemoveSongPlaylist = () => {
+    if (userProvider.Access_Token != "" && userProvider.is_Login == true && infoProvider.Like != '') {
+      if (song.Song_Id != null && song.Song_Id != '' && info_Playlist.User_Id == userProvider.User_Id) {
+        Track.Delete(info_Playlist.Playlist_Id, song.Song_Id)
+          .then((res) => {
+            toast.success("Remove successfully!")
+            set_RePlaylist()
+            set_DropRemove(false)
+          })
+      } else {
+        toast.warning("It not your playlist")
+      }
+
+    } else {
+      toast.error("You need login");
+    }
+  }
+
   return (
     <div
       className={`itemPlaylistDetail ${currentList[currentIndex]?.Song_Id == song.Song_Id &&
@@ -113,11 +138,11 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
       </h3>
       <div className="infoItemPlaylistDetail" onClick={Handle_Play}>
         <div className="frameImage">
-          <Image alt="" src={url.img} width={1000} height={1000} loading='lazy' />
+          <Image alt="" src={url.img || imgTemp} width={50} height={50} loading='lazy' />
         </div>
-        <div className="infoItem">
-          <h1>{song.Song_Name}</h1>
-          <h3>{song.Artist}</h3>
+        <div className="infoItem overflow__Text">
+          <h1 className="overflow__Text">{song.Song_Name}</h1>
+          <h3>{song?.Artist_Name}</h3>
         </div>
       </div>
       <div className="time"></div>
@@ -133,10 +158,14 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
           <h3>{listLike.length}</h3>
         </div>
         <div className="addIcon" onClick={() => set_Drop(true)}>
-          <AddIcon />
+          <AddIcon w={20} />
+        </div>
+        <div className="addIcon pause" onClick={() => set_DropRemove(true)}>
+          <Remove_Icon />
         </div>
       </div>
       <PlaylistModalDropDown drop_Down={drop_Down} set_Drop={() => set_Drop(false)} song={song} style={{ left: '70%' }} />
+      <DeleteModal value={song} handle_Delete={handleRemoveSongPlaylist} drop_Down={drop_DownRemove} onClosed={() => set_DropRemove(false)} />
     </div>
   );
 };

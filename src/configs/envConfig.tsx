@@ -53,6 +53,10 @@ export const EnvConfig = {
   NEXT_PUBLIC_GET_IMAGE_P: "/send/image_P",
   NEXT_PUBLIC_GET_THUMNAIL_P: "/send/thumbnail",
 
+  NEXT_PUBLIC_ARTIST: "/artist",
+  NEXT_PUBLIC_ARTISTS: "/artists",
+  NEXT_PUBLIC_ARTIST_SEARCH: "/artist-search",
+
   NEXT_PUBLIC_PAYMENT: "/pay",
   NEXT_PUBLIC_ZALO: "/zalopay",
   NEXT_PUBLIC_VNPAY: "/vnpay",

@@ -308,7 +308,8 @@
 
                     .frameImage {
                         height: 70px;
-                        width: 70px;
+                        min-width: 70px !important;
+                        max-width: 70px;
 
                         img {
                             width: 100%;

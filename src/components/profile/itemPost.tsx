@@ -52,16 +52,23 @@ const ItemPost = ({ post }: Props) => {
                         if (res.status == 200) {
                             set_Song(res.data)
                         }
-                    }),
-                User.Get_Id(post.User_Id)
-                    .then((res) => {
-                        if (res.status == 200) {
-                            set_info(res.data)
-                        }
-                    }),
+                    })
+
             ])
         }
     }, [post])
+
+    useEffect(() => {
+        if (song?.User_Id != '' && song?.User_Id != undefined) {
+            User.Get_Id(song?.User_Id)
+                .then((res) => {
+                    if (res.status == 200) {
+                        set_info(res.data)
+                    }
+                })
+        }
+    }, [song])
+
 
     useEffect(() => {
         Promise.all([
@@ -204,13 +211,13 @@ const ItemPost = ({ post }: Props) => {
                         </div>
                         <div className="contentUser">
                             <div className='frameName'>
-                                <h1 className='overflow__Text'>{infoUser.User_Name}</h1>
+                                <h1 className='overflow__Text'>{infoUser?.User_Name || 'unknown'}</h1>
                                 <span></span>
                             </div>
                             <h3>{new Date(post?.Post_Time).toLocaleDateString()}</h3>
                         </div>
                         <div className="frameFollow">
-                            {userProvider.User_Id != infoUser.User_Id &&
+                            {userProvider.User_Id != infoUser?.User_Id && !!song &&
                                 <>
                                     {currentFollow.Follower == userProvider.User_Id &&
                                         <div className="frameIconFolow frameFollowed" onClick={handleFollow}>
@@ -224,7 +231,7 @@ const ItemPost = ({ post }: Props) => {
                                         </div>}</>
 
                             }
-                            {userProvider.User_Id == infoUser.User_Id &&
+                            {userProvider.User_Id == post.User_Id &&
                                 <div className="frameIconMore" onClick={() => set_Drop(true)}>
                                     <MoreIcon color={"#e0e0e0"} />
                                 </div>

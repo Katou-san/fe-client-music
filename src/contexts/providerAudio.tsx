@@ -27,6 +27,7 @@ interface contextType {
   volume: number;
   currentList: list_songType;
   info_Playlist: null | playlistType;
+  Togo_Volume: () => void
   Set_InfoPlaylist: (playlist: playlistType | null) => void;
   Set_RefInputRange2: (progressbarRef: RefObject<HTMLInputElement>) => void;
   Set_RefInputRange3: (progressbarRef: RefObject<HTMLInputElement>) => void;
@@ -56,6 +57,7 @@ const defaultContext = {
   volume: 50,
   currentList: [],
   info_Playlist: null,
+  Togo_Volume: () => { },
   Set_InfoPlaylist: (playlist: playlistType | null) => { },
   Set_RefInputRange: (progressbarRef: RefObject<HTMLInputElement>) => { },
   Set_RefInputRange2: (progressbarRef: RefObject<HTMLInputElement>) => { },
@@ -191,12 +193,6 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
             `${(Number(progressbarRef3.current.value) / duration) * 100}`
           );
         }
-
-
-
-
-
-
       }
 
     }, 1000);
@@ -356,6 +352,21 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
     set_isPlaying(false);
     handle_Volume(volume);
   }, []);
+
+
+  const TogoVolume = () => {
+    if (volume > 0) {
+      if (audioRef.current?.volume != undefined) {
+        audioRef.current.volume = 0 / 10;
+        set_volume(0)
+      }
+    } else {
+      if (audioRef.current?.volume != undefined) {
+        audioRef.current.volume = 5 / 10;
+        set_volume(5)
+      }
+    }
+  }
   return (
     <contextAudio.Provider
       value={{
@@ -370,6 +381,7 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
         volume: volume,
         currentList: currentList,
         info_Playlist: infoPlaylist,
+        Togo_Volume: TogoVolume,
         Set_InfoPlaylist: Set_InfoPlaylist,
         Set_RefInputRange2: Set_RefInputRange2,
         Set_RefInputRange: Set_RefInputRange,

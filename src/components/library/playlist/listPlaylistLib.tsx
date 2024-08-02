@@ -38,10 +38,10 @@ const ListPlaylistLib = ({ listPlaylist }: Props) => {
       <div className="listLineLibrary">
 
         <div className="contentList" ref={listRef}>
-          {listPlaylist.length == 0 && (
+          {listPlaylist?.length == 0 && (
             <div className="EmtyLinePlaylist">There are no playlists yet</div>
           )}
-          {listPlaylist.length > 0 &&
+          {listPlaylist?.length > 0 &&
             listPlaylist.map((playlist, index) => (
               <ItemPlaylistLibrary playlist={playlist} key={index} />
             ))}

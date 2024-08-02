@@ -14,6 +14,8 @@ interface contextType {
     re_repost: boolean
     re_follow: boolean
     re_profile: boolean
+    re_playlist: boolean
+    set_RePlaylist: () => void
     set_ReComment: () => void
     set_ReReply: () => void
     set_ReRepost: () => void
@@ -27,6 +29,8 @@ const defaultContext = {
     re_repost: false,
     re_follow: false,
     re_profile: false,
+    re_playlist: false,
+    set_RePlaylist: () => { },
     set_ReComment: () => { },
     set_ReReply: () => { },
     set_ReRepost: () => { },
@@ -42,6 +46,7 @@ const ProviderReload = ({ children }: { children: ReactNode }) => {
     const [reloadRepost, set_ReloadRepost] = useState(false)
     const [reloadFollow, set_ReloadFollow] = useState(false)
     const [reloadProfile, set_ReloadProfile] = useState(false)
+    const [reloadPlaylist, set_ReloadPlaylist] = useState(false)
     return (
         <contextReload.Provider
             value={{
@@ -50,6 +55,8 @@ const ProviderReload = ({ children }: { children: ReactNode }) => {
                 re_reply: reloadReply,
                 re_repost: reloadRepost,
                 re_follow: reloadFollow,
+                re_playlist: reloadPlaylist,
+                set_RePlaylist: () => set_ReloadPlaylist(pre => !pre),
                 set_ReProfile: () => set_ReloadProfile(pre => !pre),
                 set_ReComment: () => set_ReloadComment(pre => !pre),
                 set_ReReply: () => set_ReloadReply(pre => !pre),

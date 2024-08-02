@@ -5,30 +5,38 @@ import { create_Playlist, playlistModel } from "@/model/playlistModel";
 import { playlistValidate } from "@/util/validate/playlistReq";
 import { Playlist } from "@/apis/Playlist";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "@/hooks/redux/store";
 type Props = {
   modal_Open: boolean;
   onClose: () => void;
 };
 const ModalPlaylist = ({ modal_Open, onClose }: Props) => {
+  const userProvider = useSelector((state: RootState) => state.auth)
   const [value_Playlist, set_Value] = useState<create_Playlist>(
     playlistModel.init_create
   );
 
   const handleCreate = () => {
-    const validate = playlistValidate.create(
-      value_Playlist.Playlist_Name,
-      value_Playlist.Artist
-    );
-    if (!validate.status) {
-      Playlist.Create({ ...value_Playlist, Type: 1 }).then((res) => {
-        if (res.status === 200) {
-          toast.success("created successfully!");
-        }
-      });
+    if (userProvider.Access_Token != '' && userProvider.is_Login) {
+      const validate = playlistValidate.create(
+        value_Playlist.Playlist_Name,
+      );
+      if (!validate.status) {
+        Playlist.Create({ ...value_Playlist, Type: 1, Playlist_Name: userProvider.User_Name }).then((res) => {
+          if (res.status === 200) {
+            toast.success("created successfully!");
+            onClose()
+          }
+        });
+      } else {
+        const getKey = Object.keys(validate.Error);
+        toast.error(validate.Error[getKey[0]]);
+      }
     } else {
-      const getKey = Object.keys(validate.Error);
-      toast.error(validate.Error[getKey[0]]);
+      toast.warning("You need login to create a playlist")
     }
+
   };
 
   return (
@@ -50,15 +58,6 @@ const ModalPlaylist = ({ modal_Open, onClose }: Props) => {
           value={value_Playlist.Playlist_Name}
           onChange={(e) =>
             set_Value({ ...value_Playlist, Playlist_Name: e.target.value })
-          }
-        />
-        <input
-          type="text"
-          className="inputNamePlaylist"
-          placeholder="Artist"
-          value={value_Playlist.Artist}
-          onChange={(e) =>
-            set_Value({ ...value_Playlist, Artist: e.target.value })
           }
         />
         <div className="inputCheck">

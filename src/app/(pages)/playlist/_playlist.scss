@@ -134,7 +134,7 @@
         position: relative;
         width: 100%;
         margin-top: 30px;
-        min-height: 500px;
+        min-height: min-content;
         z-index: 20;
         border-radius: 20px;
         display: grid;
@@ -319,10 +319,10 @@
 
                     .frameImage {
                         height: 70px;
-                        width: 70px;
+                        min-width: 90px !important;
 
                         img {
-                            width: 100%;
+                            min-width: 60px !important;
                             height: 100%;
                             object-fit: cover;
                             border-radius: 20px;
@@ -402,5 +402,14 @@
         }
 
 
+    }
+
+    .EmtySong {
+        width: 100%;
+        min-height: 200px;
+        font-size: 30px;
+        font-weight: 600;
+        display: grid;
+        place-items: center;
     }
 }

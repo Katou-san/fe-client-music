@@ -87,30 +87,40 @@ export default function EditSong({ song, editSong, onReload, handle_Edit }: Prop
     e.preventDefault();
     set_Loading(true);
     if (!is_Loading) {
-      if (userProvider.Access_Token != '' && userProvider.is_Login) {
-        const frormData = Form_Data(change)
-        Song.Update(song.Song_Id, frormData)
-          .then((res) => {
-            if (res.status == 200) {
-              onReload()
-              toast.success(res.message);
-              Set_ValueForm(SongModel.init);
-              Set_CurrentStep(0);
-              handleClose()
-            } else {
-              toast.error(res.message);
-            }
-            set_Loading(false)
-          })
+      const handleError = songValidate.update(change)
+      if (!handleError.status) {
+        if (userProvider.Access_Token != '' && userProvider.is_Login) {
+          const frormData = Form_Data(change)
+          Song.Update(song.Song_Id, frormData)
+            .then((res) => {
+              if (res.status == 200) {
+                onReload()
+                toast.success(res.message);
+                Set_ValueForm(SongModel.init);
+                Set_CurrentStep(0);
+                handleClose()
+              } else {
+                toast.error(res.message);
+              }
+              set_Loading(false)
+            })
 
-          .catch((err) => {
-            toast.error(err.message)
-            set_Loading(false)
-          })
+            .catch((err) => {
+              toast.error(err.message)
+              set_Loading(false)
+            })
+        } else {
+          toast.warning('Please login to upload!')
+          set_Loading(false)
+        }
       } else {
-        toast.warning('Please login to upload!')
+        const getKey = Object.keys(handleError.Error)
+        toast.error(handleError.Error[getKey[0]])
         set_Loading(false)
       }
+
+    } else {
+      toast.warning("Dont spawn bro! I hit you now!");
     }
   };
 

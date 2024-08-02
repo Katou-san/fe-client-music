@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 type Props = {
   listAlbum: list_playlistType;
 };
-const ListAlbumLib = ({ listAlbum }: Props) => {
+const ListAlbumLib = ({ listAlbum = [] }: Props) => {
   const listRef = useRef<HTMLDivElement>(null);
 
   const handeNext = (type: "next" | "prev") => {
@@ -36,10 +36,10 @@ const ListAlbumLib = ({ listAlbum }: Props) => {
       </div>
       <div className="listLineLibrary">
         <div className="contentList" ref={listRef}>
-          {listAlbum.length == 0 && (
+          {listAlbum?.length == 0 && (
             <div className="EmtyLinePlaylist">There are no albums yet</div>
           )}
-          {listAlbum.length > 0 &&
+          {listAlbum?.length > 0 &&
             listAlbum.map((playlist, index) => (
               <ItemAlbumLibrary playlist={playlist} key={index} />
             ))}

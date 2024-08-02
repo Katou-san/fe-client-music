@@ -21,6 +21,7 @@ import imgTemp from "../../../../public/temp.jpg"
 import { MoreIcon } from "@/Icons/icon_v1";
 import MorePlaylistDropDown from "@/components/customs/more/morePlaylist/morePlaylist";
 import UpdatePlaylistModal from "@/components/customs/modal/updatePlaylist/updatePlaylist";
+import { useReload } from "@/contexts/providerReload";
 const Page = () => {
   const {
     setList,
@@ -35,12 +36,11 @@ const Page = () => {
   const seachParam = useSearchParams();
   const PlaylistId = seachParam.get("id");
   const type = seachParam.get("type");
-
+  const { re_playlist } = useReload()
   const [imageUrl, set_ImgUrl] = useState("");
   const [thumbUrl, set_ThumbUrl] = useState("");
   const [info_Playlist, set_info] = useState<playlistType | null>(null);
   const [list, set_List] = useState<list_songType>([]);
-  const [drop_Down, set_DropDown] = useState(false)
   const [show_update, set_ShowUpdate] = useState(false)
 
   const [listLike, setListLike] = useState<list_likeType>([]);
@@ -66,7 +66,7 @@ const Page = () => {
         })
       ]);
     }
-  }, [PlaylistId, userProvider, reload]);
+  }, [PlaylistId, userProvider, reload, re_playlist]);
 
   useEffect(() => {
     if (info_Playlist != undefined && info_Playlist != null) {
@@ -211,7 +211,7 @@ const Page = () => {
                   />
                 ))}
 
-              {list.length == 0 && <div>Empty</div>}
+              {list.length == 0 && <div className="EmtySong">Empty</div>}
             </div>
           </div>
           <UpdatePlaylistModal drop_down={show_update} on_DropDown={() => set_ShowUpdate(false)} playlist={info_Playlist} on_Reload={() => set_Reload(pre => !pre)} />

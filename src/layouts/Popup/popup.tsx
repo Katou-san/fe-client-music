@@ -226,8 +226,8 @@ const Popup = () => {
                 : "Name"}
             </h1>
             <h3 className="overflow__Text">
-              {currentList[currentIndex]?.Artist != undefined
-                ? currentList[currentIndex].Artist
+              {currentList[currentIndex]?.Artist_Name != undefined
+                ? `by ${currentList[currentIndex]?.Artist_Name}`
                 : "by artits"}
             </h3>
           </div>

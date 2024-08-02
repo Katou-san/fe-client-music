@@ -6,7 +6,7 @@ const HandleErrors = {
     },
     CheckLenght: (value: string) => {
         const a = value.trim().length;
-        if (a < 25 && a > 4) {
+        if (a < 25 && a > 3) {
             return true;
         }
         return false;

@@ -53,7 +53,8 @@ function Footer() {
     setShuffle,
     shuffle,
     Set_RefInputRange,
-    repeat
+    repeat,
+    Togo_Volume
   } = useAudio();
 
   useEffect(() => {
@@ -152,7 +153,7 @@ function Footer() {
           </div>
           <div className="infoDetail overflow__Text">
             <h1 className="overflow__Text">{currentList[currentIndex]?.Song_Name || 'unknow'}</h1>
-            <h4>by {currentList[currentIndex]?.Artist || 'unknow'}</h4>
+            <h4>by {currentList[currentIndex]?.Artist_Name || 'unknow'}</h4>
           </div>
         </div>
         <div className="frameIconsSong">
@@ -202,7 +203,7 @@ function Footer() {
             )}
             {repeat == 2 && <Repeat_Icon w={30} type={2} color="#37cdff" />}
           </div>
-          <div className="frameVolume">
+          <div className="frameVolume" onClick={Togo_Volume}>
             <div className="frameIcon ">
               <Volume_Icon type={volume > 6 ? 2 : volume > 0 ? 1 : 0} w={28} />
 

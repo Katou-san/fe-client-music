@@ -38,8 +38,8 @@ const ItemSilder = ({ active, func, itemSilder, list, index }: Prop) => {
                     <PlayIcon w={30} />
                 </div>
                 <div className="contentBtn overflow__Text" >
-                    <h1 className='overflow__Text'>{itemSilder.Song_Name}</h1>
-                    <h3 className='overflow__Text'>for artist</h3>
+                    <h1 className='overflow__Text'>{itemSilder?.Song_Name}</h1>
+                    <h3 className='overflow__Text'>for {itemSilder?.Artist_Name}</h3>
                 </div>
             </div>
 

@@ -155,7 +155,7 @@ const Page = () => {
 
         <div className="frameName">
           <h1>{infoUser?.User_Name}</h1>
-          <span>{infoUser?.is_Premium ? inforole.Role_Name == 'creator' ? <Sound_Icon w={30} /> : <Check_Icon w={30} /> : ''} </span>
+          <span>{inforole.Role_Name == 'creator' ? <Sound_Icon w={30} /> : infoUser?.is_Premium ? <Check_Icon w={30} /> : ''} </span>
         </div>
         <div className="frameId">
           <h1>{infoUser?.User_Email}</h1>

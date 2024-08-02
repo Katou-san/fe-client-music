@@ -12,16 +12,11 @@ const HandleErrors = {
   },
 };
 
-const createValidate = (Name: string, Artist: string) => {
+const createValidate = (Name: string) => {
   const Error: any = {};
   let status = false;
   if (!HandleErrors.CheckLenght(Name)) {
     Error["name"] = "Please enter playlist name";
-    status = true;
-  }
-
-  if (!HandleErrors.CheckLenght(Artist)) {
-    Error["artist"] = "Please enter playlist artist";
     status = true;
   }
 

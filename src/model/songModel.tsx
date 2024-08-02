@@ -5,6 +5,7 @@ const list_song_init = [
         Song_Name: "",
         Song_Image: "",
         Song_Audio: "",
+        Artist_Name: "",
         Artist: "",
         Like: 0,
         User_Id: "",
@@ -29,6 +30,7 @@ const create_Song = {
     Tag: "",
     Color: "",
     is_Publish: true,
+
 }
 
 const update_Song = {
@@ -63,6 +65,7 @@ export type create_songType = {
     Tag: string,
     Color: string,
     is_Publish: boolean,
+    Artist_Name?: string,
 }
 
 export type update_songType = {

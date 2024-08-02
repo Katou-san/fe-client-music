@@ -1,4 +1,4 @@
-import { create_songType } from "@/model/songModel";
+import { create_songType, update_songType } from "@/model/songModel";
 
 const HandleErrors = {
     isEmail: (value: string) => {
@@ -38,9 +38,46 @@ const createValidate = (value: create_songType) => {
         Error["category"] = "Please enter playlist artist";
         status = true;
     }
+
+    if (value.Song_Image != undefined) {
+        const Img = value.Song_Image as File
+        if (Img.size > 2097152) {
+            Error["image"] = "Image size must be under 2MB";
+            status = true;
+        }
+    }
     return { status, Error };
 };
 
+const updateValidate = (value: update_songType) => {
+    const Error: any = {};
+    let status = false;
+    if (value?.Song_Name != undefined) {
+        if (!HandleErrors.CheckLenght(value.Song_Name)) {
+            Error["name"] = "Please enter playlist name";
+            status = true;
+        }
+    }
+
+    if (value?.Artist != undefined && value?.Artist != null) {
+        if (!HandleErrors.CheckLenght(value.Artist)) {
+            Error["artist"] = "Please enter playlist artist";
+            status = true;
+        }
+    }
+
+    if (value?.Song_Image != undefined && value?.Song_Image != null) {
+        const Img = value.Song_Image as File
+        if (Img.size > 2097152) {
+            Error["image"] = "Image size must be under 2MB";
+            status = true;
+        }
+    }
+    return { status, Error };
+};
+
+
 export const songValidate = {
     create: createValidate,
+    update: updateValidate
 };

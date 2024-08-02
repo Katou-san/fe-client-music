@@ -1,0 +1,88 @@
+.frameDeleteSong {
+    position: absolute;
+    top: 500%;
+    left: calc(50% - 175px);
+    width: 350px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 20px;
+    padding: 5px 5px 20px;
+    transition: .2s;
+    visibility: hidden;
+    color: #000;
+    z-index: 10;
+
+    .headerDelete {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+
+    .bodyDelete {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+
+        .contentDelete {
+            font-size: 20px;
+            display: flex;
+            gap: 3%;
+
+            h3 {
+                font-weight: 600;
+
+            }
+        }
+    }
+
+    .footerModalPlaylist {
+
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        gap: 2%;
+
+        .btnModal {
+            height: 40px;
+            width: 80px;
+            padding: 0 16px;
+            display: grid;
+            border-radius: 15px;
+            place-items: center;
+            cursor: pointer;
+            background-color: #006fee;
+            transition: .2s;
+        }
+
+        .btnAction {
+            background-color: #006fee !important;
+            color: aliceblue;
+
+            &:hover {
+                background-color: #0063d5 !important;
+            }
+        }
+
+        .btnClose {
+            background-color: transparent !important;
+            color: #f31260;
+
+            &:hover {
+                background-color: #f3126137 !important;
+            }
+        }
+    }
+}
+
+.activeFrameDeleteSong {
+    position: absolute;
+    top: 0%;
+    left: calc(50% - 175px);
+    visibility: unset;
+    transition: .2s;
+}

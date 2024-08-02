@@ -1,5 +1,22 @@
 import { CSSProperties } from "react";
 
+export function Remove_Icon({
+  w = 23,
+  color = "#fff",
+}: {
+  w?: number;
+  color?: string;
+}) {
+  return (
+    <svg width={w} height={w} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="2" />
+      <path d="M7.5 12H16.5" stroke={color} strokeWidth="2" />
+    </svg>
+
+
+  )
+}
+
 
 export function Check_Icon({
   w = 23,

@@ -21,6 +21,8 @@ const ModalDropdownPlaylist = ({ drop_Down, set_Drop, song, style }: Props) => {
     const itemRef = useRef<HTMLInputElement | null>(null);
     const [is_Loading, set_Loading] = useState(false)
     const [list_Playlits, set_list] = useState<list_playlistType>([]);
+    const [list_Album, set_listAlbum] = useState<list_playlistType>([]);
+
     useEffect(() => {
         let handle = (e: any) => {
             if (itemRef.current && !itemRef.current.contains(e.target)) {
@@ -36,15 +38,42 @@ const ModalDropdownPlaylist = ({ drop_Down, set_Drop, song, style }: Props) => {
     useEffect(() => {
         set_Loading(true);
         if (drop_Down) {
-            Playlist.Get_User_Playlist().then((res) => {
-                set_list(res.data)
-                set_Loading(false);
-            });
+            Promise.all([
+                Playlist.Get_User_Playlist().then((res) => {
+                    if (res.status == 200) {
+                        set_list(res.data)
+                    }
+
+                }),
+                Playlist.Get_User_Album().then((res) => {
+                    if (res.status == 200) {
+                        set_listAlbum(res.data)
+                    }
+                })
+            ]).then(() => set_Loading(false))
+
         }
 
     }, [drop_Down]);
 
-    const handleDelete = (Playlist_Id: string) => {
+    const handleAddPlaylist = (Playlist_Id: string) => {
+        if (userProvider.Access_Token != "" && userProvider.is_Login) {
+
+            Track.Create({ Playlist_Id, Song_Id: song.Song_Id })
+                .then((res) => {
+                    if (res.status == 200) {
+                        toast.success(res.message);
+                    } else {
+                        toast.error(res.message);
+                    }
+                })
+            set_Drop()
+        } else {
+            toast.warning("Cant add song to playlist");
+        }
+    };
+
+    const handleAddAlbum = (Playlist_Id: string) => {
         if (userProvider.Access_Token != "" && userProvider.is_Login) {
 
             Track.Create({ Playlist_Id, Song_Id: song.Song_Id })
@@ -71,18 +100,37 @@ const ModalDropdownPlaylist = ({ drop_Down, set_Drop, song, style }: Props) => {
                 <LoadingSVGWatting w={70} />
             </div>}
             {!is_Loading &&
-                <ul>
-                    <h1>Your playlist</h1>
-                    {list_Playlits.map((playlist, index) => (
-                        <li
-                            className="paused overflow__Text"
-                            key={index}
-                            onClick={() => handleDelete(playlist.Playlist_Id)}
-                        >
-                            {playlist?.Playlist_Name}
-                        </li>
-                    ))}
-                </ul>}
+                <>
+                    <div className="listPlaylist">
+                        <h1>Your playlist</h1>
+                        <ul>
+                            {list_Playlits.map((playlist, index) => (
+                                <li
+                                    className=" overflow__Text"
+                                    key={index}
+                                    onClick={() => handleAddPlaylist(playlist.Playlist_Id)}
+                                >
+                                    {playlist?.Playlist_Name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="listPlaylist">
+                        <h1>Your albums</h1>
+                        <ul>
+                            {list_Album.map((playlist, index) => (
+                                <li
+                                    className=" overflow__Text"
+                                    key={index}
+                                    onClick={() => handleAddAlbum(playlist.Playlist_Id)}
+                                >
+                                    {playlist?.Playlist_Name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </>
+            }
         </div>
     );
 };

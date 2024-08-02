@@ -51,17 +51,17 @@ const InfoSong = ({ song }: Props) => {
         }
 
     }, [duration, currentIndex]);
-
     return (
         <div className="infoSong">
-            <div className="headerInfoSong">
+            {!song && <div className="songDeleted"> <h1>Song has been deleted</h1></div>}
+            {!!song && <div className="headerInfoSong">
                 <div className="frameImg">
                     <Image src={url || imgTemp} alt="" width={50} height={50} />
                 </div>
                 <div className="ContentSong">
                     <div className="infoSongDetail ">
-                        <h1 className="txtHeader overflow__Text">{song.Song_Name}</h1>
-                        <h3 className="overflow__Text">by {song.Artist}</h3>
+                        <h1 className="txtHeader overflow__Text">{song?.Song_Name}</h1>
+                        <h3 className="overflow__Text">by {song?.Artist_Name}</h3>
                     </div>
                     <div className="footerSong">
                         <div className={`frameBtnPlay ${!checkSong && 'tranformBtn'} cu`} onClick={handlePlay}>
@@ -90,7 +90,8 @@ const InfoSong = ({ song }: Props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
+
         </div>
     );
 };

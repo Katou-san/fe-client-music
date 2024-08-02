@@ -56,8 +56,8 @@ const ItemListSong = ({ active, itemSong, list, index }: Prop) => {
       <Image alt="" src={url || imgTemp} width={10} height={10} loading='lazy' />
       <div className="frameBtnContent">
         <div className="contentBtn">
-          <h1 className="overflow__Text">{itemSong.Song_Name}</h1>
-          <h3 className="overflow__Text">by {itemSong.Artist}</h3>
+          <h1 className="overflow__Text">{itemSong?.Song_Name}</h1>
+          <h3 className="overflow__Text">by {itemSong?.Artist_Name}</h3>
         </div>
         <div className="frameIcon" onClick={handleClick}>
           {is_Playing &&
