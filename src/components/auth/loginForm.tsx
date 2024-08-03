@@ -22,6 +22,7 @@ import {
 } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import { Google_s } from "@/apis/Google";
 
 function Login({ Value }: { Value: any }) {
   const routes = useRouter();
@@ -34,12 +35,20 @@ function Login({ Value }: { Value: any }) {
 
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      // const userInfo = await axios
-      //   .get("https://www.googleapis.com/oauth2/v3/userinfo", {
-      //     headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-      //   })
-      //   .then((res) => res.data);
-      console.log(tokenResponse);
+      Google_s.Post_Login_Google(tokenResponse).then((res) => {
+        if (res.status === 200) {
+          toast.success(res.message);
+          localStorage.setItem("Access_Token", res.data.Access_Token);
+          localStorage.setItem("is_Login", res.data.is_Login);
+          req_dispatch({ type: "SUCCESS" });
+          dispacth(loginProvider(res.data));
+          setValueLogin(authModel.initLogin);
+          routes.push("/");
+        } else {
+          req_dispatch({ type: "SUCCESS" });
+          toast.error(res.message);
+        }
+      });
     },
 
     onError: () => {

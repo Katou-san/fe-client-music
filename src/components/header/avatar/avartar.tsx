@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 import { Send } from "@/apis/Send";
 import { URLValidate } from "@/util/validate/url";
-import imgTemp from "../../../../public/temp.jpg"
+import imgTemp from "../../../../public/temp.jpg";
 
 export default function Avartar() {
   const [avatar, set_Avatar] = useState("");
@@ -34,7 +34,13 @@ export default function Avartar() {
         id={!getStateAuth.is_Login ? "Hidden" : ""}
         onClick={TogoMenu}
       >
-        <Image src={avatar || imgTemp} alt="" width={10} height={10} loading="lazy" />
+        <Image
+          src={avatar || imgTemp}
+          alt=""
+          width={100}
+          height={100}
+          loading="lazy"
+        />
         <span className="overflow__Text">{getStateAuth.User_Name}</span>
       </div>
     </div>
