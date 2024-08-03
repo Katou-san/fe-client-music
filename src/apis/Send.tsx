@@ -13,5 +13,7 @@ export const Send = {
     Thumnail_P: async (id: string): Promise<any> =>
         await http.get(`${EnvConfig.NEXT_PUBLIC_SEND}${EnvConfig.NEXT_PUBLIC_GET_THUMNAIL_P}/${id}`, header('file')),
     Image_P: async (id: string): Promise<any> =>
-        await http.get(`${EnvConfig.NEXT_PUBLIC_SEND}${EnvConfig.NEXT_PUBLIC_GET_IMAGE_P}/${id}`, header('file'))
+        await http.get(`${EnvConfig.NEXT_PUBLIC_SEND}${EnvConfig.NEXT_PUBLIC_GET_IMAGE_P}/${id}`, header('file')),
+    Logo: async (id: string): Promise<any> =>
+        await http.get(`${EnvConfig.NEXT_PUBLIC_SEND}${EnvConfig.NEXT_PUBLIC_GET_LOGO}/${id}`, header('file'))
 };

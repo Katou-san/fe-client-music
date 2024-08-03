@@ -61,6 +61,8 @@ export const EnvConfig = {
   NEXT_PUBLIC_ZALO: "/zalopay",
   NEXT_PUBLIC_VNPAY: "/vnpay",
 
+  NEXT_PUBLIC_GET_LOGO: "/send/logo",
+
   NEXT_PUBLIC_LOGIN_GOOGLE: "/user/login-google",
 
   LocalToken: "Access_Token",
