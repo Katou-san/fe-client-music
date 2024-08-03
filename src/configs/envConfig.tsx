@@ -68,7 +68,7 @@ export const EnvConfig = {
   LocalToken: "Access_Token",
 
   NEXT_PUBLIC_CLIENT_ID:
-    "20252661917-vu3j9dg777pv15boog5afl0541qbbcsi.apps.googleusercontent.com",
+    "21616885819-vul8tpkrvs1rsopqb5dftdacdnnhqcn9.apps.googleusercontent.com",
 };
 
 export type EnvConfig_type = typeof EnvConfig;
