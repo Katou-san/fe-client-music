@@ -42,12 +42,11 @@ function Register({ Value }: { Value: any }) {
           .then((res) => {
             if (res.status === 200) {
               toast.success(res.message);
-              localStorage.setItem("Access_Token", res.data.Access_Token);
-              localStorage.setItem("is_Login", res.data.is_Login);
+              // localStorage.setItem("Access_Token", res.data.Access_Token);
+              // localStorage.setItem("is_Login", res.data.is_Login);
               req_dispatch({ type: "SUCCESS" });
-              dispatch(signupProvider(res.data));
-              setValueSignup(authModel.initSignup);
-              routes.push("/");
+              // dispatch(signupProvider(res.data));
+              // setValueSignup(authModel.initSignup);
             } else {
               req_dispatch({ type: "SUCCESS" });
               toast.error(res.message);
