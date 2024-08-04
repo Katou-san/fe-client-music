@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import useRequest from "@/hooks/request/request";
 import { authModel, authSignupType } from "@/model/authModel";
 import { useRouter } from "next/navigation";
@@ -9,35 +9,45 @@ import { authValidate } from "@/util/validate/authReq";
 import { auth } from "@/apis/Auth";
 import { useDispatch } from "react-redux";
 import { signupProvider } from "@/hooks/redux/action/authProvider";
+import { hash64 } from "@/util/hash";
 
 function Register({ Value }: { Value: any }) {
-
-
-  const routes = useRouter()
-  const dispatch = useDispatch()
+  const routes = useRouter();
+  const dispatch = useDispatch();
   const [req_state, req_dispatch] = useRequest();
   const { Is_Loading } = req_state;
-  const [valueSignup, setValueSignup] = useState<authSignupType>(authModel.initSignup);
+  const [valueSignup, setValueSignup] = useState<authSignupType>(
+    authModel.initSignup
+  );
   const [ValueError, setValueError] = useState({});
-
 
   const SubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!Is_Loading) {
       req_dispatch({ type: "REQUEST" });
-      const checkError = authValidate.signup(valueSignup.User_Email, valueSignup.User_Name, valueSignup.User_Pass, valueSignup.User_ConfirmPass)
+      const checkError = authValidate.signup(
+        valueSignup.User_Email,
+        valueSignup.User_Name,
+        valueSignup.User_Pass,
+        valueSignup.User_ConfirmPass
+      );
       setValueError(checkError.Error);
       if (!checkError.status) {
-        auth.Sigup(valueSignup)
+        auth
+          .Sigup({
+            ...valueSignup,
+            User_Pass: hash64(valueSignup.User_Pass),
+            User_ConfirmPass: hash64(valueSignup.User_ConfirmPass),
+          })
           .then((res) => {
             if (res.status === 200) {
               toast.success(res.message);
               localStorage.setItem("Access_Token", res.data.Access_Token);
               localStorage.setItem("is_Login", res.data.is_Login);
               req_dispatch({ type: "SUCCESS" });
-              dispatch(signupProvider(res.data))
+              dispatch(signupProvider(res.data));
               setValueSignup(authModel.initSignup);
-              routes.push('/')
+              routes.push("/");
             } else {
               req_dispatch({ type: "SUCCESS" });
               toast.error(res.message);
@@ -48,13 +58,10 @@ function Register({ Value }: { Value: any }) {
             toast.error("Error" + err.status);
           });
       } else {
-
         let Arraykey = Object.keys(checkError.Error);
-        Arraykey.map(key => {
+        Arraykey.map((key) => {
           toast.error(checkError.Error[key]);
-
-        })
-
+        });
       }
     } else {
       toast.warning("Please dont spam");
@@ -71,7 +78,9 @@ function Register({ Value }: { Value: any }) {
             type="text"
             required
             value={valueSignup.User_Email}
-            onChange={(e) => setValueSignup({ ...valueSignup, User_Email: e.target.value })}
+            onChange={(e) =>
+              setValueSignup({ ...valueSignup, User_Email: e.target.value })
+            }
           />
 
           <div className="toastInput">
@@ -84,7 +93,9 @@ function Register({ Value }: { Value: any }) {
             type="text"
             required
             value={valueSignup.User_Name}
-            onChange={(e) => setValueSignup({ ...valueSignup, User_Name: e.target.value })}
+            onChange={(e) =>
+              setValueSignup({ ...valueSignup, User_Name: e.target.value })
+            }
           />
 
           <div className="toastInput">
@@ -96,7 +107,9 @@ function Register({ Value }: { Value: any }) {
           <input
             type="password"
             value={valueSignup.User_Pass}
-            onChange={(e) => setValueSignup({ ...valueSignup, User_Pass: e.target.value })}
+            onChange={(e) =>
+              setValueSignup({ ...valueSignup, User_Pass: e.target.value })
+            }
             required
           />
 
@@ -112,7 +125,10 @@ function Register({ Value }: { Value: any }) {
             required
             value={valueSignup.User_ConfirmPass}
             onChange={(e) =>
-              setValueSignup({ ...valueSignup, User_ConfirmPass: e.target.value })
+              setValueSignup({
+                ...valueSignup,
+                User_ConfirmPass: e.target.value,
+              })
             }
           />
 

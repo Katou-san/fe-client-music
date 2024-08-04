@@ -23,6 +23,7 @@ import {
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { Google_s } from "@/apis/Google";
+import { hash64 } from "@/util/hash";
 
 function Login({ Value }: { Value: any }) {
   const routes = useRouter();
@@ -70,7 +71,7 @@ function Login({ Value }: { Value: any }) {
       setValueError(checkError.Error);
       if (!checkError.status) {
         auth
-          .Login(valueLogin)
+          .Login({ ...valueLogin, User_Pass: hash64(valueLogin.User_Pass) })
           .then((res) => {
             if (res.status === 200) {
               toast.success(res.message);
@@ -125,7 +126,10 @@ function Login({ Value }: { Value: any }) {
             required
             value={valueLogin.User_Pass}
             onChange={(e) =>
-              setValueLogin({ ...valueLogin, User_Pass: e.target.value })
+              setValueLogin({
+                ...valueLogin,
+                User_Pass: e.target.value,
+              })
             }
           />
 
