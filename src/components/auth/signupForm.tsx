@@ -45,6 +45,7 @@ function Register({ Value }: { Value: any }) {
               // localStorage.setItem("Access_Token", res.data.Access_Token);
               // localStorage.setItem("is_Login", res.data.is_Login);
               req_dispatch({ type: "SUCCESS" });
+              Value.HandleChangeForm();
               // dispatch(signupProvider(res.data));
               // setValueSignup(authModel.initSignup);
             } else {
