@@ -52,6 +52,13 @@ export const EnvConfig = {
   NEXT_PUBLIC_GET_IMAGE: "/send/image",
   NEXT_PUBLIC_GET_IMAGE_P: "/send/image_P",
   NEXT_PUBLIC_GET_THUMNAIL_P: "/send/thumbnail",
+  NEXT_PUBLIC_GET_IMAGE_A: "/send/ads-image",
+  NEXT_PUBLIC_GET_AUDIO_A: "/send/ads-audio",
+
+  NEXT_PUBLIC_ADS: "/ads",
+  NEXT_PUBLIC_ADS_RANDOM: "/ads-random",
+
+
 
   NEXT_PUBLIC_ARTIST: "/artist",
   NEXT_PUBLIC_ARTISTS: "/artists",

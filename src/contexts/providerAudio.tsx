@@ -326,6 +326,7 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (playlist.length > 0) {
       set_CurrentList(playlist);
+      // setIndex(0)
     } else {
       set_CurrentList([]);
     }
@@ -333,15 +334,15 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (currentList.length > 0) {
-      if (!URLValidate.isUrl(currentList[currentIndex]?.Song_Audio)) {
+
+      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Audio)) {
         if (currentList[currentIndex]?.Song_Audio != '' && currentList[currentIndex]?.Song_Audio != undefined) {
           Send.Audio(currentList[currentIndex].Song_Audio).then((res) =>
             set_src(URL.createObjectURL(res))
           );
         }
-
       } else {
-        set_src(currentList[currentIndex].Song_Audio);
+        set_src(currentList[currentIndex]?.Song_Audio);
       }
       set_isPlaying(true);
       renderDotRange();

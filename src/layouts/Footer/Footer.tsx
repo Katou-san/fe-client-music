@@ -59,7 +59,7 @@ function Footer() {
 
   useEffect(() => {
     if (currentList.length > 0) {
-      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image)) {
+      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image) && currentList[currentIndex]?.Song_Image != undefined) {
         Send.Image_S(currentList[currentIndex]?.Song_Image).then((res) =>
           set_url(URL.createObjectURL(res))
         );

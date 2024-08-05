@@ -10,6 +10,7 @@ import ProviderAuth from "@/contexts/providerAuth";
 import { ProviderReload } from "@/contexts/providerReload";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { EnvConfig } from "@/configs/envConfig";
+import { ProviderAds } from "@/contexts/providerAds";
 
 const inter = Tilt_Neon({ subsets: ["latin"] });
 
@@ -29,11 +30,14 @@ export default function RootLayout({
         <ProviderStore>
           <ProviderAuth>
             <GoogleOAuthProvider
-              clientId={`${EnvConfig.NEXT_PUBLIC_CLIENT_ID}`}
-            >
+              clientId={`${EnvConfig.NEXT_PUBLIC_CLIENT_ID}`}>
               <ProviderReload>
                 <ProviderLayout>
-                  <ProviderAudio>{children}</ProviderAudio>
+                  <ProviderAudio>
+                    <ProviderAds>
+                      {children}
+                    </ProviderAds>
+                  </ProviderAudio>
                 </ProviderLayout>
               </ProviderReload>
             </GoogleOAuthProvider>
