@@ -34,38 +34,20 @@ const HandleErrors = {
   },
 };
 
-const loginValidate = (email: string, pass: string) => {
+const resetEmailValidate = (email: string) => {
   const Error: any = {};
   let status = false;
   if (!HandleErrors.isEmail(email)) {
     Error["email"] = "Is not a valid email";
-    status = true;
-  }
-
-  if (!HandleErrors.CheckLenght(pass)) {
-    Error["pass"] = "Please enter password";
     status = true;
   }
 
   return { status, Error };
 };
 
-const signupValidate = (
-  email: string,
-  name: string,
-  pass: string,
-  confirmPass: string
-) => {
+const resetPassValidate = (pass: string, confirmPass: string) => {
   const Error: any = {};
   let status = false;
-  if (!HandleErrors.isEmail(email)) {
-    Error["email"] = "Is not a valid email";
-    status = true;
-  }
-  if (!HandleErrors.CheckLenght(name)) {
-    Error["name"] = "Name must be 4 to 25 characters ";
-    status = true;
-  }
 
   if (!HandleErrors.CheckLenghtPass(pass)) {
     Error["pass"] = "Password must be 8 to 32 characters ";
@@ -80,29 +62,7 @@ const signupValidate = (
   return { status, Error };
 };
 
-const updateValidate = (value: update_userType) => {
-  const Error: any = {};
-  let status = false;
-
-  if (value.User_Name != undefined) {
-    if (!HandleErrors.CheckLenght(value.User_Name)) {
-      Error["name"] = "Name must be 4 to 25 characters ";
-      status = true;
-    }
-  }
-
-  if (value.Phone != undefined) {
-    if (!HandleErrors.checkPhone(value.Phone)) {
-      Error["phone"] = "phone must be 10 characters or not in correct format";
-      status = true;
-    }
-  }
-
-  return { status, Error };
-};
-
-export const authValidate = {
-  login: loginValidate,
-  signup: signupValidate,
-  update: updateValidate,
+export const resetValidate = {
+  resetEmail: resetEmailValidate,
+  resetPass: resetPassValidate,
 };

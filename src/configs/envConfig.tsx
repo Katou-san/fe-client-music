@@ -69,10 +69,9 @@ export const EnvConfig = {
   NEXT_PUBLIC_ZALO: "/zalopay",
   NEXT_PUBLIC_VNPAY: "/vnpay",
 
-
-
   NEXT_PUBLIC_LOGIN_GOOGLE: "/user/login-google",
-
+  NEXT_PUBLIC_RESET_EMAIL: "/mail/send-reset",
+  NEXT_PUBLIC_RESET: "/user/reset",
   LocalToken: "Access_Token",
 
   NEXT_PUBLIC_CLIENT_ID:
