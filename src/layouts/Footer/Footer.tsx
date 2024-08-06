@@ -59,7 +59,7 @@ function Footer() {
 
   useEffect(() => {
     if (currentList.length > 0) {
-      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image) && currentList[currentIndex]?.Song_Image != undefined) {
+      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image)) {
         Send.Image_S(currentList[currentIndex]?.Song_Image).then((res) =>
           set_url(URL.createObjectURL(res))
         );
@@ -68,6 +68,8 @@ function Footer() {
       }
     }
   }, [currentList, currentIndex]);
+
+  console.log(url)
 
   useEffect(() => {
     if (progressbarRef.current?.max != undefined) {

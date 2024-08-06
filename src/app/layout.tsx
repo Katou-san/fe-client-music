@@ -32,13 +32,13 @@ export default function RootLayout({
             <GoogleOAuthProvider
               clientId={`${EnvConfig.NEXT_PUBLIC_CLIENT_ID}`}>
               <ProviderReload>
-                <ProviderLayout>
+                <ProviderAds>
                   <ProviderAudio>
-                    <ProviderAds>
+                    <ProviderLayout>
                       {children}
-                    </ProviderAds>
+                    </ProviderLayout>
                   </ProviderAudio>
-                </ProviderLayout>
+                </ProviderAds>
               </ProviderReload>
             </GoogleOAuthProvider>
           </ProviderAuth>

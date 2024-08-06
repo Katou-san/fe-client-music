@@ -54,11 +54,12 @@ export const EnvConfig = {
   NEXT_PUBLIC_GET_THUMNAIL_P: "/send/thumbnail",
   NEXT_PUBLIC_GET_IMAGE_A: "/send/ads-image",
   NEXT_PUBLIC_GET_AUDIO_A: "/send/ads-audio",
+  NEXT_PUBLIC_GET_LOGO: "/send/logo",
 
   NEXT_PUBLIC_ADS: "/ads",
   NEXT_PUBLIC_ADS_RANDOM: "/ads-random",
 
-
+  NEXT_PUBLIC_PARTNER: "/partner",
 
   NEXT_PUBLIC_ARTIST: "/artist",
   NEXT_PUBLIC_ARTISTS: "/artists",
@@ -68,7 +69,7 @@ export const EnvConfig = {
   NEXT_PUBLIC_ZALO: "/zalopay",
   NEXT_PUBLIC_VNPAY: "/vnpay",
 
-  NEXT_PUBLIC_GET_LOGO: "/send/logo",
+
 
   NEXT_PUBLIC_LOGIN_GOOGLE: "/user/login-google",
 

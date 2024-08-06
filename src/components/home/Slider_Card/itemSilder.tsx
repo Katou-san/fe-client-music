@@ -20,12 +20,15 @@ const ItemSilder = ({ active, func, itemSilder, list, index }: Prop) => {
     const { is_Popup } = useLayout()
     const [url, set_url] = useState("")
     useEffect(() => {
-        if (URLValidate.isUrl(itemSilder.Song_Image)) {
-            Send.Image_S(itemSilder.Song_Image)
-                .then((res) => set_url(URL.createObjectURL(res)))
-        } else {
-            set_url(itemSilder.Song_Image)
+        if (itemSilder?.Song_Image != undefined) {
+            if (URLValidate.isUrl(itemSilder.Song_Image)) {
+                Send.Image_S(itemSilder.Song_Image)
+                    .then((res) => set_url(URL.createObjectURL(res)))
+            } else {
+                set_url(itemSilder.Song_Image)
+            }
         }
+
     }, [itemSilder.Song_Image])
     return (
         <div className={` itemSlider ${active ? "itemActive" : `itemNotActive`} ${is_Popup && 'isPopup'}`} >

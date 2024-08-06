@@ -36,9 +36,9 @@ import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 import { Repost } from "@/apis/Repost";
 import { repostModel, repostType } from "@/model/repostModel";
 import { useReload } from "@/contexts/providerReload";
-import WaveIcon from "@/Icons/cusIcons/wave/waveIcon";
 import Wavev2Icon from "@/Icons/cusIcons/wave/wavev2";
 import { SongModel } from "@/model/songModel";
+import AdsPopup from "@/components/popup/ads/adsPopup";
 const Popup = () => {
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
@@ -55,6 +55,8 @@ const Popup = () => {
     setShowListPopup,
     is_commentPopup,
     setShowCommentPopup,
+    is_ads,
+    setShowAds
   } = useLayout();
   const {
     percent_Load,
@@ -95,14 +97,17 @@ const Popup = () => {
   }, [progressbarRef]);
 
   useEffect(() => {
-    if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image)) {
-      Send.Image_S(currentList[currentIndex]?.Song_Image).then((res) => {
-        set_url(URL.createObjectURL(res))
-      });
-    } else {
-      set_url(currentList[currentIndex]?.Song_Image);
+    if (currentList[currentIndex]?.Song_Image != undefined) {
+      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image)) {
+        Send.Image_S(currentList[currentIndex]?.Song_Image).then((res) => {
+          set_url(URL.createObjectURL(res))
+        });
+      } else {
+        set_url(currentList[currentIndex]?.Song_Image);
 
+      }
     }
+
   }, [currentIndex, currentList]);
 
 
@@ -351,6 +356,12 @@ const Popup = () => {
           }`}
       >
         <ListComment Song={currentList[currentIndex] ?? SongModel.init} />
+      </div>
+      <div
+        className={`frameAds ${is_ads ? "" : "hidenframeAds"
+          }`}
+      >
+        <AdsPopup />
       </div>
     </div>
   );

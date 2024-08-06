@@ -1,9 +1,12 @@
 "use client";
 
+import { useAds } from "@/contexts/providerAds";
+import { useAudio } from "@/contexts/providerAudio";
 import React, {
     createContext,
     ReactNode,
     useContext,
+    useEffect,
     useState,
 } from "react";
 
@@ -13,6 +16,8 @@ interface contextType {
     is_listPopup: boolean,
     is_commentPopup: boolean,
     is_albumForm: boolean,
+    is_ads: boolean,
+    setShowAds: (value: boolean) => void;
     setAlbumForm: (value: boolean) => void;
     setShowPopup: () => void;
     setShowListPopup: () => void;
@@ -24,6 +29,8 @@ const defaultContext = {
     is_listPopup: false,
     is_commentPopup: false,
     is_albumForm: false,
+    is_ads: false,
+    setShowAds: (value: boolean) => { },
     setAlbumForm: (value: boolean) => { },
     setShowPopup: () => { },
     setShowListPopup: () => { },
@@ -33,10 +40,13 @@ const defaultContext = {
 const contextLayout = createContext<contextType>(defaultContext);
 
 const ProviderLayout = ({ children }: { children: ReactNode }) => {
+    const { show_Ads, set_ShowAds, change_Percent } = useAds()
+    const { currentIndex, currentList } = useAudio()
     const [is_Popup, set_Popup] = useState(false)
     const [is_listPopup, set_listPopup] = useState(false)
     const [is_commentPopup, set_conmmentPopup] = useState(false)
     const [is_AlbumForm, set_AlbumForm] = useState(false)
+    const [is_Ads, set_Ads] = useState(false)
 
     const HandelPopup = () => {
         const state_Popup = is_Popup
@@ -46,6 +56,7 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
             set_conmmentPopup(false)
         }
     }
+
 
     const set_ShowListPopup = () => {
         if (is_listPopup) {
@@ -67,6 +78,9 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
         }
     }
 
+    useEffect(() => {
+        change_Percent(currentIndex, currentList)
+    }, [currentIndex])
 
     return (
         <contextLayout.Provider
@@ -75,6 +89,8 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
                 is_listPopup: is_listPopup,
                 is_commentPopup: is_commentPopup,
                 is_albumForm: is_AlbumForm,
+                is_ads: is_Ads,
+                setShowAds: (value: boolean) => set_Ads(value),
                 setAlbumForm: (value: boolean) => set_AlbumForm(value),
                 setShowCommentPopup: set_ShowCommentPopup,
                 setShowPopup: HandelPopup,

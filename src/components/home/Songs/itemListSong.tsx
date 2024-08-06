@@ -26,13 +26,16 @@ const ItemListSong = ({ active, itemSong, list, index }: Prop) => {
   const [url, set_url] = useState("");
 
   useEffect(() => {
-    if (URLValidate.isUrl(itemSong.Song_Image)) {
-      Send.Image_S(itemSong.Song_Image).then((res) =>
-        set_url(URL.createObjectURL(res))
-      );
-    } else {
-      set_url(itemSong.Song_Image);
+    if (itemSong?.Song_Image != undefined) {
+      if (URLValidate.isUrl(itemSong?.Song_Image)) {
+        Send.Image_S(itemSong.Song_Image).then((res) =>
+          set_url(URL.createObjectURL(res))
+        );
+      } else {
+        set_url(itemSong.Song_Image);
+      }
     }
+
   }, [itemSong.Song_Image]);
 
   const handleClick = () => {
