@@ -7,6 +7,7 @@ import { URLValidate } from '@/util/validate/url';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import imgTemp from "../../../../public/temp.jpg"
+import { useAds } from '@/contexts/providerAds';
 type Prop = {
     active: boolean
     func: () => void
@@ -16,7 +17,8 @@ type Prop = {
     index: number
 }
 const ItemSilder = ({ active, func, itemSilder, list, index }: Prop) => {
-    const { setList, setIndex } = useAudio()
+    const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
+    const { setList, setIndex, currentList } = useAudio()
     const { is_Popup } = useLayout()
     const [url, set_url] = useState("")
     useEffect(() => {
@@ -34,8 +36,14 @@ const ItemSilder = ({ active, func, itemSilder, list, index }: Prop) => {
         <div className={` itemSlider ${active ? "itemActive" : `itemNotActive`} ${is_Popup && 'isPopup'}`} >
             <Image alt='' src={url || imgTemp} width={800} height={500} loading='lazy' />
             <div className='contentItemSilder' onClick={() => {
-                setList([...list])
-                setIndex(index)
+                if (onAds) {
+                    set_NextSongIndex(index)
+                    set_NextList(list)
+                } else {
+                    setIndex(index);
+                    setList(list)
+                    set_PercentAds(0)
+                }
             }}>
                 <div className="layoutBtnPlay">
                     <PlayIcon w={30} />

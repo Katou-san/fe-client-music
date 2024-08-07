@@ -3,10 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import "./_deleteModal.scss"
 import { Close_Icon } from '@/Icons/icon_Figma';
 import { songType } from '@/model/songModel';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/hooks/redux/store';
-import { toast } from 'react-toastify';
-import { useReload } from '@/contexts/providerReload';
+
 
 type Props = {
     value: songType
@@ -36,7 +33,7 @@ const DeleteModal = ({ value, handle_Delete, onReload = () => { }, drop_Down, on
     return (
         <div className={`frameDeleteSong ${drop_Down && 'activeFrameDeleteSong'}`} ref={itemRef}>
             <div className="headerDelete">
-                <h1>Delete Song </h1>
+                <h1>Delete Song  </h1>
                 <div className="frameIconListPopup cursor_pointer" onClick={onClosed}>
                     <Close_Icon w={40} color='#000' />
                 </div>

@@ -19,6 +19,7 @@ import { playlistType } from '@/model/playlistModel';
 import { Track } from '@/apis/Track';
 import { toast } from 'react-toastify';
 import PlaylistModalDropDown from '@/components/customs/modal/playlistModal';
+import { useAds } from '@/contexts/providerAds';
 
 type Props = {
     song: songType;
@@ -30,6 +31,8 @@ type Props = {
 const ItemTopResult = ({ song, list, index, info_Playlist }: Props) => {
     const [url, set_url] = useState('')
     const [infoUser, set_Info] = useState<userType>(userModel.init)
+    const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
+
 
     const userProvider = useSelector((State: RootState) => State.auth)
     const infoProvider = useSelector((State: RootState) => State.info)
@@ -78,16 +81,29 @@ const ItemTopResult = ({ song, list, index, info_Playlist }: Props) => {
     }
 
     const Handle_Play = () => {
-        if (list.length > 0 && info_Playlist != null) {
-            if (currentList == list) {
-                setIndex(index);
-            } else {
-                Set_InfoPlaylist(info_Playlist);
-                setList(list);
-                setIndex(index);
+        if (onAds) {
+            if (list.length > 0 && info_Playlist != null) {
+                if (currentList == list) {
+                    set_NextSongIndex(index);
+                } else {
+                    set_NextList(list);
+                    set_NextSongIndex(index);
+                    Set_InfoPlaylist(info_Playlist);
+                }
             }
-        }
-    };
+
+        } else {
+            if (list.length > 0 && info_Playlist != null) {
+                if (currentList == list) {
+                    setIndex(index);
+                } else {
+                    Set_InfoPlaylist(info_Playlist);
+                    setList(list);
+                    setIndex(index);
+                }
+            }
+        };
+    }
     const handleLike = () => {
         if (userProvider.Access_Token != "" && userProvider.is_Login == true && infoProvider.Like != '') {
             if (song.Song_Id != null && song.Song_Id != '') {
@@ -118,7 +134,7 @@ const ItemTopResult = ({ song, list, index, info_Playlist }: Props) => {
                 </div>
                 <div className="infoResult">
                     <h1 className='overflow__Text'>{song?.Song_Name || ''}</h1>
-                    <h3 className='overflow__Text'>Artist: {song?.Artist || ''}</h3>
+                    <h3 className='overflow__Text'>Artist: {song?.Artist_Name || ''}</h3>
                 </div>
             </div>
             <div className="contentTopResult">
@@ -137,7 +153,7 @@ const ItemTopResult = ({ song, list, index, info_Playlist }: Props) => {
                 Upload by: {infoUser?.User_Name}
             </div>
             <div className="btnPlayResult cursor_pointer" onClick={Handle_Play}>
-                {is_Playing && currentList[currentIndex].Song_Id == song?.Song_Id ? <Pause_Icon w={50} /> : <Play_Icon w={60} />}
+                {is_Playing && currentList[currentIndex]?.Song_Id == song?.Song_Id ? <Pause_Icon w={50} /> : <Play_Icon w={60} />}
 
             </div>
             <PlaylistModalDropDown set_Drop={() => set_Drop(false)} drop_Down={drop_Down} song={song} style={{ top: '50%', left: '50%' }} />

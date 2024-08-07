@@ -6,9 +6,8 @@ import { Pause_Icon, Play_Icon } from "@/Icons/icon_Figma";
 import { useAudio } from "@/contexts/providerAudio";
 import { Propose } from "@/apis/Trending";
 import { list_songType } from "@/model/songModel";
-import ItemPlaylist from "@/components/playlist/itemPlaylist";
-import { playlistModel } from "@/model/playlistModel";
 import imgTemp from '../../../../public/temp.jpg'
+import ItemTrending from "@/components/trending/itemTrending";
 const Page = () => {
   const { is_Playing } = useAudio();
   const [url, set_Url] = useState({ img: "", thumbnail: "" });
@@ -61,12 +60,12 @@ const Page = () => {
             <div className="itemTitle">
               <span>#</span>
               <span className="startText">info</span>
-              <span className="startText">time</span>
+              <span className="time">time</span>
             </div>
           </div>
 
           {list.map((song, index) => (
-            <ItemPlaylist song={song} key={index} list={list} index={index} info_Playlist={playlistModel.init} />
+            <ItemTrending song={song} key={index} list={list} index={index} />
 
           ))}
         </div>

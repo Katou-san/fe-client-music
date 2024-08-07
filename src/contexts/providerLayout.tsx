@@ -2,6 +2,7 @@
 
 import { useAds } from "@/contexts/providerAds";
 import { useAudio } from "@/contexts/providerAudio";
+import { current } from "@reduxjs/toolkit";
 import React, {
     createContext,
     ReactNode,
@@ -40,8 +41,8 @@ const defaultContext = {
 const contextLayout = createContext<contextType>(defaultContext);
 
 const ProviderLayout = ({ children }: { children: ReactNode }) => {
-    const { show_Ads, set_ShowAds, change_Percent } = useAds()
-    const { currentIndex, currentList } = useAudio()
+    const { show_Ads, set_ShowAds, change_Percent, list_Ads, index_Song, info_Ads, list_Song, onAds, set_OnAds, set_PercentAds } = useAds()
+    const { currentIndex, currentList, setList, setIndex } = useAudio()
     const [is_Popup, set_Popup] = useState(false)
     const [is_listPopup, set_listPopup] = useState(false)
     const [is_commentPopup, set_conmmentPopup] = useState(false)
@@ -81,6 +82,26 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         change_Percent(currentIndex, currentList)
     }, [currentIndex])
+
+    useEffect(() => {
+        set_PercentAds(0)
+    }, [currentList])
+
+    useEffect(() => {
+        if (show_Ads) {
+            setList(list_Ads)
+            setIndex(0)
+            set_Ads(true)
+        } else {
+
+            if (onAds) {
+                set_OnAds()
+                set_Ads(false)
+                setList(list_Song)
+                setIndex(index_Song)
+            }
+        }
+    }, [show_Ads, currentIndex, info_Ads, onAds])
 
     return (
         <contextLayout.Provider

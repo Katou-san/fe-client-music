@@ -2,7 +2,6 @@
 
 import { Send } from "@/apis/Send";
 import { useAds } from "@/contexts/providerAds";
-import { useLayout } from "@/contexts/providerLayout";
 import { playlistType } from "@/model/playlistModel";
 import { list_songType } from "@/model/songModel";
 import { HandleSong } from "@/util/handle";
@@ -80,7 +79,7 @@ const defaultContext = {
 const contextAudio = createContext<contextType>(defaultContext);
 
 const ProviderAudio = ({ children }: { children: ReactNode }) => {
-  const { set_ShowAds, list_Song, index_Song, handle_EndAds, show_Ads, change_Percent } = useAds()
+  const { set_ShowAds, handle_EndAds, show_Ads, change_Percent } = useAds()
   const [fist, set_fist] = useState(false)
   const urltemp = "http://localhost:8080/api/v1/send/audio/57534667333.mp3";
   const [progressbarRef, set_progressbarRef] =
@@ -230,10 +229,9 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // console.log(currentList)
   const handle_EndSong = () => {
     if (show_Ads) {
-
+      set_ShowAds();
     }
 
     if (repeat == 0) {

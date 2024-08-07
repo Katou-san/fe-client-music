@@ -55,7 +55,7 @@ const resetPassValidate = (pass: string, confirmPass: string) => {
   }
 
   if (!HandleErrors.isNotEqual(pass, confirmPass)) {
-    Error["ConfirmPass"] = "Confirm password not match";
+    Error["confirmpass"] = "Confirm password not match";
     status = true;
   }
 

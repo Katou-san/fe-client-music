@@ -126,7 +126,7 @@ const Page = () => {
                 <div className="itemTitle">
                   <span>#</span>
                   <span className="startText">info</span>
-                  <span className="startText">time</span>
+                  <span className="time">time</span>
                 </div>
               </div>
 

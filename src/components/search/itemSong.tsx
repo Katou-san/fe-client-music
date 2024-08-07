@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import imgtemp from '../../../public/temp.jpg'
 import './_itemSong.scss';
+import { useAds } from "@/contexts/providerAds";
 
 type Props = {
     song: songType;
@@ -29,6 +30,8 @@ const ItemSong = ({ song, index, list, info_Playlist }: Props) => {
     const userProvider = useSelector((State: RootState) => State.auth)
     const infoProvider = useSelector((State: RootState) => State.info)
     const [drop_Down, set_Drop] = useState(false)
+    const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
+
     const { setList, setIndex, Set_InfoPlaylist, currentList, currentIndex } =
         useAudio();
     const [url, set_Url] = useState({ img: "", audio: "" });
@@ -69,13 +72,26 @@ const ItemSong = ({ song, index, list, info_Playlist }: Props) => {
     }
 
     const Handle_Play = () => {
-        if (list.length > 0 && info_Playlist != null) {
-            if (currentList == list) {
-                setIndex(index);
-            } else {
-                Set_InfoPlaylist(info_Playlist);
-                setList(list);
-                setIndex(index);
+        if (onAds) {
+            if (list.length > 0 && info_Playlist != null) {
+                if (currentList == list) {
+                    set_NextSongIndex(index);
+                } else {
+                    set_NextList(list);
+                    set_NextSongIndex(index);
+                    Set_InfoPlaylist(info_Playlist);
+                }
+            }
+
+        } else {
+            if (list.length > 0 && info_Playlist != null) {
+                if (currentList == list) {
+                    setIndex(index);
+                } else {
+                    Set_InfoPlaylist(info_Playlist);
+                    setList(list);
+                    setIndex(index);
+                }
             }
         }
     };

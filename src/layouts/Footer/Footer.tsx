@@ -25,6 +25,7 @@ import { RootState } from "@/hooks/redux/store";
 import { Like } from "@/apis/Like";
 import { create_likeType, likeModel } from "@/model/likeModel";
 import { Track } from "@/apis/Track";
+import { useAds } from "@/contexts/providerAds";
 
 function Footer() {
   const userProvider = useSelector((state: RootState) => state.auth)
@@ -56,10 +57,11 @@ function Footer() {
     repeat,
     Togo_Volume
   } = useAudio();
+  const { onAds } = useAds()
 
   useEffect(() => {
     if (currentList.length > 0) {
-      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image)) {
+      if (URLValidate.isUrl(currentList[currentIndex]?.Song_Image) && currentList[currentIndex]?.Song_Image != undefined) {
         Send.Image_S(currentList[currentIndex]?.Song_Image).then((res) =>
           set_url(URL.createObjectURL(res))
         );
@@ -69,7 +71,6 @@ function Footer() {
     }
   }, [currentList, currentIndex]);
 
-  console.log(url)
 
   useEffect(() => {
     if (progressbarRef.current?.max != undefined) {

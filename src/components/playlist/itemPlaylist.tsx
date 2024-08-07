@@ -2,6 +2,7 @@
 import { Like } from "@/apis/Like";
 import { Send } from "@/apis/Send";
 import { Track } from "@/apis/Track";
+import './_itemPlaylist.scss'
 import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 import { useAudio } from "@/contexts/providerAudio";
 import { RootState } from "@/hooks/redux/store";
@@ -13,12 +14,14 @@ import { playlistType } from "@/model/playlistModel";
 import { list_songType, songType } from "@/model/songModel";
 import { URLValidate } from "@/util/validate/url";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import imgTemp from '../../../public/temp.jpg'
 import DeleteModal from "@/components/customs/modal/Remove/deleteModal";
 import { useReload } from "@/contexts/providerReload";
+import { useAds } from "@/contexts/providerAds";
+import { secondsToMinute } from "@/util/time";
 
 type Props = {
   song: songType;
@@ -27,19 +30,25 @@ type Props = {
   info_Playlist: playlistType;
 };
 const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
+  const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
+
   const { set_RePlaylist } = useReload()
   const userProvider = useSelector((State: RootState) => State.auth)
   const infoProvider = useSelector((State: RootState) => State.info)
   const [drop_Down, set_Drop] = useState(false)
   const { setList, setIndex, Set_InfoPlaylist, currentList, currentIndex } =
     useAudio();
-  const [url, set_Url] = useState({ img: "", audio: "" });
+  // const [url, set_Url] = useState({ img: "", audio: "" });
+  const [url, set_Url] = useState('');
+  const [urlAudio, set_UrlAudio] = useState('');
   const [listLike, set_listLike] = useState<list_likeType>([]);
   const [stateLike, set_StateLike] = useState<create_likeType>(
     likeModel.init_create
   );
 
   const [drop_DownRemove, set_DropRemove] = useState(false)
+  const [seconds, set_seconds] = useState(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
 
   useEffect(() => {
@@ -53,10 +62,18 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
     ])
     if (URLValidate.isUrl(song.Song_Image)) {
       Send.Image_S(song.Song_Image).then((res) =>
-        set_Url({ ...url, img: URL.createObjectURL(res) })
+        set_Url(URL.createObjectURL(res))
       );
     } else {
-      set_Url({ ...url, img: song.Song_Image });
+      set_Url(song.Song_Image);
+    }
+
+    if (URLValidate.isUrl(song.Song_Audio)) {
+      Send.Audio(song.Song_Audio).then((res) =>
+        set_UrlAudio(URL.createObjectURL(res))
+      );
+    } else {
+      set_UrlAudio(song.Song_Audio);
     }
   }, [song]);
 
@@ -73,13 +90,26 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
   }
 
   const Handle_Play = () => {
-    if (list.length > 0 && info_Playlist != null) {
-      if (currentList == list) {
-        setIndex(index);
-      } else {
-        Set_InfoPlaylist(info_Playlist);
-        setList(list);
-        setIndex(index);
+    if (onAds) {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          set_NextSongIndex(index);
+        } else {
+          set_NextList(list);
+          set_NextSongIndex(index);
+          Set_InfoPlaylist(info_Playlist);
+        }
+      }
+
+    } else {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          setIndex(index);
+        } else {
+          Set_InfoPlaylist(info_Playlist);
+          setList(list);
+          setIndex(index);
+        }
       }
     }
   };
@@ -124,12 +154,25 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
     }
   }
 
+
+  useEffect(() => {
+    set_seconds(Math.floor(
+      !Number.isNaN(audioRef.current?.duration)
+        ? audioRef.current?.duration
+          ? audioRef.current?.duration
+          : 0
+        : 0
+    ))
+  }, [urlAudio, audioRef])
+
   return (
     <div
       className={`itemPlaylistDetail ${currentList[currentIndex]?.Song_Id == song.Song_Id &&
         "itemPlaylistDetailActive"
-        } `}
+        } ${drop_DownRemove ? 'z-50' : ''} itemTreding`}
+
     >
+      <audio src={urlAudio} ref={audioRef} />
       <h3>
         {currentList[currentIndex]?.Song_Id == song.Song_Id && (
           <LineSoundAnimation />
@@ -138,14 +181,14 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
       </h3>
       <div className="infoItemPlaylistDetail" onClick={Handle_Play}>
         <div className="frameImage">
-          <Image alt="" src={url.img || imgTemp} width={50} height={50} loading='lazy' />
+          <Image alt="" src={url || imgTemp} width={50} height={50} loading='lazy' />
         </div>
         <div className="infoItem overflow__Text">
           <h1 className="overflow__Text">{song.Song_Name}</h1>
           <h3>{song?.Artist_Name}</h3>
         </div>
       </div>
-      <div className="time"></div>
+      <div className="time">{secondsToMinute(seconds)}</div>
       <div className="frameIcon" >
         <div
           className={`starIcon ${stateLike.State == 1

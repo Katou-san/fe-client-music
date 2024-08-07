@@ -1,6 +1,7 @@
 "use client";
 import { Send } from "@/apis/Send";
 import { Track } from "@/apis/Track";
+import { useAds } from "@/contexts/providerAds";
 import { useAudio } from "@/contexts/providerAudio";
 import { PauseIcon, PlayIcon } from "@/Icons/icon_v1";
 import { playlistType } from "@/model/playlistModel";
@@ -15,6 +16,7 @@ type Prop = {
 };
 const ItemListPlayList = ({ active, item, index }: Prop) => {
   const routes = useRouter();
+  const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
   const {
     setList,
     setIndex,
@@ -36,9 +38,16 @@ const ItemListPlayList = ({ active, item, index }: Prop) => {
     if (info_Playlist?.Playlist_Id != item.Playlist_Id) {
       Track.Get_Track(item.Playlist_Id).then((res) => {
         if (res.status === 200) {
-          Set_InfoPlaylist(item);
-          setList(res.data);
-          setIndex(0);
+          if (onAds) {
+            set_NextList(res.data)
+            set_NextSongIndex(0)
+          } else {
+            Set_InfoPlaylist(item);
+            setList(res.data);
+            setIndex(0);
+            set_PercentAds(0)
+          }
+
         }
       });
     } else {

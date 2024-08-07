@@ -13,15 +13,10 @@ import { loginProvider } from "@/hooks/redux/action/authProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 
-import { EnvConfig } from "@/configs/envConfig";
 import {
-  GoogleLogin,
-  GoogleOAuthProvider,
-  hasGrantedAnyScopeGoogle,
+
   useGoogleLogin,
 } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 import { Google_s } from "@/apis/Google";
 import { hash64 } from "@/util/hash";
 
@@ -142,7 +137,7 @@ function Login({ Value }: { Value: any }) {
             <input type="checkbox" name="" />
             <p>Remember</p>
           </div>
-          <p>Forgot Password</p>
+          <p className="cursor-pointer" onClick={() => { routes.push('/forget') }}>Forgot Password</p>
         </div>
         <button
           className="Loginbtn"

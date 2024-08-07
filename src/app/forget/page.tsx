@@ -1,12 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../auths/_auth.scss";
 import "./_forget.scss";
 import { User } from "@/apis/User";
 import { resetValidate } from "@/util/validate/authReset";
 import { toast } from "react-toastify";
+import { ArrowLineLeft_Icon } from "@/Icons/icon_Figma";
+import Blob from "@/components/auth/Blob/BlobCP";
+import { useRouter } from "next/navigation";
 const Forget = () => {
   const [value_email, set_value_email] = useState("");
+  const [errorValue, setErrorValue] = useState<any>()
+
+  const routes = useRouter()
+
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const checkError = resetValidate.resetEmail(value_email);
@@ -17,9 +24,13 @@ const Forget = () => {
       toast.error(checkError.Error[key[0]]);
     }
   };
+  useEffect(() => {
+    setErrorValue(resetValidate.resetEmail(value_email).Error)
+  }, [value_email])
   return (
     <div className="frameForget">
-      <div className={`FromLS FogetForm LoginForm ${true ? "active" : ""}`}>
+      <Blob />
+      <div className={`FogetForm`}>
         <form onSubmit={submitForm}>
           <h1>Forget password</h1>
           <div className="inputText">
@@ -30,20 +41,24 @@ const Forget = () => {
               value={value_email}
               onChange={(e) => set_value_email(e.target.value)}
             />
-            {/* <div className="toastInput">
-                {ValueError?.email != undefined && ValueError.email}
-              </div> */}
+            <div className="toastInput">
+              {errorValue?.email != undefined && errorValue?.email != '' && value_email != '' ? errorValue?.email : ''}
+            </div>
           </div>
 
-          <div className="btnreset">
+          <div className="framereset">
             <button
-              className="Loginbtn"
-              //   id={Is_Loading ? "Loginbtn" : "normal1"}
+              className="btnreset"
+
               type="submit"
             >
-              {/* {Is_Loading ? <LoadingSVGWatting /> : ""} */}
               Confirm
             </button>
+            <div className="btnforworad" onClick={() => {
+              routes.push('/auths')
+            }}>
+              <ArrowLineLeft_Icon color="#38a8f3" w={30} />
+            </div>
           </div>
         </form>
       </div>

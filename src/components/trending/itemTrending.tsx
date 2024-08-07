@@ -10,9 +10,12 @@ import { likeModel, likeType, list_likeType } from "@/model/likeModel";
 import { list_songType, songType } from "@/model/songModel";
 import { URLValidate } from "@/util/validate/url";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import imgtTemp from '../../../public/temp.jpg'
+import { secondsToMinute } from "@/util/time";
+import './_itemTrendding.scss'
 
 type Props = {
   song: songType;
@@ -24,9 +27,12 @@ const ItemTrending = ({ song, index, list }: Props) => {
     useAudio();
   const userProvider = useSelector((State: RootState) => State.auth);
   const infoProvider = useSelector((State: RootState) => State.info);
-  const [url, set_Url] = useState({ img: "", audio: "" });
+  const [url, set_Url] = useState('');
+  const [urlAudio, set_UrlAudio] = useState('');
   const [listLike, set_listLike] = useState<list_likeType>([]);
   const [stateLike, set_StateLike] = useState<likeType>(likeModel.init);
+  const [seconds, set_seconds] = useState(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
     Promise.all([
@@ -37,14 +43,34 @@ const ItemTrending = ({ song, index, list }: Props) => {
       }),
       Like.Get_Song(song.Song_Id).then((res) => set_listLike(res.data))
     ])
+
     if (URLValidate.isUrl(song.Song_Image)) {
       Send.Image_S(song.Song_Image).then((res) =>
-        set_Url({ ...url, img: URL.createObjectURL(res) })
+        set_Url(URL.createObjectURL(res))
       );
     } else {
-      set_Url({ ...url, img: song.Song_Image });
+      set_Url(song.Song_Image);
     }
+
+    if (URLValidate.isUrl(song.Song_Audio)) {
+      Send.Audio(song.Song_Audio).then((res) =>
+        set_UrlAudio(URL.createObjectURL(res))
+      );
+    } else {
+      set_UrlAudio(song.Song_Audio);
+    }
+
   }, [song]);
+
+  useEffect(() => {
+    set_seconds(Math.floor(
+      !Number.isNaN(audioRef.current?.duration)
+        ? audioRef.current?.duration
+          ? audioRef.current?.duration
+          : 0
+        : 0
+    ))
+  }, [urlAudio, audioRef])
 
 
   const Get_Like = () => {
@@ -96,18 +122,19 @@ const ItemTrending = ({ song, index, list }: Props) => {
 
 
   return (
-    <div className="itemPlaylistDetail">
+    <div className="itemPlaylistDetail itemTreding">
+      <audio src={urlAudio} ref={audioRef} />
       <h3>{index + 1}</h3>
       <div className="infoItemPlaylistDetail" onClick={Handle_Play}>
         <div className="frameImage">
-          <Image alt="" src={url.img} width={1000} height={1000} />
+          <Image alt="" src={url || imgtTemp} width={1000} height={1000} />
         </div>
-        <div className="infoItem">
-          <h1>{song.Song_Name}</h1>
-          <h3>{song.Artist}</h3>
+        <div className="infoItem overflow__Text">
+          <h1 className="">{song.Song_Name}</h1>
+          <h3 className="">{song?.Artist_Name}</h3>
         </div>
       </div>
-      <div className="time"></div>
+      <div className="time">{secondsToMinute(seconds)}</div>
       <div className="frameIcon">
         <div
           className={`starIcon ${stateLike.State == 1
