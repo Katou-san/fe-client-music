@@ -13,9 +13,9 @@ export const sidebarConfig = [
     url: "/trending",
   },
   {
-    title: "Album",
+    title: "Subscription",
     icons: <Playlist_Icon color="#fff" w={27} />,
-    url: "/album",
+    url: "/subscription",
   },
 ];
 

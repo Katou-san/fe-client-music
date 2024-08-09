@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./_favorite.scss";
 import Image from "next/image";
+import '../trending/trending.scss'
 import { Pause_Icon, Play_Icon } from "@/Icons/icon_Figma";
 import { useAudio } from "@/contexts/providerAudio";
 import { list_songType } from "@/model/songModel";
@@ -13,6 +13,7 @@ import { URLValidate } from "@/util/validate/url";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
 import ItemPlaylist from "@/components/playlist/itemPlaylist";
+import { useAds } from "@/contexts/providerAds";
 const Page = () => {
   const {
     setList,
@@ -22,6 +23,7 @@ const Page = () => {
     is_Playing,
     setPlay,
     currentList,
+    currentIndex
   } = useAudio();
 
   const userProvider = useSelector((state: RootState) => state.auth);
@@ -30,6 +32,7 @@ const Page = () => {
   const [thumbUrl, set_ThumbUrl] = useState("");
   const [info_Playlist_like, set_info] = useState<playlistType | null>(null);
   const [list, set_List] = useState<list_songType>([]);
+  const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
 
   useEffect(() => {
     if (userProvider.Access_Token != "" && userProvider.is_Login)
@@ -78,13 +81,37 @@ const Page = () => {
         setIndex(0);
       }
     }
+    if (onAds) {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          set_NextSongIndex(currentIndex);
+        } else {
+          set_NextList(list);
+          set_NextSongIndex(0);
+          Set_InfoPlaylist(info_Playlist_like);
+        }
+      }
+
+    } else {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          setPlay();
+        } else {
+          Set_InfoPlaylist(info_Playlist_like);
+          setList(list);
+          setIndex(0);
+        }
+      }
+    }
   };
+
+
 
   return (
     <>
 
 
-      <div className="frameDetailPlaylist">
+      <div className="frameDetailPlaylists">
         {userProvider.Access_Token == "" && !userProvider.is_Login && <div className="frameContentError"> <h1>You need login</h1> </div>}
         {userProvider.Access_Token != "" && userProvider.is_Login && info_Playlist_like != null && (<>
           <header>
@@ -101,25 +128,25 @@ const Page = () => {
                 <div className="frameTitleHeader">
                   <div className="typePlaylist">Playlist</div>
                   <div className="namePlaylist overflow__Text">
-                    {info_Playlist?.Playlist_Name}
+                    {'Favorite'}
                   </div>
                   <div className="artistPlaylist"></div>
                   <div className="footerTitle">
-                    <div className="nameWeb">{info_Playlist?.User_Id}</div>
+                    <div className="nameWeb">{info_Playlist?.Artist}</div>
                     <span></span>
                     <h3>{list?.length} songs</h3>
                   </div>
                 </div>
               </div>
             </div>
-          </header>
-          <div className="frameListPlaylistDetail">
             <div className="frameHeaderList">
               <div className="btnPlay " onClick={Handle_Play}>
                 {is_Playing ? <Pause_Icon w={40} /> : <Play_Icon w={50} />}
               </div>
-
             </div>
+
+          </header>
+          <div className="frameListPlaylistDetail">
 
             <div className="listSongPlaylistDetail">
               <div className="titleHeaderPlaylist">

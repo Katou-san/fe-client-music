@@ -7,11 +7,13 @@ import { Playlist } from "@/apis/Playlist";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
+import { useReload } from "@/contexts/providerReload";
 type Props = {
   modal_Open: boolean;
   onClose: () => void;
 };
 const ModalPlaylist = ({ modal_Open, onClose }: Props) => {
+  const { set_RePlaylist } = useReload()
   const userProvider = useSelector((state: RootState) => state.auth)
   const [value_Playlist, set_Value] = useState<create_Playlist>(
     playlistModel.init_create
@@ -23,10 +25,14 @@ const ModalPlaylist = ({ modal_Open, onClose }: Props) => {
         value_Playlist.Playlist_Name,
       );
       if (!validate.status) {
-        Playlist.Create({ ...value_Playlist, Type: 1, Playlist_Name: userProvider.User_Name }).then((res) => {
-          if (res.status === 200) {
+        Playlist.Create({ ...value_Playlist, Type: 1, Artist: userProvider.User_Name }).then((res) => {
+          if (res.status == 200) {
             toast.success("created successfully!");
+            set_Value(playlistModel.init_create)
+            set_RePlaylist()
             onClose()
+          } else {
+            toast.error("Name is using");
           }
         });
       } else {

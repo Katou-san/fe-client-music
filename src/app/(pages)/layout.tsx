@@ -2,7 +2,7 @@
 import Footer from '@/layouts/Footer/Footer';
 import Header from '@/layouts/Header/Header';
 import Sidebar from '@/layouts/SideBar/sidebar';
-import "./_pages.scss"
+import "./_layout.scss"
 import React, { ReactNode } from 'react';
 import { useLayout } from '@/contexts/providerLayout';
 import Popup from '@/layouts/Popup/popup';

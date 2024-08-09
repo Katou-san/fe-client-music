@@ -26,6 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link
+        rel="icon"
+        href="/src/app/icon.svg"
+        type="svg"
+        sizes='50'
+
+      />
       <body className={inter.className}>
         <ProviderStore>
           <ProviderAuth>

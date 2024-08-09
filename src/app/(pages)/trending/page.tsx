@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./_tredding.scss";
+import "./trending.scss";
 import Image from "next/image";
 import { Pause_Icon, Play_Icon } from "@/Icons/icon_Figma";
 import { useAudio } from "@/contexts/providerAudio";
@@ -8,8 +8,20 @@ import { Propose } from "@/apis/Trending";
 import { list_songType } from "@/model/songModel";
 import imgTemp from '../../../../public/temp.jpg'
 import ItemTrending from "@/components/trending/itemTrending";
+import { useAds } from "@/contexts/providerAds";
 const Page = () => {
-  const { is_Playing } = useAudio();
+  const {
+    setList,
+    setIndex,
+    Set_InfoPlaylist,
+    info_Playlist,
+    is_Playing,
+    setPlay,
+    currentList,
+    currentIndex
+  } = useAudio();
+  const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
+
   const [url, set_Url] = useState({ img: "", thumbnail: "" });
   const [list, set_List] = useState<list_songType>([]);
   useEffect(() => {
@@ -18,8 +30,43 @@ const Page = () => {
     });
   }, []);
 
+
+  const Handle_Play = () => {
+    if (list.length > 0) {
+      if (currentList == list) {
+        setPlay();
+      } else {
+        Set_InfoPlaylist(null);
+        setList(list);
+        setIndex(0);
+      }
+    }
+    if (onAds) {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          set_NextSongIndex(currentIndex);
+        } else {
+          set_NextList(list);
+          set_NextSongIndex(0);
+          Set_InfoPlaylist(null);
+        }
+      }
+
+    } else {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          setPlay();
+        } else {
+          Set_InfoPlaylist(null);
+          setList(list);
+          setIndex(0);
+        }
+      }
+    }
+  };
+
   return (
-    <div className="frameDetailPlaylist">
+    <div className="frameDetailPlaylists">
       <header>
         <div className="frameBackground">
           <div className="frameImage">
@@ -43,18 +90,14 @@ const Page = () => {
             </div>
           </div>
         </div>
-      </header>
-      <div className="frameListPlaylistDetail">
         <div className="frameHeaderList">
-          <div className="btnPlay ">
+          <div className="btnPlay " onClick={Handle_Play}>
             {is_Playing ? <Pause_Icon w={40} /> : <Play_Icon w={50} />}
           </div>
-          {/* <div className="starIconPlaylist">
-            <Star_Icon w={40} />
-            <h3>12</h3>
-          </div> */}
         </div>
 
+      </header>
+      <div className="frameListPlaylistDetail">
         <div className="listSongPlaylistDetail">
           <div className="titleHeaderPlaylist">
             <div className="itemTitle">

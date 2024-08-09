@@ -206,10 +206,9 @@ function Footer() {
             )}
             {repeat == 2 && <Repeat_Icon w={30} type={2} color="#37cdff" />}
           </div>
-          <div className="frameVolume" onClick={Togo_Volume}>
-            <div className="frameIcon ">
+          <div className="frameVolume" >
+            <div className="frameIcon " onClick={Togo_Volume}>
               <Volume_Icon type={volume > 6 ? 2 : volume > 0 ? 1 : 0} w={28} />
-
             </div>
             <div className="framerangeVolume">
               <input

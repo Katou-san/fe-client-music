@@ -203,9 +203,12 @@ const ItemPlaylist = ({ song, index, list, info_Playlist }: Props) => {
         <div className="addIcon" onClick={() => set_Drop(true)}>
           <AddIcon w={20} />
         </div>
-        <div className="addIcon pause" onClick={() => set_DropRemove(true)}>
-          <Remove_Icon />
-        </div>
+        {userProvider.User_Id == info_Playlist.User_Id &&
+          <div className="addIcon pause" onClick={() => set_DropRemove(true)}>
+            <Remove_Icon />
+          </div>
+        }
+
       </div>
       <PlaylistModalDropDown drop_Down={drop_Down} set_Drop={() => set_Drop(false)} song={song} style={{ left: '70%' }} />
       <DeleteModal value={song} handle_Delete={handleRemoveSongPlaylist} drop_Down={drop_DownRemove} onClosed={() => set_DropRemove(false)} />

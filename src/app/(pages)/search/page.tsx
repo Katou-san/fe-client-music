@@ -13,81 +13,112 @@ import { RootState } from '@/hooks/redux/store';
 import { Search } from '@/apis/Search';
 import { list_userType } from '@/model/userModel';
 import { LoadingSVGWatting } from '@/Icons/Loading';
+import SearchAll from '@/components/search/all/searchAll';
+import SearchSong from '@/components/search/song/searchSong';
+import SearchPlaylist from '@/components/search/playlist/searchPlaylist';
+import SearchArtist from '@/components/search/artist/searchArtist';
 const Page = () => {
 
     const searchProvider = useSelector((state: RootState) => state.search)
     const [is_loading, setLoading] = useState(false)
+    const [stateIndex, set_StateIndex] = useState(0)
     const [listSong, set_ListSong] = useState<list_songType>([])
     const [listPlaylist, set_ListPlaylist] = useState<list_playlistType>([]);
     const [listAlbum, set_ListAlbum] = useState<list_playlistType>([]);
     const [listArtist, set_ListArtist] = useState<list_userType>([])
+
+
     useEffect(() => {
         if (searchProvider.trim() != '') {
             setLoading(true)
-            Search.Get_All(searchProvider)
-                .then((res) => {
-                    if (res.status == 200) {
-                        set_ListSong(res.data?.Song)
-                        set_ListPlaylist(res.data?.Playlist)
-                        set_ListAlbum(res.data?.Album)
-                        set_ListArtist(res.data?.Artist)
-                        setLoading(false)
-                    } else {
-                        setLoading(false)
-                    }
-                })
+            switch (stateIndex) {
+                case 0: Search.Get_All(searchProvider)
+                    .then((res) => {
+                        if (res.status == 200) {
+                            set_ListSong(res.data?.Song)
+                            set_ListPlaylist(res.data?.Playlist)
+                            set_ListAlbum(res.data?.Album)
+                            set_ListArtist(res.data?.Artist)
+                            setLoading(false)
+                        } else {
+                            setLoading(false)
+                        }
+                    })
+                    break;
+                case 1:
+                    Search.Get_Type(listOption[stateIndex].value, searchProvider)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                set_ListSong(res.data?.result)
+                                setLoading(false)
+                            } else {
+                                setLoading(false)
+                            }
+                        })
+                    break;
+                case 2:
+                    Search.Get_Type(listOption[stateIndex].value, searchProvider)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                set_ListPlaylist(res.data?.result)
+                                setLoading(false)
+                            } else {
+                                setLoading(false)
+                            }
+                        })
+                    break;
+                case 3:
+                    Search.Get_Type(listOption[stateIndex].value, searchProvider)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                set_ListAlbum(res.data?.result)
+                                setLoading(false)
+                            } else {
+                                setLoading(false)
+                            }
+                        })
+                    break;
+                case 4:
+                    Search.Get_Type(listOption[stateIndex].value, searchProvider)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                set_ListArtist(res.data?.result)
+                                setLoading(false)
+                            } else {
+                                setLoading(false)
+                            }
+                        })
+                    break;
+            }
         }
-    }, [searchProvider])
+    }, [searchProvider, stateIndex])
+
+
 
     return (
         <div className='frameSearchPage'>
             <div className="headerSearchPage">
                 <div className="listOption">
                     {listOption.map((option, index) => {
-                        return <div key={index} className="itemOptionHeader">
+                        return <div key={index} className={`itemOptionHeader ${index == stateIndex && 'activeItemOptionHeader'}`} onClick={() => set_StateIndex(index)}>
                             <h1>{option.title}</h1>
                         </div>
                     })}
                 </div>
             </div>
-            <div className="bodySearchPage">
-                {is_loading && <div className='loading'>
-                    <LoadingSVGWatting w={100} />
-                </div>}
+            {
+                {
+                    0: <SearchAll listAlbum={listAlbum} listArtist={listArtist} listPlaylist={listPlaylist} listSong={listSong} is_loading={is_loading} />,
+                    1: <SearchSong listSong={listSong} is_loading={is_loading} />,
+                    2: <SearchPlaylist listPlaylist={listPlaylist} is_loading={is_loading} />,
+                    3: <SearchPlaylist listPlaylist={listAlbum} is_loading={is_loading} />,
+                    4: <SearchArtist listArist={listArtist} is_loading={is_loading} />
 
-                {!is_loading && <>
-                    {listSong.length == 0 && listPlaylist.length == 0 && listAlbum.length == 0 && listArtist.length == 0 && <div className='emtyData'><h1>Not found</h1></div>}
-                    {listSong.length > 0 &&
-                        <div className="headerBodySearch">
-                            <div className="frameTopResult">
-                                <h1>Top results</h1>
-                                <ItemTopResult key={0} song={listSong[0]} index={0} list={listSong} info_Playlist={playlistModel.init} />
-                            </div>
+                }[stateIndex]
 
-                            <div className="frameResultSongs">
-                                <h1>Songs</h1>
-                                <div className="listSongResult">
-                                    {listSong.map((song, index) => {
-                                        if (index != 0 && index < 5) {
-                                            return <ItemSong key={index} song={song} index={index} list={listSong} info_Playlist={playlistModel.init} />
-                                        }
-                                    })}
-                                </div>
-                            </div>
-                        </div>}
-                    {listPlaylist.length > 0 &&
-                        <div className="framePlaylist">
-                            <ListPlaylist arrayPlaylist={listPlaylist} />
-                        </div>}
-                    {listAlbum.length > 0 &&
-                        <div className="framePlaylist">
-                            <ListPlaylist arrayPlaylist={listPlaylist} />
-                        </div>}
-                    {listArtist.length > 0 &&
-                        <div className="frameArtist">
-                            <ListArtist arrayArtist={listArtist} />
-                        </div>}</>}
-            </div>
+
+            }
+
         </div>
     );
 }

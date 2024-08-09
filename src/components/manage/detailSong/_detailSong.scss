@@ -1,10 +1,10 @@
 .frameDetailSong {
     position: absolute;
     top: 150%;
-    left: calc(50% - 175px);
+    left: calc(35%);
     width: 350px;
     height: 90%;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 5px;
     transition: .2s;
     overflow: hidden;
@@ -13,48 +13,20 @@
         position: relative;
         width: 100%;
         height: 100%;
-        border-radius: 20px;
+        border-radius: 15px;
         overflow: hidden;
+        background-color: rgb(231, 231, 231);
 
-        .backgroundDetail {
-            position: absolute;
-            width: 100%;
-            height: 100%;
 
-            .frameImage {
-                position: relative;
-                width: 100%;
-                height: 100%;
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    background-color: rgba(0, 0, 0, 0.523);
-                    width: 100%;
-                    height: 100%;
-                    backdrop-filter: blur(20px);
-                    border-radius: 20px;
-                }
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-
-        }
     }
 
     .headerDetail {
         position: relative;
-        padding: 10px;
+        padding: 15px;
         display: flex;
         justify-content: space-between;
         z-index: 3;
-        color: aliceblue;
+        color: rgb(0, 0, 0);
 
         h1 {
             font-size: 20px;
@@ -69,76 +41,88 @@
         border-radius: 20px;
         z-index: 3;
 
-
-        .infoSong {
+        .frameInfo {
+            position: relative;
             cursor: pointer;
-            display: flex;
-            // justify-content: space-between;
+            // display: flex;
             gap: 2%;
-            align-items: center;
-            background-color: aliceblue;
+            background-color: rgb(26, 26, 26);
             padding: 10px;
             border-radius: 20px;
             z-index: 5;
+            min-height: 150px;
+
+            .infoSong {
+                cursor: pointer;
+                display: flex;
+                gap: 2%;
+
+                .frameImage {
+                    height: 80px;
+                    width: 80px;
+
+                    img {
+                        min-width: 80px;
+                        height: 80px;
+                        object-fit: cover;
+                        border-radius: 20px;
+                    }
+                }
+
+                .contentInfo {
+                    min-width: 50%;
+
+                    h1 {
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+
+                    h3 {
+                        font-size: 15px;
+                        color: rgb(139, 139, 139);
+                    }
+                }
 
 
-            .frameImage {
+
+            }
+
+            .frameIconPlay {
+                position: absolute;
+                bottom: 5%;
+                right: 5%;
                 height: 80px;
                 width: 80px;
-
-                img {
-                    min-width: 80px;
-                    height: 80px;
-                    object-fit: cover;
-                    border-radius: 20px;
-                }
-            }
-
-            .contentInfo {
-                min-width: 50%;
-
-                h1 {
-                    font-size: 25px;
-                    font-weight: 600;
-                }
-
-                h3 {
-                    font-size: 17px;
-                    color: rgb(139, 139, 139);
-                }
-            }
-
-            .frameIcon {
-                height: 100%;
                 border-radius: 50%;
                 display: grid;
                 place-items: center;
-                background-color: rgb(95, 95, 95);
+                background-color: rgb(176, 176, 176);
+            }
+
+            .frameStar {
+                width: min-content;
+                padding: 2px 10px;
+                display: flex;
+                background-color: rgb(105, 105, 105);
+                margin: 10px 0 0 10px;
+                align-items: center;
+                border-radius: 20px;
+                gap: 3%;
+
+                h3 {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
             }
 
         }
 
-        .frameStar {
-            width: 20%;
-            padding: 2px 10px;
-            display: flex;
-            background-color: aliceblue;
-            margin: 10px 0 0 10px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
 
-            h3 {
-                // color: ;
-                font-size: 17px;
-                font-weight: 600;
-            }
-        }
 
         .moreInfo {
             width: 100%;
             padding: 10px;
-            color: aliceblue;
+            color: rgb(0, 0, 0);
 
             .boxInfo {
                 width: 100%;
@@ -147,9 +131,12 @@
                 padding: 10px;
                 gap: 5%;
 
+                .infoContentSong {
+                    font-weight: 600;
+                }
+
                 h3 {
                     font-size: 18px;
-                    // font-weight: 600;
                 }
 
                 .public {
@@ -165,12 +152,5 @@
 }
 
 .activeFrameDetailSong {
-    position: absolute;
     top: 5%;
-    left: calc(50% - 175px);
-    min-width: 350px;
-    height: 90%;
-    // background-color: rgb(228, 228, 228);
-    border-radius: 20px;
-    padding: 5px;
 }

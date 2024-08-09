@@ -1,5 +1,6 @@
 .frameIconCus {
     width: 100%;
+
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
     place-items: center;
@@ -15,16 +16,19 @@
 
     .line1 {
         max-width: 6.8px;
+
         animation: 1s keyframesLine .2s infinite;
     }
 
     .line2 {
         max-width: 6.8px;
+
         animation: 1s keyframesLine .5s infinite;
     }
 
     .line3 {
         max-width: 6.8px;
+
         animation: 1s keyframesLine .7s infinite;
     }
 

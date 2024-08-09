@@ -7,7 +7,10 @@ export const Bill = {
         await http.get(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_BILLS}/${id}`, header()),
     Get_Bill: async (): Promise<any> =>
         await http.get(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_BILL}`, header()),
-
+    Check_Bill: async (): Promise<any> =>
+        await http.get(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_CHECK_BILLS}`, header()),
+    Check_Bill_Id: async (id: string): Promise<any> =>
+        await http.get(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_CHECK_BILLS}/${id}`, header()),
     Delete: async (id: string) =>
         await http.delete(`${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_BILL}/${id}`, header()),
 };

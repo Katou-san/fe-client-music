@@ -1,11 +1,9 @@
 'use client'
 import React, { ReactNode, useState } from "react";
-// import Login from "../ui/Login";
-// import Register from "../ui/Register";
-// import "react-toastify/dist/ReactToastify.css";
 import "./_auth.scss"
-import { LoginDynamic, SignupDynamic } from "@/performance/components";
 import Blob from "@/components/auth/Blob/BlobCP";
+import Login from "@/components/auth/loginForm";
+import Register from "@/components/auth/signupForm";
 function Page({ children }: { children: ReactNode }) {
     const [ChangeForm, setChangeForm] = useState(false);
     const [valueError, setValueError] = useState({});
@@ -22,8 +20,8 @@ function Page({ children }: { children: ReactNode }) {
         <div className="farme">
             <Blob />
             <div className="formContent ">
-                <LoginDynamic Value={valueSend} />
-                <SignupDynamic Value={valueSend} />
+                <Login Value={valueSend} />
+                <Register Value={valueSend} />
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./_playlist.scss";
 import Image from "next/image";
+import '../trending/trending.scss'
 import { Pause_Icon, Play_Icon, Star_Icon } from "@/Icons/icon_Figma";
 import { useAudio } from "@/contexts/providerAudio";
 import { list_songType } from "@/model/songModel";
@@ -22,15 +22,19 @@ import { MoreIcon } from "@/Icons/icon_v1";
 import MorePlaylistDropDown from "@/components/customs/more/morePlaylist/morePlaylist";
 import UpdatePlaylistModal from "@/components/customs/modal/updatePlaylist/updatePlaylist";
 import { useReload } from "@/contexts/providerReload";
+import { useAds } from "@/contexts/providerAds";
 const Page = () => {
   const {
     setList,
     setIndex,
     Set_InfoPlaylist,
+    // info_Playlist,
     is_Playing,
     setPlay,
     currentList,
+    currentIndex
   } = useAudio();
+  const { onAds, set_NextList, set_NextSongIndex, set_PercentAds } = useAds()
 
   const userProvider = useSelector((state: RootState) => state.auth);
   const seachParam = useSearchParams();
@@ -134,13 +138,36 @@ const Page = () => {
         setIndex(0);
       }
     }
+    if (onAds) {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          set_NextSongIndex(currentIndex);
+        } else {
+          set_NextList(list);
+          set_NextSongIndex(0);
+          Set_InfoPlaylist(info_Playlist);
+        }
+      }
+
+    } else {
+      if (list.length > 0 && info_Playlist != null) {
+        if (currentList == list) {
+          setPlay();
+        } else {
+          Set_InfoPlaylist(info_Playlist);
+          setList(list);
+          setIndex(0);
+        }
+      }
+    }
   };
+
 
   return (
     <>
       {info_Playlist == null && <div>Not found playlist</div>}
       {info_Playlist != null && (
-        <div className="frameDetailPlaylist">
+        <div className="frameDetailPlaylists">
           <header>
             <div className="frameBackground">
               <div className="frameImage">
@@ -166,8 +193,6 @@ const Page = () => {
                 </div>
               </div>
             </div>
-          </header>
-          <div className="frameListPlaylistDetail">
             <div className="frameHeaderList">
               <div className="btnPlay " onClick={Handle_Play}>
                 {is_Playing ? <Pause_Icon w={40} /> : <Play_Icon w={50} />}
@@ -177,7 +202,7 @@ const Page = () => {
                   }`}
                 onClick={HandleLike}
               >
-                <Star_Icon w={40} />
+                <Star_Icon w={30} />
                 <h3>{listLike?.length}</h3>
               </div>
               {userProvider.User_Id == info_Playlist.User_Id && <>
@@ -190,6 +215,9 @@ const Page = () => {
 
 
             </div>
+          </header>
+          <div className="frameListPlaylistDetail">
+
 
             <div className="listSongPlaylistDetail">
               <div className="titleHeaderPlaylist">

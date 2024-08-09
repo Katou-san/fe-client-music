@@ -60,9 +60,7 @@ const ItemListSong = ({ active, itemSong, list, index }: Prop) => {
       } else {
         setPlay();
       }
-
     }
-
   };
 
   return (

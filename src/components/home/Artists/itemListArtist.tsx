@@ -1,5 +1,4 @@
 'use client'
-import { PauseIcon, PlayIcon } from '@/Icons/icon_v1';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import imgTemp from "../../../../public/temp.jpg"

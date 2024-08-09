@@ -24,7 +24,7 @@ type Props = {
   active: boolean;
 };
 const ItemListPopup = ({ item, index, active }: Props) => {
-  const { setIndex, currentIndex, currentList } = useAudio();
+  const { setIndex, currentIndex } = useAudio();
 
   const userProvider = useSelector((state: RootState) => state.auth)
   const infoProvider = useSelector((state: RootState) => state.info)
@@ -117,7 +117,7 @@ const ItemListPopup = ({ item, index, active }: Props) => {
           </div>
           <div className="infomationItemPopup" onClick={() => setIndex(index)}>
             <h1 className="overflow__Text">{item.Song_Name}</h1>
-            <h3 className="overflow__Text">{item.Artist}</h3>
+            <h3 className="overflow__Text">{item?.Artist_Name}</h3>
           </div>
           <div className="frameIconItemPopup">
             <div className="frameIcon" onClick={handleLike}>

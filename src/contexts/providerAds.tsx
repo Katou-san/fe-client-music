@@ -1,6 +1,7 @@
 'use client'
 
 import { Ads } from '@/apis/Ads';
+import { Bill } from '@/apis/Bill';
 import { EnvConfig } from '@/configs/envConfig';
 import { useLayout } from '@/contexts/providerLayout';
 import { adsModel, adsType } from '@/model/adsModel';
@@ -52,11 +53,19 @@ const ProviderAds = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         if (percentAds == 10) {
-            set_RandomAds(true)
-            set_OnAds(true)
-            Ads.Get_Random().then((res) => {
+            Bill.Check_Bill().then((res) => {
                 if (res.status == 200) {
-                    set_InfoAds(res.data)
+                    if (res.data.Bill) {
+                        set_PercentAds(0)
+                    } else {
+                        set_RandomAds(true)
+                        set_OnAds(true)
+                        Ads.Get_Random().then((res) => {
+                            if (res.status == 200) {
+                                set_InfoAds(res.data)
+                            }
+                        })
+                    }
                 }
             })
 
@@ -66,12 +75,6 @@ const ProviderAds = ({ children }: { children: ReactNode }) => {
             set_PercentAds(percentAds)
         }
     }, [percentAds])
-
-
-    console.log(CurrentPlaylist)
-
-
-
 
     const handlePecent = (index: number, list: list_songType) => {
         const percentTemp = percentAds + 1

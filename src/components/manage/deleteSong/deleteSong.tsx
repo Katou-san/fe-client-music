@@ -83,7 +83,7 @@ const DeleteSong = ({ song, deleteSong, handle_Delete, onReload }: Props) => {
             <div className="bodyDelete">
                 <div className="contentDelete overflow__Text">
                     <h1>Do you want delete </h1>
-                    <h3>{song?.Song_Name}</h3>
+                    <h3 className='overflow__Text'>{song?.Song_Name}</h3>
                 </div>
             </div>
             <div className="footerModalPlaylist">

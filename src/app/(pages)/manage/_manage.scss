@@ -12,7 +12,7 @@
         position: relative;
         display: grid;
         grid-template-rows: 15% 85%;
-        background-color: rgba(82, 82, 82, 0.542);
+        background: #151515;
         width: 100%;
         height: 100%;
         border-radius: 20px;
@@ -51,20 +51,22 @@
                     border: none;
                     background-color: rgb(148, 148, 148);
                     color: rgb(246, 246, 246);
+
+                    &::placeholder {
+                        color: #171717;
+                    }
                 }
             }
 
             .frameStorage {
                 height: 60px;
-                background: linear-gradient(-45deg, #33bff2, #2b95bc, #38e0e0, #27c0df);
-                background-size: 400% 400%;
-                animation: gradient 15s ease infinite;
                 cursor: pointer;
                 display: flex;
                 width: 25%;
                 justify-content: start;
                 padding: 0 10px 0 10px;
                 border-radius: 10px;
+                max-width: 200px;
 
                 .contentStorage {
                     display: grid;
@@ -123,13 +125,13 @@
 
             .btnCreate {
                 // height: 50px;
-                background-color: #3dccfb;
+                background-color: #3dcbfbd2;
                 border-radius: 15px;
                 color: rgb(251, 251, 251);
-                font-size: 16px;
+                font-size: 15px;
                 font-weight: 600;
                 display: grid;
-                padding: 10px 15px;
+                padding: 8px 10px;
                 place-items: center;
                 cursor: pointer;
                 transition: .2s;

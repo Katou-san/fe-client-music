@@ -8,22 +8,41 @@ import { toast } from "react-toastify";
 import { ArrowLineLeft_Icon } from "@/Icons/icon_Figma";
 import Blob from "@/components/auth/Blob/BlobCP";
 import { useRouter } from "next/navigation";
+import { delay } from "@/util/function";
 const Forget = () => {
   const [value_email, set_value_email] = useState("");
   const [errorValue, setErrorValue] = useState<any>()
-
+  const [waitting, set_Waiting] = useState(false)
   const routes = useRouter()
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const checkError = resetValidate.resetEmail(value_email);
-    if (!checkError.status) {
-      User.Forget({ email: value_email });
-    } else {
-      const key = Object.keys(checkError.Error);
-      toast.error(checkError.Error[key[0]]);
+    if (!waitting) {
+      const checkError = resetValidate.resetEmail(value_email);
+      if (!checkError.status) {
+        User.Forget({ email: value_email })
+          .then((res) => {
+            if (res.status == 200) {
+              toast.success(res.message)
+              set_Waiting(true)
+            } else {
+              toast.error(res.message)
+            }
+          })
+      } else {
+        const key = Object.keys(checkError.Error);
+        toast.error(checkError.Error[key[0]]);
+      }
     }
+
   };
+
+  useEffect(() => {
+    if (waitting) {
+      delay(3000).then(() => set_Waiting(!waitting))
+    }
+  }, [waitting])
+
   useEffect(() => {
     setErrorValue(resetValidate.resetEmail(value_email).Error)
   }, [value_email])
@@ -49,10 +68,9 @@ const Forget = () => {
           <div className="framereset">
             <button
               className="btnreset"
-
               type="submit"
             >
-              Confirm
+              {!waitting ? "Send mail" : "Please check mailbox"}
             </button>
             <div className="btnforworad" onClick={() => {
               routes.push('/auths')

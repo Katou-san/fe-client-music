@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './_itemSub.scss'
 import { CheckIcon } from '@/Icons/icon_v1';
-import { subModel, subType } from '@/model/subsModel';
+import { subType } from '@/model/subsModel';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/hooks/redux/store';
-import { Payment } from '@/apis/Payment';
-import { toast } from 'react-toastify';
 import { Bill } from '@/apis/Bill';
-import { billModel, billType, list_billType } from '@/model/billModel';
+import { billModel, billType } from '@/model/billModel';
+import { get_Day_in2_Date, minus_Date } from '@/util/time';
 type Props = {
     sub: subType
     active?: boolean
@@ -18,6 +17,7 @@ type Props = {
 const ItemSub = ({ sub, active = false, setDrop = () => { }, setSub = () => { } }: Props) => {
     const userProvider = useSelector((state: RootState) => state.auth)
     const [currentBillUser, set_CurrentBillUser] = useState<billType>(billModel.init)
+    const [stateExpired, set_State] = useState(false)
 
     useEffect(() => {
         if (userProvider.Access_Token != '' && userProvider.is_Login) {
@@ -29,6 +29,13 @@ const ItemSub = ({ sub, active = false, setDrop = () => { }, setSub = () => { } 
                                 set_CurrentBillUser(res.data)
                             }
                         }),
+                    Bill.Check_Bill_Id(sub.Sub_Id)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                set_State(res.data?.Bill)
+                            }
+                        })
+
                 ])
 
             }
@@ -37,7 +44,11 @@ const ItemSub = ({ sub, active = false, setDrop = () => { }, setSub = () => { } 
 
 
     return (
-        <div className={`itemSub ${active && 'acticeItemSub'} ${currentBillUser.Sub_Id == sub.Sub_Id && 'acticeItemSub'}`} >
+        <div className={`itemSub ${active && 'acticeItemSub'} ${stateExpired && 'acticeItemSub'}`} >
+
+            <div className={`noitifiSub ${stateExpired && 'showNoitifiSub'}`}>
+                <h1>{get_Day_in2_Date(new Date(currentBillUser.Expiration_Date), new Date()).toLocaleString()} day</h1>
+            </div>
             <div className="headerItemPlan">
                 <div className="titleSubPlan">
                     <h1>{sub?.Sub_Title}</h1>
@@ -55,14 +66,14 @@ const ItemSub = ({ sub, active = false, setDrop = () => { }, setSub = () => { } 
                 <div className="frameBtnPlan cursor_pointer">
                     <div className="btnPlan" onClick={() => {
                         if (!active) {
-                            if (currentBillUser.Sub_Id != sub.Sub_Id) {
+                            if (!stateExpired) {
                                 setDrop()
                                 setSub(sub)
                             }
                         }
 
                     }}>
-                        {active ? 'Allready using' : currentBillUser.Sub_Id == sub.Sub_Id ? 'Allready using' : 'Select plan'}
+                        {active ? 'Allready using' : stateExpired ? 'Allready using' : 'Select plan'}
 
                     </div>
                 </div>

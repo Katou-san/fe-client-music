@@ -1,0 +1,201 @@
+.listAristSearch {
+    width: 100%;
+    overflow: hidden;
+    gap: 3%;
+    padding-left: 30px;
+
+    .itemListArtist {
+        max-width: 500px;
+        position: relative;
+        transition: .2s;
+        scroll-snap-align: start;
+        display: flex;
+        gap: 4%;
+        margin-bottom: 20px;
+
+        .frameImage {
+            height: 150px;
+            width: 150px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            transition: .2s;
+
+            img {
+                height: 150px;
+                width: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                transition: .2s;
+            }
+
+            &::before {
+                content: '';
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 0%;
+                background-color: rgba(0, 0, 0, 0.459);
+                backdrop-filter: blur(2px);
+
+                transition: .2s;
+            }
+
+            .btnview {
+                position: absolute;
+                top: calc(50% - 10px);
+                // left: calc(50% - 40px);
+                cursor: pointer;
+                padding: 0;
+                background-color: rgba(5, 5, 5, 0.605);
+                z-index: 1;
+                font-size: 0;
+                color: aliceblue;
+                border-radius: 20px;
+                transition: .2s;
+                overflow: hidden;
+            }
+
+        }
+
+
+        .contentItemPlaylist {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            display: grid;
+
+
+            .frameName {
+                display: flex;
+                align-items: center;
+                text-align: start;
+
+
+            }
+
+            h3 {
+                text-align: start;
+                font-size: 16px !important;
+            }
+
+            .FooterSearchArtist {
+                transition: .2s;
+
+                .frameFollow {
+                    font-size: 15px;
+                    height: min-content;
+                    width: min-content;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    background-color: transparent;
+                    transition: .2s;
+                    border: 2px solid #fff;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+
+                    h3 {
+                        font-size: 16px !important;
+                    }
+
+                    svg {
+                        transition: .2s;
+
+                        path {
+                            transition: .2s;
+                        }
+
+                        circle {
+                            transition: .2s;
+                        }
+                    }
+
+                    &:hover {
+                        background-color: #e6e6e6;
+                        color: #000;
+
+                        svg {
+                            path {
+                                fill: #000;
+                                stroke: #000;
+                            }
+
+                            circle {
+                                stroke: #000;
+                            }
+
+
+                        }
+                    }
+
+
+                }
+
+                .frameFolloweds {
+                    background-color: #8cd4ec !important;
+                    transition: .2s;
+                    border: 2px solid #8cd4ec !important;
+
+                    &:hover {
+                        border: 2px solid #f54281 !important;
+
+                        color: #fae8eecd !important;
+                        background-color: #f54281 !important;
+
+                        svg {
+                            path {
+                                fill: #fae8eecd;
+                                stroke: #fae8eecd;
+                            }
+
+                            circle {
+                                stroke: #fae8eecd;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+        }
+
+        &:hover {
+            .frameImage {
+                &::before {
+                    content: '';
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background-color: rgba(0, 0, 0, 0.459);
+                    backdrop-filter: blur(2px);
+
+                }
+
+                .btnview {
+                    text-align: center;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                    left: calc(50% - 40px);
+
+                    padding: 5px 20px;
+                    background-color: rgba(5, 5, 5, 0.605);
+                    z-index: 1;
+                    font-size: 18px;
+                    color: aliceblue;
+                    border-radius: 20px;
+                    transition: .2s;
+                }
+
+            }
+        }
+    }
+}

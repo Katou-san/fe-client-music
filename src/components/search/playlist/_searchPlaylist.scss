@@ -1,73 +1,12 @@
-.titleHome {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 50% 50%;
-    justify-items: end;
-    margin-bottom: 10px;
-
-    h1 {
-        width: 100%;
-        padding-left: 20px;
-        font-size: 30px;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
-
-    .btnListPlaylist {
-        width: 150px;
-        display: grid;
-        grid-template-columns: 50% 50%;
-        align-items: center;
-
-        .btnClick {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            background-color: #242424aa;
-            transition: .2s;
-
-            &:hover {
-                background-color: #0a0a0aaa;
-            }
-        }
-    }
-
-}
-
-
-.frameListPlaylist {
+.listPlaylistSearch {
     width: 100%;
     display: flex;
-    gap: 1.2%;
-    padding-left: 20px;
-    transition: .2s;
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    overflow-y: hidden !important;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-
-
-    // ::-webkit-scrollbar {
-    //     display: none !important;
-
-    //     width: 8px;
-    //     border-radius: 40px;
-    //     overflow: hidden;
-    // }
-    &::-webkit-scrollbar {
-        display: none !important;
-        ;
-        width: 0 !important;
-    }
+    overflow: hidden;
+    white-space: wrap;
+    gap: 2%;
 
     .itemListPlaylist {
         cursor: pointer;
-        position: relative;
         min-width: 200px;
         width: 180px !important;
         height: 270px !important;
@@ -126,66 +65,11 @@
             }
         }
 
-        .toastInfo {
-            position: absolute;
-            width: 0;
-            height: 0;
-            max-width: 200px;
-            transition: .2s;
-            top: 0;
-            left: 50%;
-            background-color: #2e2e2e;
-            padding: 10px;
-            border-radius: 15px;
-            visibility: hidden;
-            overflow: hidden;
-            z-index: 4;
-            opacity: 0;
-
-            h1 {
-                font-size: 18px;
-                font-weight: 600;
-                margin-bottom: 5px;
-            }
-
-            ul {
-                li {
-                    list-style: none;
-                    padding: 5px;
-                    border-radius: 10px;
-                    margin-bottom: 2px;
-
-                    .publicState {
-                        padding: 2px 5px;
-                        border-radius: 10px;
-                    }
-
-                    span {
-                        transition: .2s;
-                        font-weight: 600;
-                    }
-
-                    &:hover {
-                        background-color: #7c7c7c59;
-                    }
-                }
-            }
-        }
-
         &:hover {
             background-color: #3b3b3b;
 
             img {
                 border-bottom-left-radius: 60px;
-            }
-
-            .toastInfo {
-                width: 200px;
-                height: 85%;
-                left: 95%;
-                visibility: inherit;
-                opacity: 1;
-
             }
 
             .contentItemPlaylist {
@@ -246,15 +130,5 @@
                 animation: deg306 8s ease-in-out infinite;
             }
         }
-    }
-}
-
-@keyframes deg306 {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
     }
 }

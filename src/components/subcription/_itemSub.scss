@@ -20,6 +20,27 @@
     padding: 10px 20px;
     transition: .2s ease-in-out;
     cursor: pointer;
+    position: relative;
+
+    .noitifiSub {
+        position: absolute;
+        border-radius: 20px 20px 5px 20px;
+        right: 0;
+        top: -10px;
+        background-color: #33befa;
+        width: 0%;
+        height: 0%;
+        transition: .2s;
+        overflow: hidden;
+    }
+
+    .showNoitifiSub {
+        width: 40%;
+        height: max-content;
+        padding: 5px 20px;
+        transition: .2s;
+        overflow: hidden;
+    }
 
 
     .headerItemPlan {

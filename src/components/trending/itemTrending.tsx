@@ -16,6 +16,9 @@ import { toast } from "react-toastify";
 import imgtTemp from '../../../public/temp.jpg'
 import { secondsToMinute } from "@/util/time";
 import './_itemTrendding.scss'
+import { LineSoundAnimation } from "@/Icons/cusIcons/lineSound";
+import { useAds } from "@/contexts/providerAds";
+import PlaylistModalDropDown from "@/components/customs/modal/playlistModal";
 
 type Props = {
   song: songType;
@@ -23,7 +26,7 @@ type Props = {
   index: number;
 };
 const ItemTrending = ({ song, index, list }: Props) => {
-  const { setList, setIndex, Set_InfoPlaylist, currentList, currentIndex } =
+  const { setList, setIndex, currentList, currentIndex } =
     useAudio();
   const userProvider = useSelector((State: RootState) => State.auth);
   const infoProvider = useSelector((State: RootState) => State.info);
@@ -33,6 +36,9 @@ const ItemTrending = ({ song, index, list }: Props) => {
   const [stateLike, set_StateLike] = useState<likeType>(likeModel.init);
   const [seconds, set_seconds] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const { onAds, set_NextList, set_NextSongIndex } = useAds()
+  const [drop_Down, set_Drop] = useState(false)
+
 
   useEffect(() => {
     Promise.all([
@@ -70,7 +76,7 @@ const ItemTrending = ({ song, index, list }: Props) => {
           : 0
         : 0
     ))
-  }, [urlAudio, audioRef])
+  }, [urlAudio, audioRef, audioRef.current?.duration, song])
 
 
   const Get_Like = () => {
@@ -85,13 +91,24 @@ const ItemTrending = ({ song, index, list }: Props) => {
   }
 
   const Handle_Play = () => {
-    if (list.length > 0) {
-      if (currentList == list) {
-        setIndex(index);
-      } else {
-        Set_InfoPlaylist(null);
-        setList(list);
-        setIndex(index);
+    if (onAds) {
+      if (list.length > 0) {
+        if (currentList == list) {
+          set_NextSongIndex(index);
+        } else {
+          set_NextList(list);
+          set_NextSongIndex(index);
+        }
+      }
+
+    } else {
+      if (list.length > 0) {
+        if (currentList == list) {
+          setIndex(index);
+        } else {
+          setList(list);
+          setIndex(index);
+        }
       }
     }
   };
@@ -122,9 +139,14 @@ const ItemTrending = ({ song, index, list }: Props) => {
 
 
   return (
-    <div className="itemPlaylistDetail itemTreding">
+    <div className={`itemPlaylistDetail itemTreding  ${currentList[currentIndex]?.Song_Id == song.Song_Id &&
+      "itemPlaylistDetailActive"
+      }`}>
       <audio src={urlAudio} ref={audioRef} />
-      <h3>{index + 1}</h3>
+      <h3> {currentList[currentIndex]?.Song_Id == song.Song_Id && (
+        <LineSoundAnimation />
+      )}
+        {currentList[currentIndex]?.Song_Id != song.Song_Id && index + 1}</h3>
       <div className="infoItemPlaylistDetail" onClick={Handle_Play}>
         <div className="frameImage">
           <Image alt="" src={url || imgtTemp} width={1000} height={1000} />
@@ -147,10 +169,11 @@ const ItemTrending = ({ song, index, list }: Props) => {
           <Star_Icon w={30} />
           <h3>{listLike.length}</h3>
         </div>
-        <div className="addIcon">
+        <div className="addIcon" onClick={() => set_Drop(true)}>
           <AddIcon />
         </div>
       </div>
+      <PlaylistModalDropDown drop_Down={drop_Down} set_Drop={() => set_Drop(false)} song={song} style={{ left: '70%' }} />
     </div>
   );
 };

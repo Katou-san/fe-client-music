@@ -35,6 +35,9 @@ const Page = () => {
   const [reload, set_Reload] = useState(false)
   const [is_Loading, set_Loading] = useState(false)
   const [Storage, set_Storage] = useState<storageType>(storageModel.init)
+  const [searchValue, set_SearchValue] = useState('')
+  const [currentListSong, set_CurrentListSong] = useState<list_songType>([])
+
 
   useEffect(() => {
     if (userProvider.is_Login && userProvider.Access_Token != '') {
@@ -45,6 +48,7 @@ const Page = () => {
           listPlaylist.map((playlist) => {
             if (playlist.Playlist_Name.toLowerCase() == "upload") {
               set_info(playlist);
+
             }
           })
         }),
@@ -67,11 +71,25 @@ const Page = () => {
   }, [userProvider, reload])
 
   useEffect(() => {
+    if (searchValue.trim().length > 0) {
+      set_CurrentListSong(currentListSong.filter((song, i) =>
+        song.Song_Name.includes(searchValue.trim()))
+      );
+    } else {
+      set_CurrentListSong(list)
+    }
+
+  }, [searchValue])
+
+  useEffect(() => {
     if (userProvider.is_Login && userProvider.Access_Token != '') {
       if (infoPlaylist.Playlist_Id != "") {
         Track.Get_Track(infoPlaylist.Playlist_Id)
           .then(res => {
-            set_List(res.data)
+            if (res.status == 200) {
+              set_List(res.data)
+              set_CurrentListSong(res.data)
+            }
             set_Loading(false)
           })
       }
@@ -96,10 +114,10 @@ const Page = () => {
 
   return <div className="frameManage">
     {userProvider.Access_Token != '' &&
-      <div className={`backrgroundManage ${showAdd || detail.show || deleteSong.show || editSong.show ? 'changeBackground' : ""}`}>
+      <div className={`backrgroundManage ${showAdd || detail.show || deleteSong.show || editSong.show ? '' : ""}`}>
         <div className="headerManage">
           <div className="frameInput">
-            <input type="text" placeholder="Search" />
+            <input type="text" placeholder="Search" value={searchValue} onChange={(e) => set_SearchValue(e.target.value)} />
           </div>
           <div className="frameStorage">
             <div className="frameIcon">
@@ -148,8 +166,9 @@ const Page = () => {
             </div>}
 
             {!is_Loading && <div className="listItem">
-              {list.map((song, index) =>
+              {currentListSong.map((song, index) =>
                 <ItemSongManage
+                  listSong={currentListSong}
                   song={song}
                   key={index}
                   index={index}
@@ -161,9 +180,9 @@ const Page = () => {
           </div>
         </div>
         <AddSong handleShow={handleShowAdd} isShow={showAdd} onClose={() => set_ShowAdd(false)} onReload={() => set_Reload(pre => !pre)} />
-        {list.length > 0 && <EditSong song={list[editSong.index]} editSong={editSong} handle_Edit={handleUpdate} onReload={() => set_Reload(pre => !pre)} />}
-        {list.length > 0 && <DetailSong song={list[detail.index]} detail={detail} handle_Detail={handleDetail} />}
-        {list.length > 0 && <DeleteSong song={list[deleteSong.index]} deleteSong={deleteSong} handle_Delete={handle_Delete} onReload={() => set_Reload(pre => !pre)} />}
+        {currentListSong.length > 0 && <EditSong song={currentListSong[editSong.index]} editSong={editSong} handle_Edit={handleUpdate} onReload={() => set_Reload(pre => !pre)} />}
+        {currentListSong.length > 0 && <DetailSong song={currentListSong[detail.index]} detail={detail} handle_Detail={handleDetail} />}
+        {currentListSong.length > 0 && <DeleteSong song={currentListSong[deleteSong.index]} deleteSong={deleteSong} handle_Delete={handle_Delete} onReload={() => set_Reload(pre => !pre)} />}
       </div>}
     {userProvider.Access_Token == '' && <div> You need login</div>}
   </div>

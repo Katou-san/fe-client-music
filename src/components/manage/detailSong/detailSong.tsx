@@ -29,46 +29,44 @@ const DetailSong = ({ song, detail, handle_Detail }: Props) => {
     return (
         <div className={`frameDetailSong ${detail.show && 'activeFrameDetailSong'}`}>
             <div className="formDetail">
-                <div className="backgroundDetail">
-                    <div className="frameImage">
-                        <Image alt='detail' src={urlImg || imgTemp} width={50} height={50} loading='lazy' />
-                    </div>
-
-                </div>
 
                 <div className="headerDetail">
                     <h1>Song detail </h1>
                     <div className="frameIconListPopup cursor_pointer" onClick={() => handle_Detail({ show: false, index: 0, getStar: 0, cate: '' })}>
-                        <Close_Icon w={40} color='#fff' />
+                        <Close_Icon w={40} color='#000' />
                     </div>
                 </div>
                 <div className="bodyDetail">
-                    <div className="infoSong">
-                        <div className="frameImage">
-                            <Image alt='detail' src={urlImg} width={50} height={50} loading='lazy' />
+                    <div className="frameInfo">
+                        <div className="infoSong">
+                            <div className="frameImage">
+                                <Image alt='detail' src={urlImg || imgTemp} width={50} height={50} loading='lazy' />
+                            </div>
+                            <div className="contentInfo overflow__Text">
+                                <h1 className='overflow__Text'>{song?.Song_Name}</h1>
+                                <h3 className='overflow__Text'>{song?.Artist_Name}</h3>
+                            </div>
+                            <div className="frameIconPlay">
+                                <Play_Icon w={60} />
+                            </div>
                         </div>
-                        <div className="contentInfo">
-                            <h1 className='overflow__Text'>{song?.Song_Name}</h1>
-                            <h3 className='overflow__Text'>{song?.Artist}</h3>
-                        </div>
-                        <div className="frameIcon">
-                            <Play_Icon w={60} />
+                        <div className="frameStar">
+                            <div className="frameIcon">
+                                <Star_Icon w={26} active={true} />
+                            </div>
+                            <h3>{detail?.getStar}</h3>
                         </div>
                     </div>
-                    <div className="frameStar">
-                        <div className="frameIcon">
-                            <Star_Icon w={30} active={true} />
-                        </div>
-                        <h3>{detail?.getStar}</h3>
-                    </div>
+
+
                     <div className="moreInfo">
                         <div className="boxInfo">
                             <h3>Category</h3>
-                            <h3 className='overflow__Text'>{detail?.cate}</h3>
+                            <h3 className='infoContentSong'>{detail?.cate}</h3>
                         </div>
                         <div className="boxInfo">
                             <h3>Tag</h3>
-                            <h3 className='overflow__Text'>{song?.Tag}</h3>
+                            <h3 className='infoContentSong'>{song?.Tag}</h3>
                         </div>
                         <div className="boxInfo">
                             <h3>public</h3>
@@ -76,7 +74,7 @@ const DetailSong = ({ song, detail, handle_Detail }: Props) => {
                         </div>
                         <div className="boxInfo">
                             <h3>Create_Date</h3>
-                            <h3 className='overflow__Text'>{song?.Create_Date}</h3>
+                            <h3 className='infoContentSong'>{new Date(song?.Create_Date).toLocaleDateString()}</h3>
                         </div>
                     </div>
                 </div> </div>

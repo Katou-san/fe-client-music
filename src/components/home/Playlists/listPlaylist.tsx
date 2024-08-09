@@ -7,8 +7,9 @@ import { list_playlistType } from "@/model/playlistModel";
 type Props = {
   arrayPlaylist: list_playlistType;
   type?: 'album' | 'playlist'
+  showInfo?: boolean;
 };
-const ListPlaylist = ({ arrayPlaylist, type = 'playlist' }: Props) => {
+const ListPlaylist = ({ arrayPlaylist, type = 'playlist', showInfo = false }: Props) => {
   const listRef = useRef<HTMLDivElement>(null);
 
   const handeNext = (type: "next" | "prev") => {
@@ -44,6 +45,8 @@ const ListPlaylist = ({ arrayPlaylist, type = 'playlist' }: Props) => {
               active={index == 0}
               item={item}
               index={index}
+              showInfo={showInfo}
+
             />
           );
         })}
