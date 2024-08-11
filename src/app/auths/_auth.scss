@@ -136,6 +136,22 @@ body::-webkit-scrollbar {
 
 .inputText {
     position: relative;
+
+    .frameIconPass {
+        position: absolute;
+        top: calc(50% - 5px);
+        right: 0%;
+        cursor: pointer;
+        background-color: #d4d4d400;
+        border-radius: 50%;
+        padding: 5px;
+        transition: .2s;
+
+        &:hover {
+            background-color: #c2c2c29c;
+        }
+
+    }
 }
 
 .inputText .toastInput {

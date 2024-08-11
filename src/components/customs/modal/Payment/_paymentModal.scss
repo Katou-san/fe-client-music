@@ -3,7 +3,7 @@
     height: 0;
     top: 10%;
     left: 80%;
-    width: 400px;
+    width: 0;
     z-index: -1;
     background-color: #f4f8fc;
     border-radius: 15px;
@@ -11,10 +11,9 @@
     overflow: hidden;
     visibility: hidden;
     z-index: 100;
-    padding: 0px;
 
     h1 {
-        font-size: 25px;
+        font-size: 20px;
         font-weight: 600;
     }
 
@@ -189,7 +188,7 @@
     height: min-content;
     top: -30%;
     visibility: inherit;
-    min-width: 400px;
-    z-index: 100;
-    padding: 20px;
+    min-width: 350px;
+    // z-index: 100;
+    padding: 10px;
 }

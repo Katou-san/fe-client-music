@@ -1,0 +1,57 @@
+.dropDownProfile {
+    position: absolute;
+    width: 0;
+    height: 0;
+    max-width: 200px;
+    transition: .2s;
+    top: 0;
+    right: 0;
+    background-color: #2e2e2e;
+    padding: 10px;
+    border-radius: 15px;
+    visibility: hidden;
+    overflow: hidden;
+    z-index: 4;
+    opacity: 0;
+
+    // h1 {
+    //     padding: 5px 10px;
+    //     font-size: 20px;
+    //     font-weight: 600;
+    //     color: aliceblue;
+    //     background-color: rgba(3, 3, 3, 0.447);
+    // }
+
+
+    ul {
+        li {
+            list-style: none;
+            padding: 5px;
+            border-radius: 10px;
+            margin-bottom: 2px;
+            cursor: pointer;
+
+            .publicState {
+                padding: 2px 5px;
+                border-radius: 10px;
+            }
+
+            span {
+                transition: .2s;
+                font-weight: 600;
+            }
+
+            &:hover {
+                background-color: #7c7c7c59;
+            }
+        }
+    }
+}
+
+.activeDropDownProfile {
+    width: 200px;
+    height: max-content;
+    right: 0;
+    visibility: inherit;
+    opacity: 1;
+}

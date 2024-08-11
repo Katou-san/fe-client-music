@@ -39,14 +39,24 @@ const PaymentModalDropDown = ({ drop_Down, set_Drop, style, sub }: Props) => {
 
     const handlePayment = () => {
         if (userProvider.Access_Token != '' && userProvider.is_Login && sub?.Sub_Id != '' && sub?.Sub_Id != undefined) {
+
             if (!checkBill) {
-                Payment.VNPay_payment(sub.Sub_Id)
-                    .then((res) => {
+                Bill.Check_Bill()
+                    .then(res => {
                         if (res.status == 200) {
-                            window.open(res.data.order_url, '', "width=600,height=700")
-                            console.log(res.data)
-                        } else {
-                            toast.error(res.message)
+                            if (!res.data?.Bill) {
+                                Payment.VNPay_payment(sub.Sub_Id)
+                                    .then((respone) => {
+                                        if (respone.status == 200) {
+                                            window.open(respone.data.order_url, '', "width=600,height=700")
+                                        } else {
+                                            toast.error(respone.message)
+                                        }
+                                    })
+                            } else {
+                                toast.error(res.message)
+                            }
+
                         }
                     })
             } else {
@@ -71,7 +81,6 @@ const PaymentModalDropDown = ({ drop_Down, set_Drop, style, sub }: Props) => {
                     Bill.Check_Bill()
                         .then(res => {
                             if (res.status == 200) {
-                                console.log(res.data)
                                 set_CheckBill(res.data?.Bill)
                             }
                         })

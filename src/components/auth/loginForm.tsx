@@ -19,6 +19,7 @@ import {
 } from "@react-oauth/google";
 import { Google_s } from "@/apis/Google";
 import { hash64 } from "@/util/hash";
+import { Eyes_Icon, HiddenEyes_Icon } from "@/Icons/icon_Figma";
 
 function Login({ Value }: { Value: any }) {
   const routes = useRouter();
@@ -28,6 +29,7 @@ function Login({ Value }: { Value: any }) {
   const [valueLogin, setValueLogin] = useState<authLoginType>(
     authModel.initLogin
   );
+  const [showPassword, set_showPass] = useState({ pass: false })
 
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -117,7 +119,7 @@ function Login({ Value }: { Value: any }) {
         <div className="inputText">
           <label htmlFor="Pass">Password</label>
           <input
-            type="password"
+            type={`${showPassword.pass ? 'text' : 'password'}`}
             required
             value={valueLogin.User_Pass}
             onChange={(e) =>
@@ -127,6 +129,9 @@ function Login({ Value }: { Value: any }) {
               })
             }
           />
+          <div className="frameIconPass" onClick={() => set_showPass({ ...showPassword, pass: !showPassword.pass })}>
+            {showPassword.pass ? <HiddenEyes_Icon color="#000" /> : <Eyes_Icon color="#000" />}
+          </div>
 
           <div className="toastInput">
             {ValueError?.pass != undefined && ValueError.pass}

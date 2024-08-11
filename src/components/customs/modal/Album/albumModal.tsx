@@ -12,12 +12,9 @@ import { Playlist } from "@/apis/Playlist";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/hooks/redux/store";
-import { User } from "@/apis/User";
-import { userModel } from "@/model/userModel";
 import { Role } from "@/apis/Role";
 import { roleModel, roleType } from "@/model/roleModel";
 import { RoleConfigCreator } from "@/configs/rolesConfig";
-import { Artist } from "@/apis/Artist";
 type Prop = {
     isOpen: boolean;
     onOpenChange: () => void;

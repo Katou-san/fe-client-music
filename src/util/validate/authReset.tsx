@@ -1,4 +1,4 @@
-import { update_userType } from "@/model/userModel";
+import { changePass_userType, update_userType } from "@/model/userModel";
 
 const HandleErrors = {
   isEmail: (value: string) => {
@@ -13,12 +13,12 @@ const HandleErrors = {
   },
   CheckLenghtPass: (value: string) => {
     const a = value.trim().length;
-    if (a < 32 && a > 8) {
+    if (a < 32 && a >= 8) {
       return true;
     }
     return false;
   },
-  isNotEqual: (value1: string, value2: string) => {
+  isEqual: (value1: string, value2: string) => {
     return value1 === value2;
   },
   checkPhone: (value: string) => {
@@ -54,9 +54,41 @@ const resetPassValidate = (pass: string, confirmPass: string) => {
     status = true;
   }
 
-  if (!HandleErrors.isNotEqual(pass, confirmPass)) {
-    Error["confirmpass"] = "Confirm password not match";
+
+
+  return { status, Error };
+};
+
+
+const changePassValidate = (value: changePass_userType) => {
+  const Error: any = {};
+  let status = false;
+
+  if (!HandleErrors.CheckLenghtPass(value.oldpass)) {
+    Error["pass"] = "Current pass must be 8 to 32 characters ";
     status = true;
+  }
+
+
+  if (!HandleErrors.CheckLenghtPass(value.pass)) {
+    Error["pass"] = "New password must be 8 to 32 characters ";
+    status = true;
+  }
+
+  if (HandleErrors.isEqual(value.pass, value.oldpass)) {
+    Error["pass"] = "Password not change";
+    status = true;
+  }
+
+
+  if (!HandleErrors.CheckLenghtPass(value.repass)) {
+    Error["pass"] = "Confirm password must be 8 to 32 characters ";
+    status = true;
+  } else {
+    if (!HandleErrors.isEqual(value.pass, value.repass)) {
+      Error["pass"] = "new password not macth";
+      status = true;
+    }
   }
 
   return { status, Error };
@@ -65,4 +97,5 @@ const resetPassValidate = (pass: string, confirmPass: string) => {
 export const resetValidate = {
   resetEmail: resetEmailValidate,
   resetPass: resetPassValidate,
+  changePass: changePassValidate
 };

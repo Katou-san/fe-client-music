@@ -18,11 +18,13 @@ interface contextType {
     is_commentPopup: boolean,
     is_albumForm: boolean,
     is_ads: boolean,
+    is_find: boolean,
     setShowAds: (value: boolean) => void;
     setAlbumForm: (value: boolean) => void;
     setShowPopup: () => void;
     setShowListPopup: () => void;
     setShowCommentPopup: () => void;
+    setShowFind: (value: boolean) => void
 }
 
 const defaultContext = {
@@ -31,6 +33,8 @@ const defaultContext = {
     is_commentPopup: false,
     is_albumForm: false,
     is_ads: false,
+    is_find: false,
+    setShowFind: (value: boolean) => { },
     setShowAds: (value: boolean) => { },
     setAlbumForm: (value: boolean) => { },
     setShowPopup: () => { },
@@ -48,6 +52,7 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
     const [is_commentPopup, set_conmmentPopup] = useState(false)
     const [is_AlbumForm, set_AlbumForm] = useState(false)
     const [is_Ads, set_Ads] = useState(false)
+    const [is_find, set_ShowFind] = useState(false)
 
     const HandelPopup = () => {
         const state_Popup = is_Popup
@@ -111,6 +116,8 @@ const ProviderLayout = ({ children }: { children: ReactNode }) => {
                 is_commentPopup: is_commentPopup,
                 is_albumForm: is_AlbumForm,
                 is_ads: is_Ads,
+                is_find: is_find,
+                setShowFind: (value: boolean) => set_ShowFind(value),
                 setShowAds: (value: boolean) => set_Ads(value),
                 setAlbumForm: (value: boolean) => set_AlbumForm(value),
                 setShowCommentPopup: set_ShowCommentPopup,

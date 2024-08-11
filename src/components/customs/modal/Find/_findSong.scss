@@ -1,0 +1,194 @@
+.frameFindSong {
+    position: absolute;
+    transition: .2s;
+    top: 15%;
+    right: 0%;
+    background-color: aliceblue;
+    z-index: 20;
+    border-radius: 20px;
+    padding: 10px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+    visibility: hidden;
+
+    h1 {
+        font-size: 20px;
+        color: #000;
+        font-weight: 600;
+    }
+
+    .contentFind {
+        margin-top: 20px;
+        width: 100%;
+        height: 100px;
+        border-radius: 15px;
+        display: grid;
+        place-items: center;
+        border: #000 2px dashed;
+        cursor: pointer;
+
+        h1 {
+            transition: .2s;
+            color: #000;
+
+            &:hover {
+                color: #656565;
+            }
+        }
+    }
+
+    .footerModalPlaylist {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        gap: 2%;
+
+        .btnModal {
+            // margin-top: 10px;
+            height: 40px;
+            width: 80px;
+            padding: 0 16px;
+            display: grid;
+            border-radius: 15px;
+            place-items: center;
+            cursor: pointer;
+            background-color: #006fee;
+            transition: .2s;
+        }
+
+        .btnAction {
+            background-color: #006fee !important;
+            color: aliceblue;
+
+            &:hover {
+                background-color: #0063d5 !important;
+            }
+        }
+
+        .btnClose {
+            background-color: transparent !important;
+            color: #f31260;
+
+            &:hover {
+                background-color: #f3126137 !important;
+            }
+        }
+    }
+
+    .itemListSong {
+        min-width: 200px;
+        width: 200px !important;
+        height: 180px !important;
+        background-color: #000;
+        border-radius: 20px;
+        position: relative;
+        transition: .2s;
+        scroll-snap-align: start;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .frameBtnContent {
+            cursor: pointer;
+            position: absolute;
+            display: grid;
+            height: 32%;
+            grid-template-columns: 70% 30%;
+            align-items: center;
+            width: 95%;
+            border-radius: 25px;
+            background-color: #383838ba;
+            bottom: 3%;
+            left: 2.5%;
+            transition: .2s;
+
+            .contentBtn {
+                line-height: normal;
+                padding-left: 20px;
+
+
+                h1 {
+                    color: #fff;
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                h3 {
+                    font-size: 15px;
+                }
+            }
+
+            .frameIcon {
+                margin-left: 10px;
+                background-color: #fff;
+                color: transparent;
+                display: grid;
+                place-items: center;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+
+                svg {
+                    transform: translateX(16%);
+                }
+            }
+
+
+        }
+
+        &:hover {
+            .frameBtnContent {
+                height: 37%;
+                background-color: #262626ba;
+            }
+        }
+    }
+
+    .itemListSongActive {
+        .frameBtnContent {
+            height: 37%;
+
+            .frameIcon {
+                position: relative;
+                z-index: 10;
+
+                svg {
+                    transform: translateX(20%);
+                }
+
+                &::before {
+                    position: absolute;
+                    top: -10%;
+                    left: -10%;
+                    content: ' ';
+                    height: 120%;
+                    width: 120%;
+                    background-color: rgba(0, 255, 255, 0);
+                    border-radius: 50%;
+                    border: #fff 2px dashed;
+                    transition: .2s;
+
+                    animation: deg306 8s ease-in-out infinite;
+                }
+            }
+        }
+
+    }
+}
+
+.activeFrameFindSong {
+    width: 400px;
+    height: max-content;
+    right: 25%;
+    opacity: 1;
+    padding: 10px;
+    visibility: inherit;
+}

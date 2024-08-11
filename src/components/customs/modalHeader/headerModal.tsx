@@ -7,8 +7,9 @@ import { LoadingSVGWatting } from "@/Icons/Loading";
 import { toast } from "react-toastify";
 import { logoutProvider } from "@/hooks/redux/action/authProvider";
 import LogoutDialog from "@/components/customs/dialog/logoutDialog/LogoutDialog";
-import { Logout_Icon, User_Icon } from "@/Icons/icon_Figma";
+import { Logout_Icon, NodeFind_Icon, User_Icon } from "@/Icons/icon_Figma";
 import { useRouter } from "next/navigation";
+import { useLayout } from "@/contexts/providerLayout";
 type Props = {
     drop_Down: boolean;
     set_Drop: () => void;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const HeederModalDropDown = ({ drop_Down, set_Drop, style }: Props) => {
+    const { setShowFind } = useLayout()
     const [drop_Dialog, set_Dialog] = useState(false)
     const userProvider = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch()
@@ -37,6 +39,7 @@ const HeederModalDropDown = ({ drop_Down, set_Drop, style }: Props) => {
     const handleProfile = () => {
         if (userProvider.Access_Token != '' && userProvider.is_Login) {
             routes.push(`/profile?id=${userProvider.User_Id}`);
+            set_Drop();
         }
     }
 
@@ -69,6 +72,13 @@ const HeederModalDropDown = ({ drop_Down, set_Drop, style }: Props) => {
                             <li className="overflow__Text iconUser" onClick={handleProfile}>
                                 <User_Icon />
                                 <h3>Profile</h3>
+                            </li>
+                            <li className="overflow__Text iconUser" onClick={() => {
+                                setShowFind(true)
+                                set_Drop()
+                            }}>
+                                <NodeFind_Icon w={27} />
+                                <h3>Find song</h3>
                             </li>
                             <li className="overflow__Text falseI iconLogout" onClick={() => set_Dialog(true)}>
                                 <Logout_Icon />

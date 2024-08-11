@@ -1,17 +1,19 @@
 
 import { Like } from "@/apis/Like";
 import { Reply } from "@/apis/Reply";
+import { Role } from "@/apis/Role";
 import { Send } from "@/apis/Send";
 import { User } from "@/apis/User";
 import MoreModalDropDown from "@/components/customs/more/moreModal";
 import ItemReplyPopup from "@/components/popup/comment/ItemReply";
 import { useReload } from "@/contexts/providerReload";
 import { RootState } from "@/hooks/redux/store";
-import { ArrowLineDown_Icon, ArrowLineUp_Icon, Dislike_Icon, Star_Icon } from "@/Icons/icon_Figma";
+import { ArrowLineDown_Icon, ArrowLineUp_Icon, Check_Icon, Dislike_Icon, Sound_Icon, Star_Icon } from "@/Icons/icon_Figma";
 import { MoreIcon } from "@/Icons/icon_v1";
 import { commentType } from "@/model/commentModel";
 import { create_likeType, likeModel, list_likeType } from "@/model/likeModel";
 import { create_replyType, list_replyType, replyType } from "@/model/replyModel";
+import { roleModel, roleType } from "@/model/roleModel";
 import { songType } from "@/model/songModel";
 import { userModel, userType } from "@/model/userModel";
 import { URLValidate } from "@/util/validate/url";
@@ -19,7 +21,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
+import ImgTemp from '../../../../public/temp.jpg'
 type Props = {
     comment: commentType
     handle_Reply: (comment: commentType) => void
@@ -30,6 +32,7 @@ const ItemCommentPopup = ({ comment, handle_Reply, song }: Props) => {
     const userProvider = useSelector((state: RootState) => state.auth)
     const { re_reply, set_ReComment } = useReload()
     const [info_user, set_InfoUser] = useState<userType>(userModel.init)
+    const [inforole, set_infoRole] = useState<roleType>(roleModel.init)
     const [showReply, set_ShowReply] = useState(false)
     const [drop_Down, set_DropDown] = useState(false)
     const [url, set_url] = useState('')
@@ -60,15 +63,32 @@ const ItemCommentPopup = ({ comment, handle_Reply, song }: Props) => {
                         set_listLikeComment(res.data)
                     }
                 }),
-                User.Get_Id(userProvider?.User_Id)
+                User.Get_Id(comment.User_Id)
                     .then((res) => {
                         if (res.status == 200) {
                             set_InfoUser(res.data)
                         }
                     })
+
             ])
+
+
+
         }
     }, [comment])
+
+    useEffect(() => {
+        if (info_user?.User_Id != '') {
+
+            Role.Get_Id(info_user.Role_Id)
+                .then((res) => {
+                    if (res.status == 200) {
+                        set_infoRole(res.data)
+                    }
+                })
+
+        }
+    }, [info_user])
 
 
     useEffect(() => {
@@ -128,17 +148,19 @@ const ItemCommentPopup = ({ comment, handle_Reply, song }: Props) => {
 
     }
 
-    console.log(userProvider.User_Id == comment?.User_Id)
+    // console.log(userProvider.User_Id == comment?.User_Id)
     // console.log()
+    console.log(inforole)
     return (
         <div className="itemCommentPopup">
             <div className="contentComment">
                 <div className="infoComment">
-                    <Image src={url} alt="" width={1000} height={1000} />
+                    <Image src={url || ImgTemp} alt="" width={100} height={100} />
                 </div>
                 <div className="commentText">
                     <div className="headerItemComment">
                         <h1>{comment?.User_Name}</h1>
+                        <span>{inforole.Role_Name == 'creator' ? <Sound_Icon w={20} color="#000" /> : info_user?.is_Premium ? <Check_Icon w={20} color="#000" /> : ''} </span>
                     </div>
                     <div className="content">
                         <div className="textComment overflow__Text_Endline">{comment?.Content}</div>

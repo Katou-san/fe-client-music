@@ -4,6 +4,7 @@ import { Send } from "@/apis/Send";
 import { useAds } from "@/contexts/providerAds";
 import { playlistType } from "@/model/playlistModel";
 import { list_songType } from "@/model/songModel";
+import { delay } from "@/util/function";
 import { HandleSong } from "@/util/handle";
 import { URLValidate } from "@/util/validate/url";
 import React, {
@@ -102,6 +103,7 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
   const [shuffle, set_shuffle] = useState(false);
   const [src, set_src] = useState("");
   const [infoPlaylist, set_infoPlaylist] = useState<playlistType | null>(null);
+  const [delayBtn, set_DelayBtn] = useState(false)
 
   const Set_RefInputRange = (progressbarRef: RefObject<HTMLInputElement>) => {
     set_progressbarRef(progressbarRef);
@@ -285,15 +287,30 @@ const ProviderAudio = ({ children }: { children: ReactNode }) => {
   };
 
   const handle_Next = () => {
-    set_CurrentIndex(HandleSong.next(currentIndex, currentList));
-    set_isPlaying(true);
-    renderDotRange();
+    if (!delayBtn) {
+      set_CurrentIndex(HandleSong.next(currentIndex, currentList));
+      set_isPlaying(true);
+      renderDotRange();
+      set_DelayBtn(true)
+    }
+    else {
+      return;
+    }
+    delay(500).then(() => set_DelayBtn(false))
+
+
   };
 
   const handle_Prev = () => {
-    set_CurrentIndex(HandleSong.prev(currentIndex, currentList));
-    set_isPlaying(true);
-    renderDotRange();
+    if (!delayBtn) {
+      set_CurrentIndex(HandleSong.prev(currentIndex, currentList));
+      set_isPlaying(true);
+      renderDotRange();
+    }
+    else {
+      return;
+    }
+    delay(500).then(() => set_DelayBtn(false))
   };
 
   useEffect(() => {

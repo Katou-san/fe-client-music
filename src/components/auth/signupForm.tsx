@@ -10,6 +10,7 @@ import { auth } from "@/apis/Auth";
 import { useDispatch } from "react-redux";
 import { signupProvider } from "@/hooks/redux/action/authProvider";
 import { hash64 } from "@/util/hash";
+import { Eyes_Icon, HiddenEyes_Icon } from "@/Icons/icon_Figma";
 
 function Register({ Value }: { Value: any }) {
   const routes = useRouter();
@@ -20,6 +21,7 @@ function Register({ Value }: { Value: any }) {
     authModel.initSignup
   );
   const [ValueError, setValueError] = useState({});
+  const [showPassword, set_showPass] = useState({ pass: false, conPass: false });
 
   const SubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,14 +107,16 @@ function Register({ Value }: { Value: any }) {
         <div className="inputText">
           <label htmlFor="SPass">Password</label>
           <input
-            type="password"
+            type={`${showPassword.pass ? 'text' : 'password'}`}
             value={valueSignup.User_Pass}
             onChange={(e) =>
               setValueSignup({ ...valueSignup, User_Pass: e.target.value })
             }
             required
           />
-
+          <div className="frameIconPass" onClick={() => set_showPass({ ...showPassword, pass: !showPassword.pass })}>
+            {showPassword.pass ? <HiddenEyes_Icon color="#000" /> : <Eyes_Icon color="#000" />}
+          </div>
           <div className="toastInput">
             {/* {Object.keys(ValueError).length > 0 ? ValueError.Password : ""} */}
           </div>
@@ -121,7 +125,8 @@ function Register({ Value }: { Value: any }) {
         <div className="inputText">
           <label htmlFor="SRPass">Confirm Pass</label>
           <input
-            type="password"
+            type={`${showPassword.conPass ? 'text' : 'password'}`}
+
             required
             value={valueSignup.User_ConfirmPass}
             onChange={(e) =>
@@ -131,6 +136,9 @@ function Register({ Value }: { Value: any }) {
               })
             }
           />
+          <div className="frameIconPass" onClick={() => set_showPass({ ...showPassword, conPass: !showPassword.conPass })}>
+            {showPassword.conPass ? <HiddenEyes_Icon color="#000" /> : <Eyes_Icon color="#000" />}
+          </div>
 
           <div className="toastInput">
             {/* {Object.keys(ValueError).length > 0

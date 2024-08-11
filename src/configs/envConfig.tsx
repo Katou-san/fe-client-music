@@ -5,14 +5,17 @@ export const EnvConfig = {
   NEXT_PUBLIC_SIGNUP: "/user/signup",
   NEXT_PUBLIC_LOGIN: "/user/login/client",
   NEXT_PUBLIC_AUTH: "/user/Oauth",
+  NEXT_PUBLIC_PASS: "/user/password",
   NEXT_PUBLIC_USER: "/user",
-
   NEXT_PUBLIC_VISIT: "/visit",
 
   NEXT_PUBLIC_PROPOSE: "/trending",
 
   NEXT_PUBLIC_SONG: "/song",
   NEXT_PUBLIC_SONG_MANAGE: "/songs",
+
+  NEXT_PUBLIC_FIND: "/audiofp/find",
+
 
   NEXT_PUBLIC_TRACK: "/track",
 

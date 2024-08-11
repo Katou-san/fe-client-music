@@ -19,13 +19,17 @@ import { Follow } from "@/apis/Follow";
 import EditForm from "@/components/profile/editForm";
 import { useReload } from "@/contexts/providerReload";
 import { toast } from "react-toastify";
-import { CheckIcon } from "@/Icons/icon_v1";
+import { CheckIcon, MoreIcon } from "@/Icons/icon_v1";
 import { Role } from "@/apis/Role";
 import { roleModel } from "@/model/roleModel";
+import MoreProfileDropDown from "@/components/customs/modal/Profile/moreProfile";
+import EditFormPass from "@/components/profile/password/formChangePass";
 const Page = () => {
   const { set_ReFollow, re_follow, re_profile } = useReload()
   const [showEdit, set_ShowEdit] = useState(false)
+  const [showChangePass, set_showChangePass] = useState(false)
   const [Reload, set_Reload] = useState(false)
+  const [drop_DownMore, set_DropMore] = useState(false)
   const { re_repost } = useReload()
   const userProvider = useSelector((state: RootState) => state.auth)
   const [listRepost, set_ListRepost] = useState<list_repostType>([])
@@ -151,6 +155,11 @@ const Page = () => {
           </div>}
         {userProvider.User_Id == UserId && <div className="frameOption" >
           <div className="editProfile" onClick={() => set_ShowEdit(true)}>Edit profile</div>
+          <div className="frameMoreProfile" onClick={() => set_DropMore(pre => !pre)}>
+            <MoreIcon />
+          </div>
+
+          <MoreProfileDropDown set_Drop={() => set_DropMore(false)} drop_Down={drop_DownMore} style={{ right: '1%', top: '65%' }} func={() => set_showChangePass(pre => !pre)} />
         </div>}
 
         <div className="frameName">
@@ -185,6 +194,7 @@ const Page = () => {
       </div>
     </div>
     <EditForm infoUser={infoUser} is_Show={showEdit} set_Show={() => set_ShowEdit(false)} set_Reload={() => set_Reload(prev => !prev)} />
+    <EditFormPass infoUser={infoUser} is_Show={showChangePass} set_Show={() => set_showChangePass(false)} set_Reload={() => set_Reload(prev => !prev)} />
   </div>
 };
 

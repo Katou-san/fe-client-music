@@ -34,11 +34,14 @@
             padding-left: 2%;
 
             .frameOption {
+                position: relative;
                 padding: 20px 20px 0 0;
                 width: 100%;
                 min-height: 100px;
                 display: flex;
                 justify-content: end;
+                transition: .2s;
+                gap: 1%;
 
                 .editProfile {
                     height: min-content;
@@ -49,14 +52,20 @@
                     border: 2px solid #fff;
                     cursor: pointer;
 
-
-
                     &:hover {
                         background-color: #e6e6e6;
                         color: #000;
-
-
                     }
+                }
+
+                .frameMoreProfile {
+                    height: min-content;
+                    padding: 5px;
+                    border-radius: 20px;
+                    background-color: transparent;
+                    transition: .2s;
+                    border: 2px solid #fff;
+                    cursor: pointer;
                 }
 
                 .frameFollow {

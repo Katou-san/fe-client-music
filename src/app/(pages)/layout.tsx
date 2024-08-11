@@ -7,6 +7,7 @@ import React, { ReactNode } from 'react';
 import { useLayout } from '@/contexts/providerLayout';
 import Popup from '@/layouts/Popup/popup';
 import AlbumModal from '@/components/customs/modal/Album/albumModal';
+import FindSong from '@/components/customs/modal/Find/findSong';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const { is_Popup } = useLayout()
@@ -19,6 +20,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         <Header />
                         {children}
                         <AlbumModal />
+                        <FindSong />
                     </div>
                     <div className="PopupContent">
                         <Popup />

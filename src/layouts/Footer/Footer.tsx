@@ -178,6 +178,7 @@ function Footer() {
               style={{ accentColor: currentList[currentIndex]?.Color || '#fff' }}
               type="range"
               name=""
+              // disabled={onAds}
               id="lineSong"
               defaultValue={5}
               ref={progressbarRef}
