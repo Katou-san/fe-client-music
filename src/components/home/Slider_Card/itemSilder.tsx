@@ -79,9 +79,9 @@ const ItemSilder = ({ active, func, itemSilder, list, index }: Prop) => {
                     set_PercentAds(0)
                 }
             }}>
-                <div className="frameIcon" onClick={handleClick}>
+                <div className={`frameIcon ${currentList[currentIndex]?.Song_Id == itemSilder?.Song_Id && 'activeIcon'}`} onClick={handleClick}>
                     {is_Playing &&
-                        currentList[currentIndex]?.Song_Id == itemSilder.Song_Id ? (
+                        currentList[currentIndex]?.Song_Id == itemSilder?.Song_Id ? (
                         <PauseIcon color="#383838" w={27} />
                     ) : (
                         <PlayIcon color="#383838" />

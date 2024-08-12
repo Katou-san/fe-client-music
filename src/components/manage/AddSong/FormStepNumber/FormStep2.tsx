@@ -32,12 +32,13 @@ export default function FormStep2({ Get_Value_Form, Value_Form }: Props) {
           <h4>Category</h4>
           <select
             onChange={(e) => Get_Value_Form({ Category_Id: e.target.value })}
+
           >
             <option className="test" value="null">
-              chose here
+              choose cate
             </option>
             {listCategory.map((item, index) => (
-              <option key={index} value={item.Category_Id} >
+              <option selected={item.Category_Id == Value_Form.Category_Id} key={index} value={item.Category_Id} >
                 {item.Category_Name}
               </option>
             ))}

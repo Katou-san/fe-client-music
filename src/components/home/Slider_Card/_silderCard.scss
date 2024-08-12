@@ -27,13 +27,14 @@
             .contentItemSilder {
                 cursor: pointer;
                 position: absolute;
-                display: grid;
-                grid-template-columns: 30% 70%;
-                gap: 1%;
+                display: flex;
+                gap: 4%;
                 align-items: center;
                 bottom: 20px;
                 left: 20px;
-                width: 30%;
+                width: 100%;
+                min-width: 200px;
+                max-width: 400px;
                 height: 80px;
                 border-radius: 20px;
                 background-color: rgba(45, 45, 45, 0.508);
@@ -45,12 +46,36 @@
                     color: transparent;
                     display: grid;
                     place-items: center;
-                    height: 50px;
-                    width: 50px;
+                    min-height: 50px !important;
+                    min-width: 50px !important;
+                    height: 50px !important;
+                    width: 50px !important;
                     border-radius: 50%;
 
                     svg {
                         transform: translateX(16%);
+                    }
+                }
+
+                .activeIcon {
+
+
+                    svg {
+                        transform: translateX(20%);
+                    }
+
+                    &::before {
+                        position: absolute;
+                        transform: translate(50%, -50%);
+                        content: ' ';
+                        height: 60px;
+                        width: 60px;
+                        background-color: rgba(0, 255, 255, 0);
+                        border-radius: 50%;
+                        border: #fff 2px dashed;
+                        transition: .2s;
+
+                        animation: deg306 8s ease-in-out infinite;
                     }
                 }
 

@@ -1,6 +1,6 @@
 'use Client'
 import { Comment_Icon, Follow_Icon, Repost_Icon, Star_Icon } from '@/Icons/icon_Figma';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './_itemPost.scss'
 import imgTemp from '../../../public/temp.jpg'
 import Image from 'next/image';
@@ -26,11 +26,17 @@ import { toast } from 'react-toastify';
 import { useReload } from '@/contexts/providerReload';
 import { Follow } from '@/apis/Follow';
 import { followModel, followType } from '@/model/followModel';
+import ItemListSong from '@/components/home/Songs/itemListSong';
+import { useAudio } from '@/contexts/providerAudio';
+import Wavev2Icon from '@/Icons/cusIcons/wave/wavev2';
+import ItemSong from '@/components/search/itemSong';
+import { useRouter } from 'next/navigation';
 
 type Props = {
     post: repostType
 }
 const ItemPost = ({ post }: Props) => {
+    const routes = useRouter()
     const { set_ReRepost, re_follow, set_ReFollow } = useReload()
     const userProvider = useSelector((state: RootState) => state.auth)
     const infoProvider = useSelector((state: RootState) => state.info)
@@ -43,6 +49,14 @@ const ItemPost = ({ post }: Props) => {
     const [listRepost, set_ListRepost] = useState<list_repostType>([])
     const [drop, set_Drop] = useState(false)
     const [url, set_url] = useState('')
+    const progressbarRef3 = useRef<HTMLInputElement>(null);
+    const {
+        currentList,
+        currentIndex,
+        Set_RefInputRange3
+    } = useAudio();
+
+
     const [currentFollow, set_CurrentFollow] = useState<followType>(followModel.init)
     useEffect(() => {
         if (post) {
@@ -68,6 +82,10 @@ const ItemPost = ({ post }: Props) => {
                 })
         }
     }, [song])
+
+    useEffect(() => {
+        Set_RefInputRange3(progressbarRef3)
+    }, [progressbarRef3])
 
 
     useEffect(() => {
@@ -134,6 +152,10 @@ const ItemPost = ({ post }: Props) => {
         }
 
     }, [infoUser, re_follow])
+
+    const handleRoutes = () => {
+        routes.push(`/profile?id=${infoUser?.User_Id}`)
+    }
 
     const handleFollow = () => {
         if (userProvider.User_Id != undefined && userProvider.User_Id != '' && infoUser.User_Id != '' && infoUser.User_Id != undefined) {
@@ -206,10 +228,10 @@ const ItemPost = ({ post }: Props) => {
                         <h1>Reposted</h1>
                     </div>
                     <div className="infoUser">
-                        <div className="frameImage">
+                        <div className="frameImage cursor_pointer" onClick={handleRoutes}>
                             <Image src={url || imgTemp} alt='' width={60} height={60} />
                         </div>
-                        <div className="contentUser">
+                        <div className="contentUser cursor_pointer" onClick={handleRoutes}>
                             <div className='frameName'>
                                 <h1 className='overflow__Text'>{infoUser?.User_Name || 'unknown'}</h1>
                                 <span></span>
@@ -239,9 +261,24 @@ const ItemPost = ({ post }: Props) => {
                         </div>
                     </div>
                 </div>
-                <div className="frameInfoSong">
-                    <InfoSong song={song} />
-                </div>
+                {!!song?.Song_Id &&
+                    <div className="frameInfoSong">
+                        <div className="frameItemSong">
+                            <ItemListSong itemSong={song} list={[song]} active={false} index={0} />
+                            <div className="frameInputProsess">
+                                <div className="frameWaveIcon" style={{ width: `${currentList[currentIndex]?.Song_Id == song?.Song_Id ? '100%' : '0%'}` }}>
+                                    <Wavev2Icon h={200} w={`${currentList[currentIndex]?.Song_Id == song?.Song_Id ? '100%' : '0%'}`} color={song?.Color || '#fff'} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="conntentInfoSong overflow__Text">
+                            <h1 >{song?.Song_Name}</h1>
+                            <h3>by {song?.Artist_Name}</h3>
+                        </div>
+                    </div>}
+                {!song?.Song_Id && <div className='noitifiRemove'>
+                    <h1>Song has been deleted</h1>
+                </div>}
                 <div className="footerPost">
                     <div className="framelistIcon">
                         <div className={`frameIcon iconstar cursor_pointer ${stateLike.State == 1 && 'activeIconStar'}`} onClick={handleLike}>

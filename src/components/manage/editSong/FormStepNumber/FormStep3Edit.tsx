@@ -1,10 +1,11 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import MiniItem from "../Item_Mini/Mini_Item";
 import { Logo_DarkHole } from "@/Icons/icon_Logo";
 import { ErrorIcon } from "@/Icons/icon_v1";
 import { Handle_Form_Step } from "@/util/step/stepError";
 import { create_songType, songType, update_songType } from "@/model/songModel";
+import MiniItemUpdate from "@/components/manage/editSong/Item_Mini/Mini_Item";
+
 type Props = {
   Get_Value_Form: (value: any) => void
   Value_Form: create_songType
@@ -38,7 +39,7 @@ export default function FormStep3Edit({ Get_Value_Form, Value_Form, Song, Set_Ch
           ""
         ) : Check_Value_Form ? (
           <div className="notification_Mini_Item">
-            <MiniItem Value_Form={Value_Form} />
+            <MiniItemUpdate audioFile={Value_Form.Song_Audio} imageFile={Value_Form.Song_Image} Value_Form={{ ...Value_Form, _id: '', Artist_Name: '', Like: 0, Song_Id: '', Create_Date: '' }} active={false} list={[{ ...Value_Form, _id: '', Artist_Name: '', Like: 0, Song_Id: '', Create_Date: '' }]} index={0} />
             <h4 className="Color_completed">Value was Checked</h4>
             <div className="checkboxes__item">
               <label className="checkbox style-c">

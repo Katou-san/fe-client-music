@@ -82,8 +82,6 @@ const ItemSub = ({ sub, active = false, setDrop = () => { }, setSub = () => { } 
                 <ul>
                     <li><CheckIcon w={20} /> <h3>{sub?.Content}</h3></li>
                     <li><CheckIcon w={20} /> <h3>Storage: {sub?.Storage} mb</h3></li>
-                    <li><CheckIcon w={20} /> <h3>1GB</h3></li>
-                    <li><CheckIcon w={20} /> <h3>1GB</h3></li>
                 </ul>
 
             </div>

@@ -1,17 +1,23 @@
 .activeformAddAlbum {
     top: 20% !important;
+    width: 100% !important;
+    height: min-content !important;
     // visibility: none !important;
+    // visibility: unset;
+    opacity: 1 !important;
 }
 
 .formAddAlbum {
     position: absolute;
     top: 100%;
     z-index: 10;
-    width: 100%;
+    width: 0;
+    height: 0;
     display: flex;
     justify-content: center;
     transition: .2s;
-    // visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
 
 
     .Playlist_Form {

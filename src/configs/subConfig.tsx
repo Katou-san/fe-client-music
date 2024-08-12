@@ -5,7 +5,7 @@ const freeSubscription: subType = {
     Sub_Title: 'Free',
     Price: 0,
     Content: '',
-    Storage: 250,
+    Storage: 100,
     Duration: 9999,
     Status: true,
     Create_Date: ''

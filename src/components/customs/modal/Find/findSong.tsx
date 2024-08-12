@@ -48,6 +48,7 @@ const FindSong = () => {
                         set_Load(false)
                     } else {
                         set_Load(false)
+                        set_resultSong(SongModel.init)
                     }
                 })
         } else {
@@ -95,8 +96,8 @@ const FindSong = () => {
 
             </form>
             <div className="listResult">
-                {resultSong.Song_Id != '' && <ItemListSong active={false} itemSong={resultSong} list={[resultSong]} index={0} />}
-                {resultSong.Song_Id == '' && <h1>Not found</h1>}
+                {resultSong?.Song_Id != '' && <ItemListSong active={false} itemSong={resultSong} list={[resultSong]} index={0} />}
+                {resultSong?.Song_Id == '' && <h1>Not found</h1>}
             </div>
         </div>
     );

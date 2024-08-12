@@ -17,7 +17,7 @@ export default function FormStep1({ Get_Value_Form, Value_Form }: Props) {
   const [list_Artist, Set_ListArtist] = useState<list_artistType>([])
   const [showArtist, set_ShowArtist] = useState(false)
   const [artistInfo, set_artistInfo] = useState<artistType>(artistModel.init)
-  const debounceValue = useDebounce(artistInfo.Artist_Name.trim(), 500)
+  const debounceValue = useDebounce(artistInfo.Artist_Name.trim(), 100)
 
   useEffect(() => {
     if (Value_Form.Song_Audio != "" && Value_Form.Song_Audio != null) {
@@ -39,7 +39,6 @@ export default function FormStep1({ Get_Value_Form, Value_Form }: Props) {
             if (artistInfo.Artist_Id != Value_Form.Artist) {
               set_ShowArtist(true)
             }
-
           }
         })
     } else {
@@ -109,7 +108,6 @@ export default function FormStep1({ Get_Value_Form, Value_Form }: Props) {
                       onClick={() => {
                         Get_Value_Form({ Artist: artist.Artist_Id, Artist_Name: artist.Artist_Name })
                         set_artistInfo(artist)
-
                         set_ShowArtist(false)
                       }}
                     >{artist?.Artist_Name}</li>)

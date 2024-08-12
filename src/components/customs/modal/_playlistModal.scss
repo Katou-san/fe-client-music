@@ -5,7 +5,6 @@
     left: 80%;
     width: 10px;
     z-index: -1;
-    // background-color: rgb(9, 9, 9);
     border-radius: 15px;
     transition: .2s;
     overflow: hidden;
@@ -17,11 +16,11 @@
         font-size: 20px;
         font-weight: 600;
         color: aliceblue;
-        background-color: rgba(3, 3, 3, 0.789);
+        background-color: #2e2e2e;
     }
 
     ul {
-        padding: 5px;
+        // padding: 5px;
         position: relative;
         width: 100%;
         height: 100%;
@@ -30,7 +29,7 @@
         padding: 10px;
         transition: .2s;
         max-height: 200px;
-        background-color: rgba(3, 3, 3, 0.789);
+        background-color: #2e2e2e;
         overflow: auto;
 
 
@@ -53,7 +52,7 @@
         li {
             list-style-type: none;
             padding: 8px 25px;
-            border-radius: 15px;
+            border-radius: 10px;
             z-index: 10;
             transition: .2s;
             cursor: pointer;

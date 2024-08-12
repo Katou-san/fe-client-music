@@ -22,6 +22,8 @@
                 transition: .2s;
 
                 img {
+                    width: 160px !important;
+                    height: 160px !important;
                     object-fit: cover;
                     border-radius: 50%;
                 }

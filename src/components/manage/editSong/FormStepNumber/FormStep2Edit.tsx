@@ -42,7 +42,7 @@ export default function FormStep2Edit({ Get_Value_Form, Value_Form, Song, Set_Ch
               chose here
             </option>
             {listCategory.map((item, index) => (
-              <option key={index} value={item.Category_Id} >
+              <option key={index} value={item.Category_Id} selected={item.Category_Id == Value_Form.Category_Id}>
                 {item.Category_Name}
               </option>
             ))}
