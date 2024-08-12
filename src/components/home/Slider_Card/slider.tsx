@@ -9,7 +9,7 @@ import { list_songType } from '@/model/songModel';
 type Props = {
     arraySilder: list_songType
 }
-const SliderCard = ({ arraySilder }: Props) => {
+const SliderCard = ({ arraySilder = [] }: Props) => {
     const [current, set_current] = useState(0)
     const HandleCount = (type: "plus" | "redu") => {
         if (type == 'plus') {

@@ -24,18 +24,38 @@ export default function Page() {
       set_Loading(true);
       Promise.all([
         Propose.Get_Silder().then((res) => {
-          set_Slider(res.data as list_songType);
+          if (res.status == 200) {
+            set_Slider(res.data as list_songType);
+          }
+
         }),
-        Propose.Get_Playlist().then((res) =>
-          set_ListPlaylist(res.data as list_playlistType)
+        Propose.Get_Playlist().then((res) => {
+          if (res.status == 200) {
+            set_ListPlaylist(res.data as list_playlistType)
+          }
+        }
+
         ),
-        Propose.Get_Album().then((res) =>
-          set_ListAlbum(res.data as list_playlistType)
+        Propose.Get_Album().then((res) => {
+          if (res.status == 200) {
+            set_ListAlbum(res.data as list_playlistType)
+          }
+        }
+
         ),
-        Propose.Get_Song().then((res) =>
-          set_ListSong(res.data as list_songType)
+        Propose.Get_Song().then((res) => {
+          if (res.status == 200) {
+            set_ListSong(res.data as list_songType)
+          }
+        }
+
         ),
-        Propose.Get_Artist().then((res) => set_ListArtist(res.data as list_userType))
+        Propose.Get_Artist().then((res) => {
+          if (res.status == 200) {
+            set_ListArtist(res.data as list_userType)
+          }
+        }
+        )
 
       ]).then((res) => set_Loading(false));
     }

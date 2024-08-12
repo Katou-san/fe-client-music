@@ -39,6 +39,22 @@
                 background-color: rgba(45, 45, 45, 0.508);
                 transition: .2s;
 
+                .frameIcon {
+                    margin-left: 10px;
+                    background-color: #fff;
+                    color: transparent;
+                    display: grid;
+                    place-items: center;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+
+                    svg {
+                        transform: translateX(16%);
+                    }
+                }
+
+
                 .layoutBtnPlay {
 
                     margin-left: 10px;
@@ -54,6 +70,33 @@
                         transform: translateX(16%);
                         transition: .2s;
                     }
+                }
+
+                .itemActive {
+                    .frameIcon {
+                        position: relative;
+                        z-index: 10;
+
+                        svg {
+                            transform: translateX(20%);
+                        }
+
+                        &::before {
+                            position: absolute;
+                            top: -10%;
+                            left: -10%;
+                            content: ' ';
+                            height: 120%;
+                            width: 120%;
+                            background-color: rgba(0, 255, 255, 0);
+                            border-radius: 50%;
+                            border: #fff 2px dashed;
+                            transition: .2s;
+
+                            animation: deg306 8s ease-in-out infinite;
+                        }
+                    }
+
                 }
 
                 .contentBtn {

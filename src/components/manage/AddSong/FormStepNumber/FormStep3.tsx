@@ -36,12 +36,13 @@ export default function FormStep3({ Get_Value_Form, Value_Form }: Props) {
           ""
         ) : Check_Value_Form ? (
           <div className="notification_Mini_Item">
-            <MiniItem Value_Form={Value_Form} />
+            <MiniItem audioFile={Value_Form.Song_Audio} imageFile={Value_Form.Song_Image} Value_Form={{ ...Value_Form, _id: '', Artist_Name: '', Like: 0, Song_Id: '', Create_Date: '' }} active={false} list={[{ ...Value_Form, _id: '', Artist_Name: '', Like: 0, Song_Id: '', Create_Date: '' }]} index={0} />
             <h4 className="Color_completed">Value was Checked</h4>
             <div className="checkboxes__item">
               <label className="checkbox style-c">
                 <input
                   type="checkbox"
+                  defaultChecked={Value_Form.is_Publish ?? false}
                   onChange={(e) => {
                     Get_Value_Form({ is_Publish: e.currentTarget.checked });
                   }}
