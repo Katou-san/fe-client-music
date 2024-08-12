@@ -1,6 +1,8 @@
 export const EnvConfig = {
-  NEXT_PUBLIC_CLIENT: "http://localhost:8080/api/v1",
-  NEXT_PUBLIC_SEND: "http://localhost:8080/api/v1",
+  NEXT_PUBLIC_CLIENT: " http://localhost:8080/api/v1",
+  NEXT_PUBLIC_SEND: " http://localhost:8080/api/v1",
+  // NEXT_PUBLIC_CLIENT: " https://31bd-14-186-154-17.ngrok-free.app/api/v1",
+  // NEXT_PUBLIC_SEND: " https://31bd-14-186-154-17.ngrok-free.app/api/v1",
 
   NEXT_PUBLIC_SIGNUP: "/user/signup",
   NEXT_PUBLIC_LOGIN: "/user/login/client",
@@ -15,7 +17,6 @@ export const EnvConfig = {
   NEXT_PUBLIC_SONG_MANAGE: "/songs",
 
   NEXT_PUBLIC_FIND: "/audiofp/find",
-
 
   NEXT_PUBLIC_TRACK: "/track",
 

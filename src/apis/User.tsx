@@ -12,7 +12,8 @@ export const User = {
     ),
   Change_Pass: async (body: changePass_userType): Promise<any> =>
     await http.post(
-      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PASS}`, body,
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_PASS}`,
+      body,
       header()
     ),
   Update: async (id: string, body: any): Promise<any> =>
@@ -29,11 +30,13 @@ export const User = {
   Forget: async (body: any) =>
     await http.post(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_RESET_EMAIL}`,
-      body
+      body,
+      header()
     ),
   Reset: async (body: any) =>
     await http.post(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_RESET}`,
-      body
+      body,
+      header()
     ),
 };

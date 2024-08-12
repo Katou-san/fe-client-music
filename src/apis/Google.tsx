@@ -6,6 +6,7 @@ export const Google_s = {
   Post_Login_Google: async (body: any): Promise<any> =>
     await http.post(
       `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LOGIN_GOOGLE}`,
-      body
+      body,
+      header()
     ),
 };

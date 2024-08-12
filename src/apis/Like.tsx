@@ -12,23 +12,28 @@ export const Like = {
 
   Get_Song: async (Topic_Id: string): Promise<any> =>
     await http.get(
-      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/0`
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/0`,
+      header()
     ),
   Get_Playlist: async (Topic_Id: string): Promise<any> =>
     await http.get(
-      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/1`
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/1`,
+      header()
     ),
   Get_Album: async (Topic_Id: string): Promise<any> =>
     await http.get(
-      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/2`
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/2`,
+      header()
     ),
   Get_Comment: async (Topic_Id: string): Promise<any> =>
     await http.get(
-      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/3`
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/3`,
+      header()
     ),
   Get_Reply: async (Topic_Id: string): Promise<any> =>
     await http.get(
-      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/4`
+      `${EnvConfig.NEXT_PUBLIC_CLIENT}${EnvConfig.NEXT_PUBLIC_LIKES}/${Topic_Id}/4`,
+      header()
     ),
   Togo_Create_Update: async (body: create_likeType): Promise<any> =>
     await http.put(
